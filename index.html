@@ -8,7 +8,7 @@
     <!-- Configuración para App Móvil (Pantalla Completa) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#03000a">
     
     <!-- Enlace al Manifiesto Web para permitir la instalación -->
     <link rel="manifest" href="manifest.json">
@@ -40,47 +40,28 @@
     <!-- Google Fonts: Inter & Syncopate -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Permitir scroll general de toda la página sin saltos */
+        /* Bloqueo total del scroll en la ventana general para evitar temblequeos o rebotes */
         html, body {
             width: 100%;
-            min-height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            background-color: #000000;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            background-color: #03000a;
             color: #f3f4f6;
             margin: 0;
             padding: 0;
             -webkit-overflow-scrolling: touch;
         }
-
-        /* Fondo de cruces con efecto de profundidad sobre negro puro */
-        .cyber-grid-bg {
-            background-color: #000000;
-            background-image: radial-gradient(rgba(139, 92, 246, 0.08) 1px, transparent 1px),
-                              radial-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-        }
-
-        /* Capa de cruces sutiles con profundidad */
-        .cross-pattern {
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M27 27v-6h6v6h6v6h-6v6h-6v-6h-6v-6h6z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-        }
-
         .font-syncopate {
             font-family: 'Syncopate', sans-serif;
         }
-        
-        /* Custom scrollbar general */
+        /* Custom scrollbar para la zona interna */
         ::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
+            height: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: #000000;
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
             background: #26124f;
@@ -89,14 +70,13 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #8b5cf6;
         }
-
         /* Glassmorphism card */
         .glass-card {
-            background: rgba(8, 4, 18, 0.88);
+            background: rgba(10, 5, 24, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(139, 92, 246, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.1);
         }
         .glass-tab {
             background: rgba(21, 10, 43, 0.6);
@@ -108,9 +88,11 @@
             border-color: rgba(139, 92, 246, 0.6);
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
         }
+        /* Neon glow effects */
         .neon-glow {
             text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(6, 182, 212, 0.4);
         }
+        /* Tab transitions */
         .tab-content {
             display: none;
             opacity: 0;
@@ -130,65 +112,45 @@
             max-height: 1000px;
             opacity: 1;
         }
-        
-        /* Header retráctil optimizado sin tembleque usando transformaciones GPU */
-        #collapsibleHeader {
-            will-change: transform, opacity;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-in-out;
-            transform: translateY(0);
-            opacity: 1;
-        }
-        #collapsibleHeader.collapsed {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-            position: absolute;
-        }
     </style>
 </head>
-<body class="cyber-grid-bg flex flex-col items-center justify-start p-0 sm:p-6 relative min-h-screen">
-
-    <!-- Patrón de cruces con profundidad -->
-    <div class="cross-pattern"></div>
+<body class="bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
 
     <!-- Ambient Neon Background Orbs -->
-    <div class="fixed top-10 left-1/4 w-72 h-72 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
-    <div class="fixed bottom-10 right-1/4 w-80 h-80 bg-cyan-600/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
+    <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
 
     <!-- Main Container Card -->
-    <div class="w-full min-h-screen sm:min-h-0 sm:h-auto sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col my-auto shadow-2xl">
+    <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Retráctil -->
-        <div id="collapsibleHeader" class="shrink-0 relative z-20">
-            <!-- Header Banner & Profile -->
-            <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden" style="background-image: url('sandermedia/imageninicialsander.png')">
-                <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
-                
-                <div class="absolute top-4 right-4 flex gap-2 z-20">
-                    <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
-                        <i class="fa-solid fa-share-nodes text-sm"></i>
-                    </button>
+        <!-- Header Banner & Profile -->
+        <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
+            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
+            
+            <div class="absolute top-4 right-4 flex gap-2 z-20">
+                <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
+                    <i class="fa-solid fa-share-nodes text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Avatar & Artist Info -->
+        <div class="px-6 pb-3 relative -mt-16 text-right shrink-0">
+            <div class="relative inline-block mx-auto mb-2 float-right mr-1">
+                <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
+                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
                 </div>
             </div>
 
-            <!-- Avatar & Artist Info -->
-            <div class="px-6 pb-3 relative -mt-16 text-right">
-                <div class="relative inline-block mx-auto mb-2 float-right mr-1">
-                    <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl rounded-lg border border-white/10">
-                        <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
-                    </div>
-                </div>
-
-                <div class="clear-both pt-2">
-                    <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
-                    <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
-                </div>
+            <div class="clear-both pt-2">
+                <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
+                <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
             </div>
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="px-4 pb-3 shrink-0 pt-2 z-20 bg-cyber-900/80 backdrop-blur-md sticky top-0">
-            <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/90 rounded-2xl border border-white/5">
+        <div class="px-4 pb-3 shrink-0">
+            <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
                     <i class="fa-solid fa-user text-sm"></i>
                     <span class="text-[10px]">Bio</span>
@@ -209,7 +171,7 @@
         </div>
 
         <!-- Scrollable Content Area -->
-        <div class="px-6 pb-20 pt-2 relative z-10 space-y-4" id="mainScrollContainer">
+        <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
 
             <!-- 1. BIO TAB -->
             <div id="content-bio" class="tab-content active space-y-3">
@@ -235,7 +197,7 @@
                             <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600" alt="Carrera" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs text-gray-300 leading-relaxed">
-                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global, posicionándose como referente de la música electrónica vanguardista.
+                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global.
                         </p>
                     </div>
                 </div>
@@ -253,7 +215,7 @@
                             <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Vida Privada" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs text-gray-300 leading-relaxed">
-                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados en Berlín y retiros de inspiración en zonas costeras. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk, mantiene un perfil enfocado en el arte visual y sonoro.
+                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados y retiros de inspiración. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk.
                         </p>
                     </div>
                 </div>
@@ -271,7 +233,7 @@
                             <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600" alt="Espectáculos" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs text-gray-300 leading-relaxed">
-                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica. Bajo la dirección técnica de su equipo creativo, cada show simula un entorno distópico interactivo que envuelve por completo al espectador.
+                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica, simulando un entorno distópico interactivo.
                         </p>
                     </div>
                 </div>
@@ -289,13 +251,13 @@
                             <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=600" alt="Situación Actual" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs text-gray-300 leading-relaxed">
-                            Actualmente se encuentra inmerso en la promoción y gira internacional de su álbum cumbre <strong class="text-white">REGGAETON A MI MANERA</strong>, colaborando con festivales globales y preparando nuevas experiencias inmersivas en formato digital y físico.
+                            Actualmente se encuentra inmerso en la producción y promoción de sus nuevos lanzamientos discográficos y giras internacionales.
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. DISCOGRAPHY TAB -->
+            <!-- 2. DISCOGRAPHY TAB (Con las imágenes y nombres solicitados) -->
             <div id="content-music" class="tab-content space-y-4">
                 <div id="albumsMainView">
                     <div class="text-center mb-3">
@@ -304,76 +266,84 @@
                     </div>
 
                     <div class="grid grid-cols-3 gap-3">
-                        <!-- Disc 1 -->
+                        <!-- Disc 1: Reggaeton a mi manera -->
                         <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=300" alt="REGGAETON A MI MANERA" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton a mi manera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Reggaeton'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">REGGAETON A MI MANERA</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Reggaeton a mi manera</h4>
                             <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
                         </div>
-                        <!-- Disc 2 -->
+                        
+                        <!-- Disc 2: Sander Maurin -->
                         <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=300" alt="SANDER MAURIN" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/sanderdisco.jpeg" alt="Sander Maurin" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Maurin'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">SANDER MAURIN</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Sander Maurin</h4>
                             <span class="text-[9px] text-cyber-cyan block">2025 • EP</span>
                         </div>
-                        <!-- Disc 3 -->
+
+                        <!-- Disc 3: Santan -->
                         <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300" alt="SANTAN" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/santan.jpeg" alt="Santan" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Santan'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">SANTAN</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Santan</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
                         </div>
-                        <!-- Disc 4 -->
+
+                        <!-- Disc 4: Desde la tierra al cielo -->
                         <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300" alt="DESDE LA TIERRA AL CIELO" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/desdelatierraalcielo.jpeg" alt="Desde la tierra al cielo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Tierra+Al+Cielo'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">DESDE LA TIERRA AL CIELO</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Desde la tierra al cielo</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
                         </div>
-                        <!-- Disc 5 -->
+
+                        <!-- Disc 5: Bachata -->
                         <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=300" alt="BACHATA" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/bachata.jpeg" alt="Bachata" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Bachata'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">BACHATA</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Bachata</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
                         </div>
-                        <!-- Disc 6 -->
+
+                        <!-- Disc 6: Maural -->
                         <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=300" alt="MAURAL" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/maural.jpeg" alt="Maural" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">MAURAL</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Maural</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
                         </div>
-                        <!-- Disc 7 -->
+
+                        <!-- Disc 7: Los eternos iracundos -->
                         <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300" alt="LOS ETERNOS IRACUNDOS" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/losiracundos.jpeg" alt="Los eternos iracundos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Iracundos'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">LOS ETERNOS IRACUNDOS</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Los eternos iracundos</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
                         </div>
-                        <!-- Disc 8 -->
+
+                        <!-- Disc 8: Sander mix -->
                         <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=300" alt="SANDER MIX" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/sandermix.jpeg" alt="Sander Mix" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Mix'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">SANDER MIX</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Sander Mix</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
                         </div>
-                        <!-- Disc 9 -->
+
+                        <!-- Disc 9: Maural rock -->
                         <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=300" alt="MAURAL ROCK" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="sandermedia/mauralrock.jpeg" alt="Maural Rock" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural+Rock'">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">MAURAL ROCK</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Maural Rock</h4>
                             <span class="text-[9px] text-cyber-cyan block">2021 • LP</span>
                         </div>
                     </div>
@@ -398,7 +368,7 @@
 
                     <div class="space-y-2">
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider px-1">Playlist del Álbum</h4>
-                        <div id="detailTracklist" class="space-y-2 pr-1"></div>
+                        <div id="detailTracklist" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
                     </div>
                 </div>
             </div>
@@ -417,24 +387,16 @@
                                 <span class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
                                 <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de "Reggaeton a mi manera Tour"</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por 18 países...</p>
+                            <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de Gira</h4>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por múltiples escenarios...</p>
                         </div>
                         <div onclick="openMilestone(1)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
                             <div class="flex items-center justify-between mb-1">
                                 <span class="text-[10px] font-mono text-cyber-accent font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-800">2024</span>
                                 <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-white">Premio Revelación Electrónica</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Reconocimiento europeo al mejor álbum...</p>
-                        </div>
-                        <div onclick="openMilestone(2)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-[10px] font-mono text-cyber-gold font-bold px-2 py-0.5 rounded-full bg-amber-950 border border-amber-800">2022</span>
-                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
-                            </div>
-                            <h4 class="text-xs font-bold text-white">Debut del Sencillo "Sander Mix"</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">El tema viral que catapultó su carrera...</p>
+                            <h4 class="text-xs font-bold text-white">Reconocimiento Artístico</h4>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Premio a la innovación musical y producción...</p>
                         </div>
                     </div>
                 </div>
@@ -498,12 +460,12 @@
         </div>
 
         <!-- Floating Music Player Bar -->
-        <div id="floatingPlayer" class="hidden fixed bottom-0 left-0 right-0 sm:absolute sm:bottom-0 sm:left-0 sm:right-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
+        <div id="floatingPlayer" class="hidden shrink-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
-                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200')"></div>
+                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
                 <div class="truncate">
-                    <h4 id="playerTitle" class="text-xs font-bold text-white truncate">NEON PULSE</h4>
-                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">REGGAETON A MI MANERA (2026)</p>
+                    <h4 id="playerTitle" class="text-xs font-bold text-white truncate">Track</h4>
+                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
@@ -516,7 +478,7 @@
     </div>
 
     <!-- Modals & Toasts -->
-    <div id="toastNotification" class="fixed bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-cyber-800 border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
+    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-cyber-800 border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
         <i class="fa-solid fa-circle-check text-cyber-cyan"></i>
         <span id="toastMessage">Acción completada con éxito</span>
     </div>
@@ -528,57 +490,35 @@
     <script>
         const albumsData = [
             {
-                title: "REGGAETON A MI MANERA", year: "2026", desc: "El álbum cumbre de Sander Maurin.", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
+                title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
-                    { title: "Neon Pulse", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Solar Flare", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
+                    { title: "Flow Dinámico", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "Noche en la Ciudad", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
                 ]
             },
-            { title: "SANDER MAURIN", year: "2025", desc: "EP conceptual enfocado en la melancolía.", cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Cryogenic Love", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "SANTAN", year: "2024", desc: "Ritmos pesados y texturas.", cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Void Runner", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "DESDE LA TIERRA AL CIELO", year: "2024", desc: "Sencillo colaborativo.", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Neon Ghost", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "BACHATA", year: "2023", desc: "Paisajes distópicos.", cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Metropolis 2088", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "MAURAL", year: "2023", desc: "Atmósferas nocturnas.", cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "LOS ETERNOS IRACUNDOS", year: "2022", desc: "Álbum debut.", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "First Ignition", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
-            { title: "SANDER MIX", year: "2022", desc: "Sencillo experimental.", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Anomalía", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "MAURAL ROCK", year: "2021", desc: "Demos underground.", cover: "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Origin", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
+            { title: "Sander Maurin", year: "2025", desc: "EP homónimo conceptual.", cover: "sandermedia/sanderdisco.jpeg", tracks: [{ title: "Esencia Pura", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Santan", year: "2024", desc: "Ritmos intensos y vibrantes.", cover: "sandermedia/santan.jpeg", tracks: [{ title: "Santan Groove", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo con atmósferas elevadas.", cover: "sandermedia/desdelatierraalcielo.jpeg", tracks: [{ title: "Elevación", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", tracks: [{ title: "Ritmo de Pasión", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", tracks: [{ title: "Sonido Maural", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
+            { title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", tracks: [{ title: "Eterno Recuerdo", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
+            { title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.jpeg", tracks: [{ title: "Megamix Vol. 1", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
+            { title: "Maural Rock", year: "2021", desc: "Rock alternativo con sello propio.", cover: "sandermedia/mauralrock.jpeg", tracks: [{ title: "Energía Cruda", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
         ];
 
         const milestonesData = [
-            { year: "2026", title: "Lanzamiento Mundial de 'Reggaeton a mi manera Tour'", text: "Gira monumental...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
-            { year: "2024", title: "Premio Revelación Electrónica", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] },
-            { year: "2022", title: "Debut del Sencillo 'Sander Mix'", text: "Punto de inflexión...", images: ["https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=600"] }
+            { year: "2026", title: "Lanzamiento Mundial de Gira", text: "Gira monumental por múltiples países...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
+            { year: "2024", title: "Reconocimiento Artístico", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] }
         ];
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
-        const collapsibleHeader = document.getElementById('collapsibleHeader');
-        let lastScrollTop = 0;
-        let ticking = false;
-
-        // Listener de scroll optimizado con requestAnimationFrame para evitar parpadeos y tirones
-        window.addEventListener('scroll', () => {
-            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    if (currentScroll > lastScrollTop && currentScroll > 40) {
-                        collapsibleHeader.classList.add('collapsed');
-                    } else if (currentScroll < lastScrollTop || currentScroll <= 10) {
-                        collapsibleHeader.classList.remove('collapsed');
-                    }
-                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }, { passive: true });
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
                 document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
                 document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            collapsibleHeader.classList.remove('collapsed');
+            document.getElementById('mainScrollContainer').scrollTop = 0;
         }
 
         function toggleAccordion(contentId, iconId) {
@@ -626,6 +566,7 @@
             const track = albumsData[albumIdx].tracks[trackIdx];
             document.getElementById('playerTitle').innerText = track.title;
             document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
+            document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
             audioElement.src = track.audio;
             audioElement.play().catch(() => {});
             isPlaying = true; updatePlayButtonUI();
