@@ -109,6 +109,32 @@
 </head>
 <body class="bg-black flex flex-col items-center justify-start py-0 px-0 sm:p-0 relative">
 
+    <!-- PANTALLA DE BIENVENIDA (SPLASH SCREEN CON VIDEO) -->
+    <div id="splashScreen" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-between transition-opacity duration-700">
+        <!-- Video en Pantalla Completa sin bordes -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+            <source src="sandermedia/videobienvenida.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
+
+        <!-- Capa de sombra sutil opcional sobre el video para resaltar los textos y el botón -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/50 pointer-events-none"></div>
+
+        <!-- Contenido superior de bienvenida -->
+        <div class="relative z-10 pt-12 px-6 text-center">
+            <h1 class="font-syncopate text-xl sm:text-2xl font-bold tracking-widest text-white neon-glow">SANDER MAURIN</h1>
+            <p class="text-[10px] sm:text-xs text-cyber-cyan tracking-widest uppercase mt-1">Official Artist ID</p>
+        </div>
+
+        <!-- Contenido inferior con el Botón INICIO -->
+        <div class="relative z-10 pb-16 px-6 w-full max-w-sm flex flex-col items-center">
+            <button onclick="enterApp()" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-sm sm:text-base font-bold tracking-widest uppercase shadow-[0_0_30px_rgba(139,92,246,0.6)] hover:scale-105 transition active:scale-95 flex items-center justify-center gap-3 border border-white/20">
+                <span>INICIO</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- Main Container Ampliado para lectura cómoda hacia abajo sin bordes -->
     <div class="w-full max-w-2xl glass-card relative z-10 flex flex-col mb-24 min-h-screen">
         
@@ -506,6 +532,14 @@
         ];
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
+
+        function enterApp() {
+            const splash = document.getElementById('splashScreen');
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 700);
+        }
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
