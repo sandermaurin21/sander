@@ -2,8 +2,17 @@
 <html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KAIROS // Official Artist ID</title>
+    
+    <!-- Configuración para App Móvil (Pantalla Completa) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#03000a">
+    
+    <!-- Enlace al Manifiesto Web para permitir la instalación -->
+    <link rel="manifest" href="manifest.json">
+
     <!-- Tailwind CSS for modern responsive utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -36,6 +45,8 @@
             background-color: #03000a;
             color: #f3f4f6;
             overflow-x: hidden;
+            /* Evita el rebote de la página nativa del navegador en móviles */
+            overscroll-behavior-y: none;
         }
         .font-syncopate {
             font-family: 'Syncopate', sans-serif;
@@ -103,15 +114,15 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-cyber-900 flex items-center justify-center p-2 sm:p-6 relative">
+<body class="min-h-screen bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
 
     <!-- Ambient Neon Background Orbs -->
     <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
     <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
     <div class="absolute top-1/2 left-10 w-60 h-60 bg-pink-600/15 rounded-full blur-[90px] pointer-events-none"></div>
 
-    <!-- Main Container Card -->
-    <div class="w-full max-w-md sm:max-w-xl glass-card rounded-3xl overflow-hidden relative z-10 my-4 flex flex-col max-h-[92vh]">
+    <!-- Main Container Card (Ajustado a pantalla completa real en celulares) -->
+    <div class="w-full h-screen sm:h-auto sm:max-w-xl sm:glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col sm:max-h-[92vh]">
         
         <!-- Header Banner & Profile -->
         <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000')">
@@ -213,7 +224,7 @@
                 </div>
             </div>
 
-            <!-- 2. DISCOGRAPHY TAB (9 Discs with interactive Gatefold expansion) -->
+            <!-- 2. DISCOGRAPHY TAB -->
             <div id="content-music" class="tab-content space-y-4">
                 <div id="albumsMainView">
                     <div class="text-center mb-3">
@@ -221,111 +232,75 @@
                         <p class="text-[11px] text-gray-400">Toca cualquier disco para abrir su contenido y playlist</p>
                     </div>
 
-                    <!-- 9 Discs Grid -->
                     <div class="grid grid-cols-3 gap-3">
                         <!-- Disc 1 -->
                         <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=300" alt="Eclipse" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Eclipse</h4>
                             <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
                         </div>
-
                         <!-- Disc 2 -->
                         <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=300" alt="Synthetic Tears" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Synthetic</h4>
                             <span class="text-[9px] text-cyber-cyan block">2025 • EP</span>
                         </div>
-
                         <!-- Disc 3 -->
                         <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300" alt="Void Runner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Void Runner</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
                         </div>
-
                         <!-- Disc 4 -->
                         <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300" alt="Neon Ghost" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Neon Ghost</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
                         </div>
-
                         <!-- Disc 5 -->
                         <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=300" alt="Cyber State" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Cyber State</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
                         </div>
-
                         <!-- Disc 6 -->
                         <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=300" alt="After Dark" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">After Dark</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
                         </div>
-
                         <!-- Disc 7 -->
                         <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300" alt="Pulse Zero" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Pulse Zero</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
                         </div>
-
                         <!-- Disc 8 -->
                         <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=300" alt="Anomalía" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Anomalía</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
                         </div>
-
                         <!-- Disc 9 -->
                         <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=300" alt="Genesis" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-compact-disc text-white text-lg animate-spin-slow"></i>
-                                </div>
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Genesis</h4>
                             <span class="text-[9px] text-cyber-cyan block">2021 • LP</span>
@@ -333,7 +308,7 @@
                     </div>
                 </div>
 
-                <!-- Unfolded Album Detail View (Gatefold Expansion) -->
+                <!-- Unfolded Album Detail View -->
                 <div id="albumDetailView" class="hidden space-y-4 animate-fadeIn">
                     <button onclick="closeAlbum()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2 hover:bg-cyber-accent/20 transition">
                         <i class="fa-solid fa-arrow-left"></i> Volver a Discos
@@ -342,92 +317,71 @@
                     <div class="glass-tab p-4 rounded-2xl flex flex-col sm:flex-row gap-4 items-center">
                         <div class="w-32 h-32 rounded-xl overflow-hidden shrink-0 shadow-2xl relative">
                             <img id="detailAlbumCover" src="" alt="Album" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
-                                <div class="w-10 h-10 rounded-full bg-cyber-accent/80 backdrop-blur-md flex items-center justify-center text-white shadow-lg animate-spin-slow">
-                                    <i class="fa-solid fa-compact-disc text-sm"></i>
-                                </div>
-                            </div>
                         </div>
                         <div class="text-center sm:text-left">
                             <span id="detailAlbumYear" class="text-[10px] font-mono text-cyber-cyan px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 uppercase">2026</span>
                             <h3 id="detailAlbumTitle" class="text-lg font-bold text-white mt-1">Título del Álbum</h3>
-                            <p id="detailAlbumDesc" class="text-xs text-gray-300 mt-1">Descripción detallada del concepto del disco, atmósferas y producción sonora.</p>
+                            <p id="detailAlbumDesc" class="text-xs text-gray-300 mt-1">Descripción detallada...</p>
                         </div>
                     </div>
 
-                    <!-- Playlist Tracks for this Album -->
                     <div class="space-y-2">
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider px-1">Playlist del Álbum</h4>
-                        <div id="detailTracklist" class="space-y-2 max-h-56 overflow-y-auto pr-1">
-                            <!-- Populated via JS -->
-                        </div>
+                        <div id="detailTracklist" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. TIMELINE TAB (Interactive Career Milestones with Details & Galleries) -->
+            <!-- 3. TIMELINE TAB -->
             <div id="content-timeline" class="tab-content space-y-4">
-                
-                <!-- Main Timeline List -->
                 <div id="timelineListView">
                     <div class="text-center mb-2">
                         <h3 class="text-sm font-bold text-white tracking-wider">Trayectoria & Hitos</h3>
-                        <p class="text-[11px] text-gray-400">Toca cualquier hito para ver la historia completa y galería</p>
+                        <p class="text-[11px] text-gray-400">Toca cualquier hito para ver la historia completa</p>
                     </div>
 
                     <div class="space-y-3">
-                        <!-- Milestone Card 1 -->
                         <div onclick="openMilestone(0)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
                             <div class="flex items-center justify-between mb-1">
                                 <span class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
-                                <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:translate-x-1 transition text-cyber-accent"></i>
+                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
                             <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de "Eclipse Tour"</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por 18 países con sold-outs en recintos emblemáticos de Europa y América.</p>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por 18 países...</p>
                         </div>
-
-                        <!-- Milestone Card 2 -->
                         <div onclick="openMilestone(1)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
                             <div class="flex items-center justify-between mb-1">
                                 <span class="text-[10px] font-mono text-cyber-accent font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-800">2024</span>
-                                <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:translate-x-1 transition text-cyber-accent"></i>
+                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
                             <h4 class="text-xs font-bold text-white">Premio Revelación Electrónica</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Reconocimiento europeo al mejor álbum independiente del año y consagración en festivales.</p>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Reconocimiento europeo al mejor álbum...</p>
                         </div>
-
-                        <!-- Milestone Card 3 -->
                         <div onclick="openMilestone(2)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
                             <div class="flex items-center justify-between mb-1">
                                 <span class="text-[10px] font-mono text-cyber-gold font-bold px-2 py-0.5 rounded-full bg-amber-950 border border-amber-800">2022</span>
-                                <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:translate-x-1 transition text-cyber-accent"></i>
+                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
                             <h4 class="text-xs font-bold text-white">Debut del Sencillo "Synthetic Tears"</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">El tema viral que catapultó su carrera independiente a las listas globales de streaming.</p>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">El tema viral que catapultó su carrera...</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Detailed Milestone View (When clicked) -->
                 <div id="milestoneDetailView" class="hidden space-y-4 animate-fadeIn">
                     <button onclick="closeMilestone()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2 hover:bg-cyber-accent/20 transition">
-                        <i class="fa-solid fa-arrow-left"></i> Volver a la Trayectoria
+                        <i class="fa-solid fa-arrow-left"></i> Volver
                     </button>
-
                     <div class="glass-tab p-4 rounded-2xl space-y-3">
                         <span id="detailMilestoneYear" class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
-                        <h3 id="detailMilestoneTitle" class="text-base font-bold text-white">Título del Hito</h3>
-                        <p id="detailMilestoneText" class="text-xs text-gray-300 leading-relaxed">Historia detallada ampliada...</p>
-                        
+                        <h3 id="detailMilestoneTitle" class="text-base font-bold text-white">Título</h3>
+                        <p id="detailMilestoneText" class="text-xs text-gray-300 leading-relaxed"></p>
                         <div class="pt-2">
-                            <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Galería del Hito</h4>
-                            <div id="detailMilestoneGallery" class="grid grid-cols-2 gap-2">
-                                <!-- Populated via JS -->
-                            </div>
+                            <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Galería</h4>
+                            <div id="detailMilestoneGallery" class="grid grid-cols-2 gap-2"></div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- 4. BOOKING TAB -->
@@ -448,7 +402,7 @@
                                 <p class="text-[10px] text-gray-400">Respuesta inmediata</p>
                             </div>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:translate-x-1 transition"></i>
+                        <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
                     <a href="mailto:booking@kairos-official.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
@@ -461,10 +415,10 @@
                                 <p class="text-[10px] text-gray-400">booking@kairos-official.com</p>
                             </div>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:translate-x-1 transition"></i>
+                        <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <button onclick="downloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-90 transition active:scale-95 flex items-center justify-center gap-2">
+                    <button onclick="downloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-download"></i> Descargar EPK (PDF)
                     </button>
                 </div>
@@ -472,230 +426,81 @@
 
         </div>
 
-        <!-- Advanced Floating Music Player Bar (Sticks at bottom if active) -->
+        <!-- Floating Music Player Bar -->
         <div id="floatingPlayer" class="hidden shrink-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
-                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200')">
-                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center" id="playerVinylIndicator">
-                        <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan animate-pulse"></span>
-                    </div>
-                </div>
+                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200')"></div>
                 <div class="truncate">
                     <h4 id="playerTitle" class="text-xs font-bold text-white truncate">NEON PULSE</h4>
                     <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Eclipse (2026)</p>
                 </div>
             </div>
-
-            <!-- Controls -->
             <div class="flex items-center gap-2 shrink-0">
-                <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white hover:text-cyber-cyan transition">
-                    <i class="fa-solid fa-backward-step text-xs"></i>
-                </button>
-                <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg hover:scale-105 transition">
-                    <i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i>
-                </button>
-                <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white hover:text-cyber-cyan transition">
-                    <i class="fa-solid fa-forward-step text-xs"></i>
-                </button>
+                <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-xs"></i></button>
+                <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i></button>
+                <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-xs"></i></button>
             </div>
         </div>
 
     </div>
 
-    <!-- Interactive Notification Toast Modal -->
+    <!-- Modals & Toasts -->
     <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-cyber-800 border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
         <i class="fa-solid fa-circle-check text-cyber-cyan"></i>
         <span id="toastMessage">Acción completada con éxito</span>
     </div>
 
-    <!-- Lightbox Modal for Gallery -->
     <div id="lightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
         <img id="lightboxImg" src="" alt="Ampliada" class="max-w-full max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain">
     </div>
 
-    <!-- JavaScript Interactivity -->
     <script>
-        // 9 Albums Database with Playlists
         const albumsData = [
             {
-                title: "Eclipse",
-                year: "2026",
-                desc: "El álbum cumbre de KAIROS. Sonidos analógicos oscuros combinados con frecuencias futuristas y letras sobre la desconexión digital.",
-                cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
+                title: "Eclipse", year: "2026", desc: "El álbum cumbre de KAIROS.", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
                 tracks: [
                     { title: "Neon Pulse", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Solar Flare", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "Shadows in Berlin", duration: "3:45", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }
+                    { title: "Solar Flare", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
                 ]
             },
-            {
-                title: "Synthetic Tears",
-                year: "2025",
-                desc: "EP conceptual enfocado en la melancolía cibernética y melodías vocales etéreas.",
-                cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Cryogenic Love", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Silicon Soul", duration: "3:30", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
-                ]
-            },
-            {
-                title: "Void Runner",
-                year: "2024",
-                desc: "Ritmos pesados y texturas industrializadas para la pista de baile nocturna.",
-                cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Void Runner", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Hyperdrive", duration: "3:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "Ghost Protocol", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }
-                ]
-            },
-            {
-                title: "Neon Ghost",
-                year: "2024",
-                desc: "Sencillo colaborativo de synth-pop con potentes líneas de bajo.",
-                cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Neon Ghost (Radio Edit)", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Neon Ghost (Club Mix)", duration: "5:12", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
-                ]
-            },
-            {
-                title: "Cyber State",
-                year: "2023",
-                desc: "Exploración de paisajes sonoros distópicos y futurismo urbano.",
-                cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Metropolis 2088", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Neural Link", duration: "3:25", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
-                ]
-            },
-            {
-                title: "After Dark",
-                year: "2023",
-                desc: "Atmósferas nocturnas grabadas en estudios de Berlín durante el invierno.",
-                cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "Zero Gravity", duration: "4:02", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
-                ]
-            },
-            {
-                title: "Pulse Zero",
-                year: "2022",
-                desc: "El álbum debut que definió las bases estéticas y sonoras del proyecto.",
-                cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "First Ignition", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "Core Overload", duration: "3:35", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
-                ]
-            },
-            {
-                title: "Anomalía",
-                year: "2022",
-                desc: "Sencillo experimental acústico-electrónico.",
-                cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Anomalía", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }
-                ]
-            },
-            {
-                title: "Genesis",
-                year: "2021",
-                desc: "Los primeros demos y grabaciones en directo de la etapa underground.",
-                cover: "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=400",
-                tracks: [
-                    { title: "Origin", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "First Light", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
-                ]
-            }
+            { title: "Synthetic Tears", year: "2025", desc: "EP conceptual enfocado en la melancolía.", cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Cryogenic Love", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Void Runner", year: "2024", desc: "Ritmos pesados y texturas.", cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Void Runner", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Neon Ghost", year: "2024", desc: "Sencillo colaborativo.", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Neon Ghost", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Cyber State", year: "2023", desc: "Paisajes distópicos.", cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Metropolis 2088", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "After Dark", year: "2023", desc: "Atmósferas nocturnas.", cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Pulse Zero", year: "2022", desc: "Álbum debut.", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "First Ignition", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
+            { title: "Anomalía", year: "2022", desc: "Sencillo experimental.", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Anomalía", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
+            { title: "Genesis", year: "2021", desc: "Demos underground.", cover: "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Origin", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
         ];
 
-        // Milestones Database with Details & Galleries
         const milestonesData = [
-            {
-                year: "2026",
-                title: "Lanzamiento Mundial de 'Eclipse Tour'",
-                text: "Una gira monumental que ha llevado la propuesta visual y sonora de KAIROS por 18 países, combinando pantallas LED inmersivas, iluminación láser y llenos totales en recintos emblemáticos de Europa y América Latina.",
-                images: [
-                    "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600",
-                    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=600"
-                ]
-            },
-            {
-                year: "2024",
-                title: "Premio Revelación Electrónica",
-                text: "Consagración internacional al recibir el galardón al Mejor Álbum Independiente en los premios de música alternativa en Berlín, consolidando su estatus como referente del dark synth contemporáneo.",
-                images: [
-                    "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600",
-                    "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=600"
-                ]
-            },
-            {
-                year: "2022",
-                title: "Debut del Sencillo 'Synthetic Tears'",
-                text: "El punto de inflexión donde la carrera de KAIROS pasó del circuito underground a las listas de reproducción globales con más de 5 millones de streams orgánicos en su primer mes de lanzamiento.",
-                images: [
-                    "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=600",
-                    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=600"
-                ]
-            }
+            { year: "2026", title: "Lanzamiento Mundial de 'Eclipse Tour'", text: "Gira monumental...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
+            { year: "2024", title: "Premio Revelación Electrónica", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] },
+            { year: "2022", title: "Debut del Sencillo 'Synthetic Tears'", text: "Punto de inflexión...", images: ["https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=600"] }
         ];
 
-        // Global Audio & Player State
-        let currentAlbumIndex = 0;
-        let currentTrackIndex = 0;
-        let audioElement = new Audio();
-        let isPlaying = false;
+        let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
 
-        // Tab Switching Logic
         function switchTab(tabId) {
-            const tabs = ['bio', 'music', 'timeline', 'booking'];
-            
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-${t}`);
-                const content = document.getElementById(`content-${t}`);
-                
-                if (t === tabId) {
-                    btn.classList.add('active', 'text-white');
-                    btn.classList.remove('text-gray-400');
-                    content.classList.add('active');
-                } else {
-                    btn.classList.remove('active', 'text-white');
-                    btn.classList.add('text-gray-400');
-                    content.classList.remove('active');
-                }
+            ['bio', 'music', 'timeline', 'booking'].forEach(t => {
+                document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
+                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-4' : 'tab-content space-y-4';
             });
         }
 
-        // Open Album Gatefold View
         function openAlbum(index) {
             currentAlbumIndex = index;
             const album = albumsData[index];
-            
             document.getElementById('detailAlbumCover').src = album.cover;
             document.getElementById('detailAlbumYear').innerText = album.year;
             document.getElementById('detailAlbumTitle').innerText = album.title;
             document.getElementById('detailAlbumDesc').innerText = album.desc;
             
-            // Populate Tracklist
             const tracklistEl = document.getElementById('detailTracklist');
             tracklistEl.innerHTML = '';
-            
             album.tracks.forEach((track, tIdx) => {
-                tracklistEl.innerHTML += `
-                    <div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition group">
-                        <div class="flex items-center gap-2.5">
-                            <span class="text-xs font-mono text-cyber-cyan">0${tIdx + 1}</span>
-                            <span class="text-xs text-white font-medium group-hover:text-cyber-cyan transition">${track.title}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[10px] text-gray-400">${track.duration}</span>
-                            <i class="fa-solid fa-play text-[10px] text-cyber-accent"></i>
-                        </div>
-                    </div>
-                `;
+                tracklistEl.innerHTML += `<div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition group"><div class="flex items-center gap-2.5"><span class="text-xs font-mono text-cyber-cyan">0${tIdx + 1}</span><span class="text-xs text-white font-medium">${track.title}</span></div><i class="fa-solid fa-play text-[10px] text-cyber-accent"></i></div>`;
             });
-
             document.getElementById('albumsMainView').classList.add('hidden');
             document.getElementById('albumDetailView').classList.remove('hidden');
         }
@@ -705,58 +510,27 @@
             document.getElementById('albumsMainView').classList.remove('hidden');
         }
 
-        // Play Specific Track from Album
         function playAlbumTrack(albumIdx, trackIdx) {
-            currentAlbumIndex = albumIdx;
-            currentTrackIndex = trackIdx;
-            const album = albumsData[albumIdx];
-            const track = album.tracks[trackIdx];
-
+            currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
+            const track = albumsData[albumIdx].tracks[trackIdx];
             document.getElementById('playerTitle').innerText = track.title;
-            document.getElementById('playerAlbumName').innerText = `${album.title} (${album.year})`;
-            document.getElementById('playerCover').style.backgroundImage = `url('${album.cover}')`;
-
+            document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
             audioElement.src = track.audio;
-            audioElement.play().then(() => {
-                isPlaying = true;
-                updatePlayButtonUI();
-                document.getElementById('floatingPlayer').classList.remove('hidden');
-                showToast(`Reproduciendo: ${track.title}`);
-            }).catch(e => {
-                // Handle autoplay block or fallback
-                isPlaying = true;
-                updatePlayButtonUI();
-                document.getElementById('floatingPlayer').classList.remove('hidden');
-                showToast(`Reproduciendo: ${track.title}`);
-            });
+            audioElement.play().catch(() => {});
+            isPlaying = true; updatePlayButtonUI();
+            document.getElementById('floatingPlayer').classList.remove('hidden');
+            showToast(`Reproduciendo: ${track.title}`);
         }
 
         function togglePlayState() {
-            if (!audioElement.src) {
-                playAlbumTrack(0, 0);
-                return;
-            }
-
+            if (!audioElement.src) { playAlbumTrack(0, 0); return; }
             isPlaying = !isPlaying;
-            if (isPlaying) {
-                audioElement.play();
-                showToast('Reproducción reanudada');
-            } else {
-                audioElement.pause();
-                showToast('Reproducción pausada');
-            }
+            if (isPlaying) audioElement.play(); else audioElement.pause();
             updatePlayButtonUI();
         }
 
         function updatePlayButtonUI() {
-            const icon = document.getElementById('playerPlayIcon');
-            if (isPlaying) {
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-            } else {
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            }
+            document.getElementById('playerPlayIcon').className = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
         }
 
         function nextTrack() {
@@ -771,28 +545,16 @@
             playAlbumTrack(currentAlbumIndex, currentTrackIndex);
         }
 
-        // Open Timeline Milestone Detail
         function openMilestone(index) {
-            const milestone = milestonesData[index];
-            
-            document.getElementById('detailMilestoneYear').innerText = milestone.year;
-            document.getElementById('detailMilestoneTitle').innerText = milestone.title;
-            document.getElementById('detailMilestoneText').innerText = milestone.text;
-
-            const galleryEl = document.getElementById('detailMilestoneGallery');
-            galleryEl.innerHTML = '';
-            
-            milestone.images.forEach(imgUrl => {
-                galleryEl.innerHTML += `
-                    <div class="h-28 rounded-xl overflow-hidden glass-tab group relative cursor-pointer" onclick="openLightbox('${imgUrl}')">
-                        <img src="${imgUrl}" alt="Milestone Photo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <i class="fa-solid fa-expand text-white text-sm"></i>
-                        </div>
-                    </div>
-                `;
+            const m = milestonesData[index];
+            document.getElementById('detailMilestoneYear').innerText = m.year;
+            document.getElementById('detailMilestoneTitle').innerText = m.title;
+            document.getElementById('detailMilestoneText').innerText = m.text;
+            const gallery = document.getElementById('detailMilestoneGallery');
+            gallery.innerHTML = '';
+            m.images.forEach(img => {
+                gallery.innerHTML += `<div class="h-28 rounded-xl overflow-hidden glass-tab group relative cursor-pointer" onclick="openLightbox('${img}')"><img src="${img}" class="w-full h-full object-cover"></div>`;
             });
-
             document.getElementById('timelineListView').classList.add('hidden');
             document.getElementById('milestoneDetailView').classList.remove('hidden');
         }
@@ -802,57 +564,25 @@
             document.getElementById('timelineListView').classList.remove('hidden');
         }
 
-        // Share Card & Clipboard functionality
         function shareCard() {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(window.location.href);
-                showToast('¡Enlace de la tarjeta copiado al portapapeles!');
-            } else {
-                showToast('Enlace listo para compartir');
-            }
+            if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); showToast('¡Enlace copiado!'); }
         }
 
-        // EPK Download Simulation
         function downloadEPK() {
             showToast('Generando dossier EPK en PDF...');
-            setTimeout(() => {
-                showToast('¡EPK descargado correctamente!');
-            }, 1500);
+            setTimeout(() => showToast('¡EPK descargado!'), 1500);
         }
 
-        // External Link Simulation
-        function simulateExternalLink(platform) {
-            showToast(`Redirigiendo a ${platform} oficial...`);
-        }
+        function simulateExternalLink(p) { showToast(`Redirigiendo a ${p}...`); }
+        function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').classList.replace('hidden', 'flex'); }
+        function closeLightbox() { document.getElementById('lightboxModal').classList.replace('flex', 'hidden'); }
 
-        // Lightbox Gallery
-        function openLightbox(imgSrc) {
-            const modal = document.getElementById('lightboxModal');
-            const img = document.getElementById('lightboxImg');
-            img.src = imgSrc;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeLightbox() {
-            const modal = document.getElementById('lightboxModal');
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-        }
-
-        // Toast Notification System
-        function showToast(message) {
-            const toast = document.getElementById('toastNotification');
-            const msgEl = document.getElementById('toastMessage');
-            
-            msgEl.innerText = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+        function showToast(msg) {
+            const t = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = msg;
+            t.classList.remove('translate-y-20', 'opacity-0');
+            t.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => { t.classList.remove('translate-y-0', 'opacity-100'); t.classList.add('translate-y-20', 'opacity-0'); }, 3000);
         }
     </script>
 </body>
