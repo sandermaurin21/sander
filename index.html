@@ -532,20 +532,14 @@
         const collapsibleHeader = document.getElementById('collapsibleHeader');
         let lastScrollTop = 0;
 
-        // Control mejorado de scroll con umbral de sensibilidad para subir y bajar sin trabas
+        // Lógica de scroll original exacta
         scrollContainer.addEventListener('scroll', () => {
             let currentScroll = scrollContainer.scrollTop;
-            let scrollDifference = currentScroll - lastScrollTop;
-
-            // Si se desplaza hacia abajo más de 5 píxeles, oculta el header
-            if (scrollDifference > 5 && currentScroll > 30) {
+            if (currentScroll > lastScrollTop && currentScroll > 20) {
                 collapsibleHeader.classList.add('collapsed');
-            } 
-            // Si se desplaza hacia arriba con cualquier pequeño movimiento, muestra el header inmediatamente
-            else if (scrollDifference < -2 || currentScroll <= 15) {
+            } else if (currentScroll < lastScrollTop) {
                 collapsibleHeader.classList.remove('collapsed');
             }
-            
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
 
