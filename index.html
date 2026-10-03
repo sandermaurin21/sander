@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAIROS // Official Artist ID</title>
+    <title>SANDER MAURIN // Official Artist ID</title>
     
     <!-- Configuración para App Móvil (Pantalla Completa) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,14 +94,6 @@
         .neon-border {
             box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
         }
-        /* Vinyl rotation animation */
-        @keyframes spin-slow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-            animation: spin-slow 8s linear infinite;
-        }
         /* Tab transitions */
         .tab-content {
             display: none;
@@ -120,11 +112,11 @@
     <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
     <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
 
-    <!-- Main Container Card (Ocupa toda la pantalla en móvil y tarjeta flotante en PC) -->
+    <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Banner & Profile (Fijo arriba, no se desplaza) -->
-        <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000')">
+        <!-- Header Banner & Profile (Imagen principal horizontal actualizada) -->
+        <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
             <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
             
             <div class="absolute top-4 right-4 flex gap-2 z-20">
@@ -139,22 +131,25 @@
             </div>
         </div>
 
-        <!-- Avatar & Artist Info (Fijo arriba) -->
-        <div class="px-6 pb-3 relative -mt-16 text-center shrink-0">
-            <div class="relative inline-block mx-auto mb-2">
-                <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl p-1 bg-gradient-to-tr from-cyber-accent via-cyber-cyan to-cyber-gold neon-border shadow-2xl overflow-hidden mx-auto">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="KAIROS Artist" class="w-full h-full object-cover rounded-xl" onerror="this.src='https://placehold.co/300x300/150a2b/ffffff?text=KAIROS'">
+        <!-- Avatar & Artist Info (Imagen más chica de costado derecho, formato más vertical, y nombre cambiado) -->
+        <div class="px-6 pb-3 relative -mt-16 text-right shrink-0">
+            <div class="relative inline-block mx-auto mb-2 float-right mr-2">
+                <!-- Formato más vertical (w-20 h-28 sm:w-24 sm:h-32) -->
+                <div class="w-20 h-28 sm:w-24 sm:h-32 rounded-xl p-1 bg-gradient-to-tr from-cyber-accent via-cyber-cyan to-cyber-gold neon-border shadow-2xl overflow-hidden">
+                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover rounded-lg" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
                 </div>
                 <div class="absolute bottom-0 right-0 bg-cyber-accent text-white p-1 rounded-lg shadow-lg text-[10px]">
                     <i class="fa-solid fa-check text-[8px]"></i>
                 </div>
             </div>
 
-            <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">KAIROS</h1>
-            <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
+            <div class="clear-both pt-2">
+                <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
+                <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
+            </div>
         </div>
 
-        <!-- Navigation Tabs (Fijo arriba para cambio rápido de sección) -->
+        <!-- Navigation Tabs -->
         <div class="px-4 pb-3 shrink-0">
             <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
@@ -176,7 +171,7 @@
             </div>
         </div>
 
-        <!-- Scrollable Content Area (ESTE ES EL ÚNICO LUGAR QUE SUBE Y BAJA INTERNAMENTE) -->
+        <!-- Scrollable Content Area -->
         <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
 
             <!-- 1. BIO TAB -->
@@ -186,7 +181,7 @@
                         <i class="fa-solid fa-bolt"></i> Biografía & Estilo
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                        KAIROS redefine los límites de la música electrónica alternativa y el pop futurista. Con sintetizadores análogos oscuros, voces etéreas y beats pesados inspirados en paisajes distópicos, su sonido ha conquistado escenarios internacionales.
+                        Sander Maurin redefine los límites de la música electrónica alternativa y el pop futurista. Con sintetizadores análogos oscuros, voces etéreas y beats pesados inspirados en paisajes distópicos, su sonido ha conquistado escenarios internacionales.
                     </p>
                 </div>
 
@@ -402,14 +397,14 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <a href="mailto:booking@kairos-official.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
+                    <a href="mailto:booking@sandermaurin.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyber-cyan flex items-center justify-center">
                                 <i class="fa-solid fa-envelope text-base"></i>
                             </div>
                             <div>
                                 <h4 class="text-xs font-bold text-white group-hover:text-cyber-cyan transition">Correo Electrónico</h4>
-                                <p class="text-[10px] text-gray-400">booking@kairos-official.com</p>
+                                <p class="text-[10px] text-gray-400">booking@sandermaurin.com</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
@@ -423,7 +418,7 @@
 
         </div>
 
-        <!-- Floating Music Player Bar (Fijo abajo, no se desplaza) -->
+        <!-- Floating Music Player Bar -->
         <div id="floatingPlayer" class="hidden shrink-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
                 <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200')"></div>
@@ -454,7 +449,7 @@
     <script>
         const albumsData = [
             {
-                title: "Eclipse", year: "2026", desc: "El álbum cumbre de KAIROS.", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
+                title: "Eclipse", year: "2026", desc: "El álbum cumbre de Sander Maurin.", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
                 tracks: [
                     { title: "Neon Pulse", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
                     { title: "Solar Flare", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
@@ -483,7 +478,6 @@
                 document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
                 document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-4' : 'tab-content space-y-4';
             });
-            // Reiniciar el scroll interno al cambiar de pestaña
             document.getElementById('mainScrollContainer').scrollTop = 0;
         }
 
