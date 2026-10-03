@@ -40,7 +40,7 @@
     <!-- Google Fonts: Inter & Syncopate -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Permitir scroll general de toda la página */
+        /* Permitir scroll general de toda la página sin saltos */
         html, body {
             width: 100%;
             min-height: 100%;
@@ -50,6 +50,7 @@
             color: #f3f4f6;
             margin: 0;
             padding: 0;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Fondo de cruces con efecto de profundidad sobre negro puro */
@@ -130,20 +131,18 @@
             opacity: 1;
         }
         
-        /* Header retráctil basado en el scroll de la ventana global */
+        /* Header retráctil optimizado sin tembleque usando transformaciones GPU */
         #collapsibleHeader {
-            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-in-out, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 300px;
-            overflow: hidden;
-            opacity: 1;
+            will-change: transform, opacity;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-in-out;
             transform: translateY(0);
+            opacity: 1;
         }
         #collapsibleHeader.collapsed {
-            max-height: 0px;
+            transform: translateY(-100%);
             opacity: 0;
-            transform: translateY(-20px);
             pointer-events: none;
-            margin-bottom: 0 !important;
+            position: absolute;
         }
     </style>
 </head>
@@ -209,7 +208,7 @@
             </div>
         </div>
 
-        <!-- Scrollable Content Area (Se desliza toda la página) -->
+        <!-- Scrollable Content Area -->
         <div class="px-6 pb-20 pt-2 relative z-10 space-y-4" id="mainScrollContainer">
 
             <!-- 1. BIO TAB -->
@@ -554,16 +553,23 @@
         let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
         const collapsibleHeader = document.getElementById('collapsibleHeader');
         let lastScrollTop = 0;
+        let ticking = false;
 
-        // Comportamiento del header retráctil basado en el scroll global de la ventana
+        // Listener de scroll optimizado con requestAnimationFrame para evitar parpadeos y tirones
         window.addEventListener('scroll', () => {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > lastScrollTop && currentScroll > 30) {
-                collapsibleHeader.classList.add('collapsed');
-            } else if (currentScroll < lastScrollTop || currentScroll <= 10) {
-                collapsibleHeader.classList.remove('collapsed');
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (currentScroll > lastScrollTop && currentScroll > 40) {
+                        collapsibleHeader.classList.add('collapsed');
+                    } else if (currentScroll < lastScrollTop || currentScroll <= 10) {
+                        collapsibleHeader.classList.remove('collapsed');
+                    }
+                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+                    ticking = false;
+                });
+                ticking = true;
             }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
 
         function switchTab(tabId) {
