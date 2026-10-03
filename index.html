@@ -40,24 +40,27 @@
     <!-- Google Fonts: Inter & Syncopate -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Bloqueo total del scroll en la ventana general para que actúe como App */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
             background-color: #03000a;
             color: #f3f4f6;
-            overflow-x: hidden;
-            /* Evita el rebote de la página nativa del navegador en móviles */
-            overscroll-behavior-y: none;
+            margin: 0;
+            padding: 0;
         }
         .font-syncopate {
             font-family: 'Syncopate', sans-serif;
         }
-        /* Custom scrollbar */
+        /* Custom scrollbar para la zona interna */
         ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: #03000a;
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
             background: #26124f;
@@ -68,11 +71,11 @@
         }
         /* Glassmorphism card */
         .glass-card {
-            background: rgba(10, 5, 24, 0.85);
+            background: rgba(10, 5, 24, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.1);
         }
         .glass-tab {
             background: rgba(21, 10, 43, 0.6);
@@ -99,14 +102,11 @@
         .animate-spin-slow {
             animation: spin-slow 8s linear infinite;
         }
-        .paused {
-            animation-play-state: paused;
-        }
         /* Tab transitions */
         .tab-content {
             display: none;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.3s ease-in-out;
         }
         .tab-content.active {
             display: block;
@@ -114,36 +114,33 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
+<body class="bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
 
     <!-- Ambient Neon Background Orbs -->
     <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
     <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute top-1/2 left-10 w-60 h-60 bg-pink-600/15 rounded-full blur-[90px] pointer-events-none"></div>
 
-    <!-- Main Container Card (Ajustado a pantalla completa real en celulares) -->
-    <div class="w-full h-screen sm:h-auto sm:max-w-xl sm:glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col sm:max-h-[92vh]">
+    <!-- Main Container Card (Ocupa toda la pantalla en móvil y tarjeta flotante en PC) -->
+    <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Banner & Profile -->
+        <!-- Header Banner & Profile (Fijo arriba, no se desplaza) -->
         <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000')">
             <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
             
-            <!-- Top Controls (Share & Audio Toggle) -->
             <div class="absolute top-4 right-4 flex gap-2 z-20">
                 <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
                     <i class="fa-solid fa-share-nodes text-sm"></i>
                 </button>
             </div>
 
-            <!-- Live Status Badge -->
             <div class="absolute top-4 left-4 glass-tab px-3 py-1 rounded-full flex items-center gap-2 text-xs font-medium text-cyber-cyan">
                 <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span>
                 LIVE TOUR 2026
             </div>
         </div>
 
-        <!-- Avatar & Artist Info -->
-        <div class="px-6 pb-4 relative -mt-16 text-center shrink-0">
+        <!-- Avatar & Artist Info (Fijo arriba) -->
+        <div class="px-6 pb-3 relative -mt-16 text-center shrink-0">
             <div class="relative inline-block mx-auto mb-2">
                 <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl p-1 bg-gradient-to-tr from-cyber-accent via-cyber-cyan to-cyber-gold neon-border shadow-2xl overflow-hidden mx-auto">
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="KAIROS Artist" class="w-full h-full object-cover rounded-xl" onerror="this.src='https://placehold.co/300x300/150a2b/ffffff?text=KAIROS'">
@@ -157,7 +154,7 @@
             <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
         </div>
 
-        <!-- Navigation Tabs -->
+        <!-- Navigation Tabs (Fijo arriba para cambio rápido de sección) -->
         <div class="px-4 pb-3 shrink-0">
             <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
@@ -179,7 +176,7 @@
             </div>
         </div>
 
-        <!-- Scrollable Content Area -->
+        <!-- Scrollable Content Area (ESTE ES EL ÚNICO LUGAR QUE SUBE Y BAJA INTERNAMENTE) -->
         <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
 
             <!-- 1. BIO TAB -->
@@ -426,7 +423,7 @@
 
         </div>
 
-        <!-- Floating Music Player Bar -->
+        <!-- Floating Music Player Bar (Fijo abajo, no se desplaza) -->
         <div id="floatingPlayer" class="hidden shrink-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
                 <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200')"></div>
@@ -467,7 +464,7 @@
             { title: "Void Runner", year: "2024", desc: "Ritmos pesados y texturas.", cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Void Runner", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
             { title: "Neon Ghost", year: "2024", desc: "Sencillo colaborativo.", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Neon Ghost", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
             { title: "Cyber State", year: "2023", desc: "Paisajes distópicos.", cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Metropolis 2088", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "After Dark", year: "2023", desc: "Atmósferas nocturnas.", cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "After Dark", year: "2023", desc: "Atmósferas nocturnas.", cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
             { title: "Pulse Zero", year: "2022", desc: "Álbum debut.", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "First Ignition", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
             { title: "Anomalía", year: "2022", desc: "Sencillo experimental.", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Anomalía", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
             { title: "Genesis", year: "2021", desc: "Demos underground.", cover: "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Origin", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
@@ -486,6 +483,8 @@
                 document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
                 document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-4' : 'tab-content space-y-4';
             });
+            // Reiniciar el scroll interno al cambiar de pestaña
+            document.getElementById('mainScrollContainer').scrollTop = 0;
         }
 
         function openAlbum(index) {
