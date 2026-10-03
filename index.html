@@ -111,18 +111,18 @@
             max-height: 1000px;
             opacity: 1;
         }
-        /* Transición suave para ocultar y mostrar la cabecera */
+        /* Transición fluida con translate para evitar saltos en el DOM */
         #collapsibleHeader {
-            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-            max-height: 300px;
-            opacity: 1;
-            transform: translateY(0);
-            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
         }
         #collapsibleHeader.collapsed {
-            max-height: 0;
+            transform: translateY(-100%);
             opacity: 0;
-            transform: translateY(-20px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
         }
     </style>
 </head>
@@ -135,8 +135,8 @@
     <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Retráctil (Imagen principal, avatar vertical y nombre de artista) -->
-        <div id="collapsibleHeader" class="shrink-0">
+        <!-- Header Retráctil sin afectar el flujo del DOM -->
+        <div id="collapsibleHeader" class="shrink-0 relative">
             <!-- Header Banner & Profile (Imagen principal horizontal) -->
             <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden" style="background-image: url('sandermedia/imageninicialsander.png')">
                 <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
@@ -148,10 +148,9 @@
                 </div>
             </div>
 
-            <!-- Avatar & Artist Info (Imagen vertical sin borde, más hacia el costado derecho y nombre SANDER MAURIN) -->
+            <!-- Avatar & Artist Info -->
             <div class="px-6 pb-3 relative -mt-16 text-right">
                 <div class="relative inline-block mx-auto mb-2 float-right mr-1">
-                    <!-- Sin borde ni marco, formato más vertical -->
                     <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
                         <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
                     </div>
@@ -165,7 +164,7 @@
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="px-4 pb-3 shrink-0 pt-2">
+        <div class="px-4 pb-3 shrink-0 pt-2 z-20 bg-cyber-900/40 backdrop-blur-md">
             <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
                     <i class="fa-solid fa-user text-sm"></i>
@@ -189,8 +188,8 @@
         <!-- Scrollable Content Area -->
         <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
 
-            <!-- 1. BIO TAB (Gran nota biográfica con títulos desplegables) -->
-            <div id="content-bio" class="tab-content active space-y-3">
+            <!-- 1. BIO TAB -->
+            <div id="content-bio" class="tab-content active space-y-3 pt-2">
                 <div class="glass-tab p-4 rounded-2xl mb-3">
                     <h3 class="text-sm font-bold text-cyber-cyan uppercase tracking-wider mb-1 flex items-center gap-2">
                         <i class="fa-solid fa-book-open"></i> Biografía Oficial & Estilo
@@ -267,14 +266,14 @@
                             <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=600" alt="Situación Actual" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs text-gray-300 leading-relaxed">
-                            Actualmente se encuentra inmerso en la promoción y gira internacional de su álbum cumbre <strong class="text-white">Eclipse</strong>, colaborando con festivales globales y preparando nuevas experiencias inmersivas en formato digital y físico.
+                            Actualmente se encuentra inmerso en la promoción y gira internacional de su álbum cumbre <strong class="text-white">Reggaeton a mi manera</strong>, colaborando con festivales globales y preparando nuevas experiencias inmersivas en formato digital y físico.
                         </p>
                     </div>
                 </div>
             </div>
 
             <!-- 2. DISCOGRAPHY TAB -->
-            <div id="content-music" class="tab-content space-y-4">
+            <div id="content-music" class="tab-content space-y-4 pt-2">
                 <div id="albumsMainView">
                     <div class="text-center mb-3">
                         <h3 class="text-sm font-bold text-white tracking-wider">Discografía Oficial (9 Discos)</h3>
@@ -285,73 +284,73 @@
                         <!-- Disc 1 -->
                         <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=300" alt="Eclipse" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=300" alt="Reggaeton a mi manera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Eclipse</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Reggaeton a mi manera</h4>
                             <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
                         </div>
                         <!-- Disc 2 -->
                         <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=300" alt="Synthetic Tears" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=300" alt="Sander Maurin" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Synthetic</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Sander Maurin</h4>
                             <span class="text-[9px] text-cyber-cyan block">2025 • EP</span>
                         </div>
                         <!-- Disc 3 -->
                         <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300" alt="Void Runner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300" alt="Santan" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Void Runner</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Santan</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
                         </div>
                         <!-- Disc 4 -->
                         <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300" alt="Neon Ghost" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300" alt="Desde la tierra al cielo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Neon Ghost</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Desde la tierra al cielo</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
                         </div>
                         <!-- Disc 5 -->
                         <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=300" alt="Cyber State" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=300" alt="Bachata" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Cyber State</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Bachata</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
                         </div>
                         <!-- Disc 6 -->
                         <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=300" alt="After Dark" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=300" alt="Maural" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">After Dark</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Maural</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
                         </div>
                         <!-- Disc 7 -->
                         <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300" alt="Pulse Zero" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300" alt="Los eternos iracundos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Pulse Zero</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Los eternos iracundos</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
                         </div>
                         <!-- Disc 8 -->
                         <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=300" alt="Anomalía" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=300" alt="Sander Mix" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Anomalía</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Sander Mix</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
                         </div>
                         <!-- Disc 9 -->
                         <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=300" alt="Genesis" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <img src="https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=300" alt="Maural Rock" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                             </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Genesis</h4>
+                            <h4 class="text-[11px] font-bold text-white truncate">Maural Rock</h4>
                             <span class="text-[9px] text-cyber-cyan block">2021 • LP</span>
                         </div>
                     </div>
@@ -382,7 +381,7 @@
             </div>
 
             <!-- 3. TIMELINE TAB -->
-            <div id="content-timeline" class="tab-content space-y-4">
+            <div id="content-timeline" class="tab-content space-y-4 pt-2">
                 <div id="timelineListView">
                     <div class="text-center mb-2">
                         <h3 class="text-sm font-bold text-white tracking-wider">Trayectoria & Hitos</h3>
@@ -395,7 +394,7 @@
                                 <span class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
                                 <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de "Eclipse Tour"</h4>
+                            <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de "Reggaeton a mi manera Tour"</h4>
                             <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por 18 países...</p>
                         </div>
                         <div onclick="openMilestone(1)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
@@ -411,7 +410,7 @@
                                 <span class="text-[10px] font-mono text-cyber-gold font-bold px-2 py-0.5 rounded-full bg-amber-950 border border-amber-800">2022</span>
                                 <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-white">Debut del Sencillo "Synthetic Tears"</h4>
+                            <h4 class="text-xs font-bold text-white">Debut del Sencillo "Sander Mix"</h4>
                             <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">El tema viral que catapultó su carrera...</p>
                         </div>
                     </div>
@@ -434,7 +433,7 @@
             </div>
 
             <!-- 4. BOOKING TAB -->
-            <div id="content-booking" class="tab-content space-y-4">
+            <div id="content-booking" class="tab-content space-y-4 pt-2">
                 <div class="text-center mb-1">
                     <h3 class="text-sm font-bold text-white tracking-wider">Contacto & Booking</h3>
                     <p class="text-[11px] text-gray-400">Contrataciones y prensa oficial</p>
@@ -481,7 +480,7 @@
                 <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200')"></div>
                 <div class="truncate">
                     <h4 id="playerTitle" class="text-xs font-bold text-white truncate">NEON PULSE</h4>
-                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Eclipse (2026)</p>
+                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Reggaeton a mi manera (2026)</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
@@ -506,26 +505,26 @@
     <script>
         const albumsData = [
             {
-                title: "Eclipse", year: "2026", desc: "El álbum cumbre de Sander Maurin.", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
+                title: "Reggaeton a mi manera", year: "2026", desc: "El álbum cumbre de Sander Maurin.", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400",
                 tracks: [
                     { title: "Neon Pulse", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
                     { title: "Solar Flare", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
                 ]
             },
-            { title: "Synthetic Tears", year: "2025", desc: "EP conceptual enfocado en la melancolía.", cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Cryogenic Love", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Void Runner", year: "2024", desc: "Ritmos pesados y texturas.", cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Void Runner", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Neon Ghost", year: "2024", desc: "Sencillo colaborativo.", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Neon Ghost", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Cyber State", year: "2023", desc: "Paisajes distópicos.", cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Metropolis 2088", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "After Dark", year: "2023", desc: "Atmósferas nocturnas.", cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "Pulse Zero", year: "2022", desc: "Álbum debut.", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "First Ignition", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
-            { title: "Anomalía", year: "2022", desc: "Sencillo experimental.", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Anomalía", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "Genesis", year: "2021", desc: "Demos underground.", cover: "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Origin", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
+            { title: "Sander Maurin", year: "2025", desc: "EP conceptual enfocado en la melancolía.", cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Cryogenic Love", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Santan", year: "2024", desc: "Ritmos pesados y texturas.", cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Void Runner", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo colaborativo.", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Neon Ghost", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Bachata", year: "2023", desc: "Paisajes distópicos.", cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Metropolis 2088", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
+            { title: "Maural", year: "2023", desc: "Atmósferas nocturnas.", cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Midnight Code", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
+            { title: "Los eternos iracundos", year: "2022", desc: "Álbum debut.", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "First Ignition", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
+            { title: "Sander Mix", year: "2022", desc: "Sencillo experimental.", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Anomalía", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
+            { title: "Maural Rock", year: "2021", desc: "Demos underground.", cover: "https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=400", tracks: [{ title: "Origin", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
         ];
 
         const milestonesData = [
-            { year: "2026", title: "Lanzamiento Mundial de 'Eclipse Tour'", text: "Gira monumental...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
+            { year: "2026", title: "Lanzamiento Mundial de 'Reggaeton a mi manera Tour'", text: "Gira monumental...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
             { year: "2024", title: "Premio Revelación Electrónica", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] },
-            { year: "2022", title: "Debut del Sencillo 'Synthetic Tears'", text: "Punto de inflexión...", images: ["https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=600"] }
+            { year: "2022", title: "Debut del Sencillo 'Sander Mix'", text: "Punto de inflexión...", images: ["https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=600"] }
         ];
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
@@ -533,29 +532,26 @@
         const collapsibleHeader = document.getElementById('collapsibleHeader');
         let lastScrollTop = 0;
 
-        // Control del scroll para ocultar/mostrar la cabecera
         scrollContainer.addEventListener('scroll', () => {
             let currentScroll = scrollContainer.scrollTop;
             
-            if (currentScroll > lastScrollTop && currentScroll > 30) {
-                // Bajando: oculta la cabecera
+            if (currentScroll > lastScrollTop && currentScroll > 40) {
                 collapsibleHeader.classList.add('collapsed');
             } else if (currentScroll < lastScrollTop) {
-                // Subiendo: muestra la cabecera
                 collapsibleHeader.classList.remove('collapsed');
             }
             
-            if (currentScroll <= 10) {
+            if (currentScroll <= 15) {
                 collapsibleHeader.classList.remove('collapsed');
             }
             
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-        });
+        }, { passive: true });
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
                 document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
-                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
+                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3 pt-2' : 'tab-content space-y-4 pt-2';
             });
             scrollContainer.scrollTop = 0;
             collapsibleHeader.classList.remove('collapsed');
