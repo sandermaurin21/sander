@@ -91,9 +91,6 @@
         .neon-glow {
             text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(6, 182, 212, 0.4);
         }
-        .neon-border {
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
-        }
         /* Tab transitions */
         .tab-content {
             display: none;
@@ -102,6 +99,16 @@
         }
         .tab-content.active {
             display: block;
+            opacity: 1;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .accordion-content.open {
+            max-height: 1000px;
             opacity: 1;
         }
     </style>
@@ -115,7 +122,7 @@
     <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Banner & Profile (Imagen principal horizontal actualizada) -->
+        <!-- Header Banner & Profile (Imagen principal horizontal) -->
         <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
             <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
             
@@ -124,22 +131,14 @@
                     <i class="fa-solid fa-share-nodes text-sm"></i>
                 </button>
             </div>
-
-            <div class="absolute top-4 left-4 glass-tab px-3 py-1 rounded-full flex items-center gap-2 text-xs font-medium text-cyber-cyan">
-                <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span>
-                LIVE TOUR 2026
-            </div>
         </div>
 
-        <!-- Avatar & Artist Info (Imagen más chica de costado derecho, formato más vertical, y nombre cambiado) -->
+        <!-- Avatar & Artist Info (Imagen vertical sin borde, más hacia el costado derecho y nombre SANDER MAURIN) -->
         <div class="px-6 pb-3 relative -mt-16 text-right shrink-0">
-            <div class="relative inline-block mx-auto mb-2 float-right mr-2">
-                <!-- Formato más vertical (w-20 h-28 sm:w-24 sm:h-32) -->
-                <div class="w-20 h-28 sm:w-24 sm:h-32 rounded-xl p-1 bg-gradient-to-tr from-cyber-accent via-cyber-cyan to-cyber-gold neon-border shadow-2xl overflow-hidden">
-                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover rounded-lg" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
-                </div>
-                <div class="absolute bottom-0 right-0 bg-cyber-accent text-white p-1 rounded-lg shadow-lg text-[10px]">
-                    <i class="fa-solid fa-check text-[8px]"></i>
+            <div class="relative inline-block mx-auto mb-2 float-right mr-1">
+                <!-- Sin borde ni marco, formato más vertical -->
+                <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
+                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
                 </div>
             </div>
 
@@ -174,44 +173,86 @@
         <!-- Scrollable Content Area -->
         <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
 
-            <!-- 1. BIO TAB -->
-            <div id="content-bio" class="tab-content active space-y-4">
-                <div class="glass-tab p-4 rounded-2xl">
-                    <h3 class="text-sm font-bold text-cyber-cyan uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-bolt"></i> Biografía & Estilo
+            <!-- 1. BIO TAB (Gran nota biográfica con títulos desplegables) -->
+            <div id="content-bio" class="tab-content active space-y-3">
+                <div class="glass-tab p-4 rounded-2xl mb-3">
+                    <h3 class="text-sm font-bold text-cyber-cyan uppercase tracking-wider mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Biografía Oficial & Estilo
                     </h3>
-                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                        Sander Maurin redefine los límites de la música electrónica alternativa y el pop futurista. Con sintetizadores análogos oscuros, voces etéreas y beats pesados inspirados en paisajes distópicos, su sonido ha conquistado escenarios internacionales.
+                    <p class="text-xs text-gray-300">
+                        Explora la trayectoria, aspectos íntimos, estructura de espectáculos y la situación actual del artista a través de los siguientes apartados desplegables:
                     </p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="glass-tab p-3 rounded-xl">
-                        <span class="text-[10px] text-gray-400 block uppercase">Género Principal</span>
-                        <span class="text-xs font-bold text-white mt-0.5 block">Cyber-Pop / Dark Synth</span>
-                    </div>
-                    <div class="glass-tab p-3 rounded-xl">
-                        <span class="text-[10px] text-gray-400 block uppercase">Base Actual</span>
-                        <span class="text-xs font-bold text-white mt-0.5 block">Berlín / CDMX</span>
+                <!-- Acordeón: CARRERA -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-carrera', 'icon-carrera')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-microphone-lines text-cyber-accent"></i> Carrera
+                        </span>
+                        <i id="icon-carrera" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-carrera" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600" alt="Carrera" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global, posicionándose como referente de la música electrónica vanguardista.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Socials List -->
-                <div class="pt-2">
-                    <span class="text-[10px] text-gray-400 uppercase tracking-wider block mb-2">Plataformas Oficiales</span>
-                    <div class="grid grid-cols-4 gap-2">
-                        <a href="#spotify" onclick="simulateExternalLink('Spotify')" class="glass-tab p-3 rounded-xl flex items-center justify-center text-green-400 hover:bg-green-500/20 transition">
-                            <i class="fa-brands fa-spotify text-lg"></i>
-                        </a>
-                        <a href="#apple" onclick="simulateExternalLink('Apple Music')" class="glass-tab p-3 rounded-xl flex items-center justify-center text-pink-400 hover:bg-pink-500/20 transition">
-                            <i class="fa-brands fa-apple text-lg"></i>
-                        </a>
-                        <a href="#instagram" onclick="simulateExternalLink('Instagram')" class="glass-tab p-3 rounded-xl flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition">
-                            <i class="fa-brands fa-instagram text-lg"></i>
-                        </a>
-                        <a href="#youtube" onclick="simulateExternalLink('YouTube')" class="glass-tab p-3 rounded-xl flex items-center justify-center text-red-400 hover:bg-red-500/20 transition">
-                            <i class="fa-brands fa-youtube text-lg"></i>
-                        </a>
+                <!-- Acordeón: VIDA PRIVADA -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-vida', 'icon-vida')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-heart text-pink-400"></i> Vida Privada
+                        </span>
+                        <i id="icon-vida" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-vida" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Vida Privada" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados en Berlín y retiros de inspiración en zonas costeras. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk, mantiene un perfil enfocado en el arte visual y sonoro.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Acordeón: ESPECTACULOS Y DIRECCIONES -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-espectaculos', 'icon-espectaculos')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-masks-theater text-cyber-cyan"></i> Espectáculos y Direcciones
+                        </span>
+                        <i id="icon-espectaculos" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-espectaculos" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600" alt="Espectáculos" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica. Bajo la dirección técnica de su equipo creativo, cada show simula un entorno distópico interactivo que envuelve por completo al espectador.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Acordeón: SITUACION ACTUAL -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-situacion', 'icon-situacion')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-satellite-dish text-cyber-gold"></i> Situación Actual
+                        </span>
+                        <i id="icon-situacion" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-situacion" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=600" alt="Situación Actual" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Actualmente se encuentra inmerso en la promoción y gira internacional de su álbum cumbre <strong class="text-white">Eclipse</strong>, colaborando con festivales globales y preparando nuevas experiencias inmersivas en formato digital y físico.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -476,9 +517,28 @@
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
                 document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
-                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-4' : 'tab-content space-y-4';
+                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
             });
             document.getElementById('mainScrollContainer').scrollTop = 0;
+        }
+
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            const isOpen = content.classList.contains('open');
+            
+            // Cerrar todos los demás acordeones opcionalmente si se prefiere uno a la vez
+            ['acc-carrera', 'acc-vida', 'acc-espectaculos', 'acc-situacion'].forEach(id => {
+                document.getElementById(id).classList.remove('open');
+            });
+            ['icon-carrera', 'icon-vida', 'icon-espectaculos', 'icon-situacion'].forEach(id => {
+                document.getElementById(id).style.transform = 'rotate(0deg)';
+            });
+
+            if (!isOpen) {
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
         }
 
         function openAlbum(index) {
@@ -566,7 +626,6 @@
             setTimeout(() => showToast('¡EPK descargado!'), 1500);
         }
 
-        function simulateExternalLink(p) { showToast(`Redirigiendo a ${p}...`); }
         function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').classList.replace('hidden', 'flex'); }
         function closeLightbox() { document.getElementById('lightboxModal').classList.replace('flex', 'hidden'); }
 
