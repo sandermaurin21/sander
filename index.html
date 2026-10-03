@@ -8,12 +8,12 @@
     <!-- Configuración para App Móvil (Pantalla Completa) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#03000a">
+    <meta name="theme-color" content="#000000">
     
-    <!-- Enlace al Manifiesto Web para permitir la instalación -->
+    <!-- Enlace al Manifiesto Web -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind CSS for modern responsive utility classes -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,10 +22,10 @@
                 extend: {
                     colors: {
                         cyber: {
-                            900: '#03000a',
-                            800: '#0a0518',
-                            700: '#150a2b',
-                            600: '#26124f',
+                            900: '#000000',
+                            800: '#080412',
+                            700: '#120724',
+                            600: '#200e42',
                             accent: '#8b5cf6',
                             cyan: '#06b6d4',
                             gold: '#f59e0b'
@@ -40,11 +40,11 @@
     <!-- Google Fonts: Inter & Syncopate -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Scroll fluido general para toda la página sin temblequeo */
+        /* Fondo completamente negro absoluto y sin bordes */
         html, body {
             width: 100%;
             min-height: 100%;
-            background-color: #03000a;
+            background-color: #000000;
             color: #f3f4f6;
             margin: 0;
             padding: 0;
@@ -54,37 +54,34 @@
         .font-syncopate {
             font-family: 'Syncopate', sans-serif;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #03000a;
+            background: #000000;
         }
         ::-webkit-scrollbar-thumb {
-            background: #26124f;
+            background: #200e42;
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #8b5cf6;
         }
-        /* Glassmorphism card amplia */
+        /* Tarjeta principal sin bordes visibles y fondo negro absoluto */
         .glass-card {
-            background: rgba(10, 5, 24, 0.95);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.1);
+            background: #000000;
+            border: none;
+            box-shadow: none;
         }
         .glass-tab {
-            background: rgba(21, 10, 43, 0.6);
+            background: rgba(18, 7, 36, 0.7);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
         .glass-tab.active {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(6, 182, 212, 0.3));
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
         }
         .neon-glow {
             text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(6, 182, 212, 0.4);
@@ -110,20 +107,16 @@
         }
     </style>
 </head>
-<body class="bg-cyber-900 flex flex-col items-center justify-start py-4 px-2 sm:p-6 relative">
+<body class="bg-black flex flex-col items-center justify-start py-0 px-0 sm:p-0 relative">
 
-    <!-- Ambient Neon Background Orbs -->
-    <div class="absolute top-10 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[140px] pointer-events-none"></div>
-
-    <!-- Main Container Ampliado para lectura cómoda hacia abajo -->
-    <div class="w-full max-w-2xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col mb-20">
+    <!-- Main Container Ampliado para lectura cómoda hacia abajo sin bordes -->
+    <div class="w-full max-w-2xl glass-card relative z-10 flex flex-col mb-24 min-h-screen">
         
         <!-- Header Banner & Profile -->
-        <div class="relative h-56 sm:h-64 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
-            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/30 to-transparent"></div>
+        <div class="relative h-60 sm:h-72 bg-cover bg-center overflow-hidden shrink-0 border-b border-white/5" style="background-image: url('sandermedia/imageninicialsander.png')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
             
-            <div class="absolute top-4 right-4 flex gap-2 z-20">
+            <div class="absolute top-4 right-4 flex gap-2 z-25">
                 <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
                     <i class="fa-solid fa-share-nodes text-sm"></i>
                 </button>
@@ -133,7 +126,7 @@
         <!-- Avatar & Artist Info -->
         <div class="px-6 pb-4 relative -mt-20 text-right shrink-0">
             <div class="relative inline-block mx-auto mb-2 float-right mr-1">
-                <div class="w-24 h-36 sm:w-28 sm:h-40 overflow-hidden shadow-2xl rounded-xl">
+                <div class="w-24 h-36 sm:w-28 sm:h-40 overflow-hidden shadow-2xl rounded-xl border border-white/10">
                     <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
                 </div>
             </div>
@@ -146,7 +139,7 @@
 
         <!-- Navigation Tabs -->
         <div class="px-6 pb-4 shrink-0">
-            <div class="grid grid-cols-4 gap-2 p-1.5 bg-cyber-800/80 rounded-2xl border border-white/5">
+            <div class="grid grid-cols-4 gap-2 p-1.5 bg-[#080412] rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2.5 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
                     <i class="fa-solid fa-user text-sm"></i>
                     <span class="text-[10px]">Bio</span>
@@ -166,8 +159,8 @@
             </div>
         </div>
 
-        <!-- Content Area con desplazamiento natural hacia abajo -->
-        <div class="px-6 pb-8 space-y-4" id="mainContentArea">
+        <!-- Content Area con desplazamiento hacia abajo fluido -->
+        <div class="px-6 pb-12 space-y-4" id="mainContentArea">
 
             <!-- 1. BIO TAB -->
             <div id="content-bio" class="tab-content active space-y-4">
@@ -193,7 +186,7 @@
                             <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=800" alt="Carrera" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global, posicionándose como referente de la música electrónica vanguardista.
+                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global.
                         </p>
                     </div>
                 </div>
@@ -211,7 +204,7 @@
                             <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800" alt="Vida Privada" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados en Berlín y retiros de inspiración en zonas costeras. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk, mantiene un perfil enfocado en el arte visual y sonoro.
+                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados en Berlín y retiros de inspiración en zonas costeras. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk.
                         </p>
                     </div>
                 </div>
@@ -229,7 +222,7 @@
                             <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800" alt="Espectáculos" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica. Bajo la dirección técnica de su equipo creativo, cada show simula un entorno distópico interactivo que envuelve por completo al espectador.
+                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica, simulando un entorno distópico interactivo que envuelve al espectador.
                         </p>
                     </div>
                 </div>
@@ -247,7 +240,7 @@
                             <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=800" alt="Situación Actual" class="w-full h-full object-cover">
                         </div>
                         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                            Actualmente se encuentra inmerso en la promoción y gira internacional de su álbum cumbre <strong class="text-white">Eclipse</strong>, colaborando con festivales globales y preparando nuevas experiencias inmersivas en formato digital y físico.
+                            Actualmente se encuentra inmerso en la promoción de su álbum <strong class="text-white">Eclipse</strong>, colaborando con festivales globales y preparando nuevas experiencias inmersivas.
                         </p>
                     </div>
                 </div>
@@ -352,7 +345,7 @@
                     </button>
 
                     <div class="glass-tab p-5 rounded-2xl flex flex-col sm:flex-row gap-5 items-center">
-                        <div class="w-40 h-40 rounded-xl overflow-hidden shrink-0 shadow-2xl relative">
+                        <div class="w-40 h-40 rounded-xl overflow-hidden shrink-0 shadow-2xl relative border border-white/10">
                             <img id="detailAlbumCover" src="" alt="Album" class="w-full h-full object-cover">
                         </div>
                         <div class="text-center sm:text-left">
@@ -413,14 +406,19 @@
                 </div>
             </div>
 
-            <!-- 4. BOOKING TAB -->
+            <!-- 4. BOOKING TAB (Con Descarga de APK funcional) -->
             <div id="content-booking" class="tab-content space-y-4">
                 <div class="text-center mb-2">
-                    <h3 class="text-sm sm:text-base font-bold text-white tracking-wider">Contacto & Booking</h3>
-                    <p class="text-xs text-gray-400">Contrataciones y prensa oficial</p>
+                    <h3 class="text-sm sm:text-base font-bold text-white tracking-wider">Contacto & Aplicación</h3>
+                    <p class="text-xs text-gray-400">Instala la App oficial en tu dispositivo y canal de booking</p>
                 </div>
 
                 <div class="space-y-3">
+                    <!-- ENLACE DE DESCARGA DIRECTA DE APK -->
+                    <a href="sandermedia/app-sandermaurin.apk" download="SanderMaurin.apk" class="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-2xl hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2 text-center" onclick="showToast('Iniciando descarga de la App oficial...');">
+                        <i class="fa-brands fa-android text-lg"></i> Instalar Aplicación (APK)
+                    </a>
+
                     <a href="https://wa.me/1234567890" target="_blank" class="glass-tab p-4 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
                         <div class="flex items-center gap-3.5">
                             <div class="w-10 h-10 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center text-lg">
@@ -447,8 +445,8 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <button onclick="downloadEPK()" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Descargar EPK (PDF)
+                    <button onclick="downloadEPK()" class="glass-tab w-full py-3.5 px-4 rounded-xl text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white/5 transition active:scale-95 flex items-center justify-center gap-2 border border-white/10">
+                        <i class="fa-solid fa-download text-cyber-cyan"></i> Descargar EPK (PDF)
                     </button>
                 </div>
             </div>
@@ -458,9 +456,9 @@
     </div>
 
     <!-- Floating Music Player Bar al fondo de la pantalla -->
-    <div id="floatingPlayer" class="hidden fixed bottom-0 left-0 right-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-6 flex items-center justify-between gap-4 z-40 max-w-2xl mx-auto sm:rounded-t-2xl shadow-2xl">
+    <div id="floatingPlayer" class="hidden fixed bottom-0 left-0 right-0 bg-[#080412]/95 backdrop-blur-xl border-t border-cyber-accent/30 p-3 px-6 flex items-center justify-between gap-4 z-40 max-w-2xl mx-auto shadow-2xl">
         <div class="flex items-center gap-3 overflow-hidden">
-            <div class="w-12 h-12 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
+            <div class="w-12 h-12 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden border border-white/10" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
             <div class="truncate">
                 <h4 id="playerTitle" class="text-xs sm:text-sm font-bold text-white truncate">Track</h4>
                 <p id="playerAlbumName" class="text-[11px] text-cyber-cyan truncate">Álbum</p>
@@ -474,12 +472,12 @@
     </div>
 
     <!-- Modals & Toasts -->
-    <div id="toastNotification" class="fixed bottom-20 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-cyber-800 border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
+    <div id="toastNotification" class="fixed bottom-20 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-[#120724] border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
         <i class="fa-solid fa-circle-check text-cyber-cyan"></i>
         <span id="toastMessage">Acción completada con éxito</span>
     </div>
 
-    <div id="lightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+    <div id="lightboxModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
         <img id="lightboxImg" src="" alt="Ampliada" class="max-w-full max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain">
     </div>
 
@@ -601,7 +599,7 @@
             const gallery = document.getElementById('detailMilestoneGallery');
             gallery.innerHTML = '';
             m.images.forEach(img => {
-                gallery.innerHTML += `<div class="h-32 rounded-xl overflow-hidden glass-tab group relative cursor-pointer" onclick="openLightbox('${img}')"><img src="${img}" class="w-full h-full object-cover"></div>`;
+                gallery.innerHTML += `<div class="h-32 rounded-xl overflow-hidden glass-tab group relative cursor-pointer border border-white/10" onclick="openLightbox('${img}')"><img src="${img}" class="w-full h-full object-cover"></div>`;
             });
             document.getElementById('timelineListView').classList.add('hidden');
             document.getElementById('milestoneDetailView').classList.remove('hidden');
