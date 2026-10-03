@@ -111,6 +111,19 @@
             max-height: 1000px;
             opacity: 1;
         }
+        /* Transición suave para ocultar y mostrar la cabecera */
+        #collapsibleHeader {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            max-height: 300px;
+            opacity: 1;
+            transform: translateY(0);
+            overflow: hidden;
+        }
+        #collapsibleHeader.collapsed {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
     </style>
 </head>
 <body class="bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
@@ -122,34 +135,37 @@
     <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Banner & Profile (Imagen principal horizontal) -->
-        <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
-            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
-            
-            <div class="absolute top-4 right-4 flex gap-2 z-20">
-                <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
-                    <i class="fa-solid fa-share-nodes text-sm"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Avatar & Artist Info (Imagen vertical sin borde, más hacia el costado derecho y nombre SANDER MAURIN) -->
-        <div class="px-6 pb-3 relative -mt-16 text-right shrink-0">
-            <div class="relative inline-block mx-auto mb-2 float-right mr-1">
-                <!-- Sin borde ni marco, formato más vertical -->
-                <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
-                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
+        <!-- Header Retráctil (Imagen principal, avatar vertical y nombre de artista) -->
+        <div id="collapsibleHeader" class="shrink-0">
+            <!-- Header Banner & Profile (Imagen principal horizontal) -->
+            <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden" style="background-image: url('sandermedia/imageninicialsander.png')">
+                <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
+                
+                <div class="absolute top-4 right-4 flex gap-2 z-20">
+                    <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
+                        <i class="fa-solid fa-share-nodes text-sm"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="clear-both pt-2">
-                <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
-                <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
+            <!-- Avatar & Artist Info (Imagen vertical sin borde, más hacia el costado derecho y nombre SANDER MAURIN) -->
+            <div class="px-6 pb-3 relative -mt-16 text-right">
+                <div class="relative inline-block mx-auto mb-2 float-right mr-1">
+                    <!-- Sin borde ni marco, formato más vertical -->
+                    <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
+                        <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
+                    </div>
+                </div>
+
+                <div class="clear-both pt-2">
+                    <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
+                    <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
+                </div>
             </div>
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="px-4 pb-3 shrink-0">
+        <div class="px-4 pb-3 shrink-0 pt-2">
             <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
                     <i class="fa-solid fa-user text-sm"></i>
@@ -513,13 +529,36 @@
         ];
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
+        const scrollContainer = document.getElementById('mainScrollContainer');
+        const collapsibleHeader = document.getElementById('collapsibleHeader');
+        let lastScrollTop = 0;
+
+        // Control del scroll para ocultar/mostrar la cabecera
+        scrollContainer.addEventListener('scroll', () => {
+            let currentScroll = scrollContainer.scrollTop;
+            
+            if (currentScroll > lastScrollTop && currentScroll > 30) {
+                // Bajando: oculta la cabecera
+                collapsibleHeader.classList.add('collapsed');
+            } else if (currentScroll < lastScrollTop) {
+                // Subiendo: muestra la cabecera
+                collapsibleHeader.classList.remove('collapsed');
+            }
+            
+            if (currentScroll <= 10) {
+                collapsibleHeader.classList.remove('collapsed');
+            }
+            
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
                 document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
                 document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
             });
-            document.getElementById('mainScrollContainer').scrollTop = 0;
+            scrollContainer.scrollTop = 0;
+            collapsibleHeader.classList.remove('collapsed');
         }
 
         function toggleAccordion(contentId, iconId) {
@@ -527,7 +566,6 @@
             const icon = document.getElementById(iconId);
             const isOpen = content.classList.contains('open');
             
-            // Cerrar todos los demás acordeones opcionalmente si se prefiere uno a la vez
             ['acc-carrera', 'acc-vida', 'acc-espectaculos', 'acc-situacion'].forEach(id => {
                 document.getElementById(id).classList.remove('open');
             });
