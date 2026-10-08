@@ -122,9 +122,13 @@
     <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Banner & Profile -->
-        <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
-            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
+        <!-- Header Banner Video & Profile -->
+        <div class="relative h-44 sm:h-52 overflow-hidden shrink-0">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                <source src="videosmedia/sanderhorizontalvideo.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de video.
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent pointer-events-none"></div>
             
             <div class="absolute top-4 right-4 flex gap-2 z-20">
                 <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
