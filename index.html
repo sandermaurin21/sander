@@ -141,6 +141,20 @@
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
             font-weight: 700;
         }
+        /* Estilos de la Letra Sincronizada */
+        .lyric-line {
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .lyric-line.active {
+            color: #06b6d4;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+            transform: scale(1.02);
+        }
     </style>
 </head>
 <body class="bg-black flex items-center justify-center p-0 sm:p-6 relative">
@@ -502,22 +516,51 @@
 
         </div>
 
-        <!-- Floating Music Player Bar -->
-        <div id="floatingPlayer" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
-            <div class="flex items-center gap-3 overflow-hidden">
+        <!-- Floating Music Player Bar (Al presionarla despliega la Letra) -->
+        <div id="floatingPlayer" onclick="toggleLyricsModal()" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30 cursor-pointer hover:bg-white/5 transition" title="Toca para ver la letra sincronizada">
+            <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
                 <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
                 <div class="truncate">
                     <h4 id="playerTitle" class="text-xs font-bold text-white truncate">Track</h4>
-                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum</p>
+                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum (Toca para ver letra)</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center gap-2 shrink-0" onclick="event.stopPropagation()">
                 <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-xs"></i></button>
                 <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i></button>
                 <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-xs"></i></button>
             </div>
         </div>
 
+    </div>
+
+    <!-- Pantalla Flotante / Modal de Letra Sincronizada -->
+    <div id="lyricsModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden flex flex-col justify-between p-6 transition-all duration-300">
+        <!-- Header del Modal -->
+        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-cover bg-center overflow-hidden" id="lyricsCover" style="background-image: url('sandermedia/reggaeton.jpeg')"></div>
+                <div>
+                    <h3 id="lyricsTitle" class="text-sm font-bold text-white">NENA CAPRICHOSA</h3>
+                    <p id="lyricsAlbum" class="text-xs text-cyber-cyan">Reggaeton a mi manera</p>
+                </div>
+            </div>
+            <button onclick="toggleLyricsModal()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white hover:scale-110 transition">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+        </div>
+
+        <!-- Contenedor con Scroll de las Líneas de la Letra -->
+        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-center select-none scroll-smooth">
+            <!-- Las líneas se inyectarán dinámicamente mediante JS -->
+        </div>
+
+        <!-- Footer / Controles dentro de la Letra -->
+        <div class="border-t border-white/10 pt-4 flex items-center justify-center gap-6">
+            <button onclick="prevTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-sm"></i></button>
+            <button onclick="togglePlayState()" id="lyricsPlayBtn" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-sm" id="lyricsPlayIcon"></i></button>
+            <button onclick="nextTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-sm"></i></button>
+        </div>
     </div>
 
     <!-- Modals & Toasts -->
@@ -555,137 +598,76 @@
             {
                 title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
-                    { title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3" },
-                    { title: "TE OLVIDASTE DE MI", duration: "3:45", ytId: "66eroQqRkCE" },
-                    { title: "EL LOBO", duration: "3:15", ytId: "vWRMPc8R-oY" },
-                    { title: "NENA LOCA", duration: "3:30", ytId: "a7IMRFqst1k" },
-                    { title: "SUBE Y BAJA", duration: "3:12", ytId: "rWRu6O7IGLU" },
-                    { title: "TE QUEDA GRANDE MI AMOR", duration: "4:00", ytId: "tUGzQl0CG3A" },
-                    { title: "TI SEI ACORDATA DI ME", duration: "3:50", ytId: "TbHK8EOWrjo" }
+                    { 
+                        title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3",
+                        lyrics: [
+                            { time: 0, text: "(Intro Instrumental)" },
+                            { time: 5, text: "Yeah, Sander Maurin en los controles..." },
+                            { time: 10, text: "Nena caprichosa, tú sabes bien lo que provocas" },
+                            { time: 16, text: "Cuando miras de esa forma y te acercas a mi boca." },
+                            { time: 23, text: "No hay vuelta atrás, esta noche es para los dos" },
+                            { time: 30, text: "Sube el volumen y escucha bien mi voz." },
+                            { time: 38, text: "Bailando lento bajo la luz artificial" },
+                            { time: 46, text: "Este ritmo cibernético se siente real." },
+                            { time: 55, text: "(Coro)" },
+                            { time: 62, text: "Nena caprichosa, nadie lo hace como tú..." }
+                        ]
+                    },
+                    { title: "TE OLVIDASTE DE MI", duration: "3:45", ytId: "66eroQqRkCE", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "EL LOBO", duration: "3:15", ytId: "vWRMPc8R-oY", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "NENA LOCA", duration: "3:30", ytId: "a7IMRFqst1k", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "SUBE Y BAJA", duration: "3:12", ytId: "rWRu6O7IGLU", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "TE QUEDA GRANDE MI AMOR", duration: "4:00", ytId: "tUGzQl0CG3A", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "TI SEI ACORDATA DI ME", duration: "3:50", ytId: "TbHK8EOWrjo", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] }
                 ]
             },
             { 
                 title: "Sander Maurin", year: "2025", desc: "EP homónimo conceptual.", cover: "sandermedia/sanderdisco.jpeg", 
                 tracks: [
-                    { title: "MUJER MISTERIO", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "BAILA", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "DEMASIADO AMOR", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "SI TE VAS", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "NADA ESTA PERDIDO", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "DESESPERADO", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "LA FUERZA QUE NOS UNE", duration: "4:05", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "EL ANGEL", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TODO ESTA BIEN", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "BAILA REMIX", duration: "3:45", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
+                    { title: "MUJER MISTERIO", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] },
+                    { title: "BAILA", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Santan", year: "2024", desc: "Ritmos intensos y vibrantes.", cover: "sandermedia/santan.jpeg", 
                 tracks: [
-                    { title: "IRIS castellano", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "LA EMOCION NO TIENE VOZ", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TE OLVIDASTE DE MI", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TE OLVIDASTE DE MI (Alt)", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "POR QUE MI CORAZON", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "OTRO AMOR", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "VOLVERE A BESARTE castellano", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "IRIS", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "LA EMOCION italiano", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "PORQUE MI CORAZON italiano", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "OTRO AMOR italiano", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "VOLVERE A BESARTE italiano", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "BUSCANDO INSPIRACION", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "EL AMOR EXISTE EN EL CIELO", duration: "4:00", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "BAILEN TODOS BAILEN", duration: "3:05", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "SUAVE Y DESPACIO", duration: "3:35", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TE INVITO A MI PARISO remix", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "FIERAS", duration: "3:12", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
+                    { title: "IRIS castellano", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo con atmósferas elevadas.", cover: "sandermedia/desdelatierraalcielo.jpeg", 
                 tracks: [
-                    { title: "IRIS", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TE OLVIDASTE DE MI", duration: "3:45", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "SUAVE Y DESPACIO", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "LA EMOCION NO TIENE VOZ", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TE INVITO A MI PARAISO", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "VOLVERE A BESARTE", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "BAILEN SOLO BAILEN", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "ALGO DE MI QUEDA EN TI", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "BELLEZA FINA", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "PAPA", duration: "4:00", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "YO, EL TANGO Y TU", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "FIERAS", duration: "3:12", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "CARAMELO DE MIEL", duration: "3:35", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "DESDE LA TIERRA DEL CIELO", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
+                    { title: "IRIS", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", 
                 tracks: [
-                    { title: "NOCHE", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "QUE MAS", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "NACI PARA SER AMANTE", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "TENDRE QUE ACOSTUMBRARME", duration: "4:00", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "DEBES DECIRLE", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "VAS A LLORAR POR MI", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "QUIEN SABE DONDE ESTAS", duration: "3:45", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
+                    { title: "NOCHE", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", 
                 tracks: [
-                    { title: "ATENDEME", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "EN ESTE VERANO", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "TE EXTRAÑO A MORIR", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "BOCA A BOCA", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }
+                    { title: "ATENDEME", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", 
                 tracks: [
-                    { title: "HACE FRIO YA", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "CALLA", duration: "2:50", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "ME QUEDE EN EL BAR", duration: "3:30", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "DE RODILLAS", duration: "3:20", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "VA CAYENDO UNA LAGRIMA", duration: "3:40", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "TORMENTA DE VERANO", duration: "3:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "VENITE VOLANDO", duration: "3:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "VEN QUE ESTOY HIRVIENDO", duration: "3:25", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "PORQUE NO VALE LA PENA", duration: "3:50", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "PUERTO MONTT", duration: "4:00", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "EL TRIUNFADOR", duration: "3:35", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
+                    { title: "HACE FRIO YA", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.jpeg", 
                 tracks: [
-                    { title: "COMO TE AMO YO", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "BOCA A BOCA", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "TE OLVIDASTE DE MI", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "LO PLENO VINO A MI", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "YASMIN", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "MAGICAS PRINCESAS", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "SERE TU GUARDIAN", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
-                    { title: "NUNCA VOY A OLVIDARTE", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }
+                    { title: "COMO TE AMO YO", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             },
             { 
                 title: "Maural Rock", year: "2021", desc: "Rock alternativo con sello propio.", cover: "sandermedia/mauralrock.jpeg", 
                 tracks: [
-                    { title: "ANGEL", duration: "3:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "MENTIROSA", duration: "3:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "HACE FRIO YA", duration: "3:30", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "DE RODILLAS", duration: "3:20", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "SI TE VAS", duration: "3:25", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "DE LA NOCHE A LA MAÑANA", duration: "3:45", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "LOCO", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "NO SABER DE TI", duration: "3:50", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "PUERTO MONTT", duration: "4:00", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
-                    { title: "Y ME QUEDE EN EL BAR", duration: "3:35", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
+                    { title: "ANGEL", duration: "3:15", audio: "https://actions.google.com/science_fiction/teleport.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
                 ] 
             }
         ];
@@ -697,6 +679,36 @@
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, isPlaying = false;
         let audioElement = new Audio();
+
+        // Actualizar letra en tiempo real conforme avanza el audio
+        audioElement.addEventListener('timeupdate', () => {
+            const album = albumsData[currentAlbumIndex];
+            if (!album) return;
+            const track = album.tracks[currentTrackIndex];
+            if (!track || !track.lyrics) return;
+
+            const currentTime = audioElement.currentTime;
+            let activeIndex = 0;
+            for (let i = 0; i < track.lyrics.length; i++) {
+                if (currentTime >= track.lyrics[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            const lyricLines = document.querySelectorAll('.lyric-line');
+            lyricLines.forEach((line, idx) => {
+                if (idx === activeIndex) {
+                    if (!line.classList.contains('active')) {
+                        line.classList.add('active');
+                        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        });
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
@@ -748,15 +760,32 @@
 
         function playAlbumTrack(albumIdx, trackIdx) {
             currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
-            const track = albumsData[albumIdx].tracks[trackIdx];
+            const album = albumsData[albumIdx];
+            const track = album.tracks[trackIdx];
+            
             document.getElementById('playerTitle').innerText = track.title;
-            document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
-            document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
+            document.getElementById('playerAlbumName').innerText = album.title;
+            document.getElementById('playerCover').style.backgroundImage = `url('${album.cover}')`;
+            
+            document.getElementById('lyricsTitle').innerText = track.title;
+            document.getElementById('lyricsAlbum').innerText = album.title;
+            document.getElementById('lyricsCover').style.backgroundImage = `url('${album.cover}')`;
+
+            // Construir líneas de la letra
+            const lyricsContainer = document.getElementById('lyricsContainer');
+            lyricsContainer.innerHTML = '';
+            if (track.lyrics && track.lyrics.length > 0) {
+                track.lyrics.forEach((l, idx) => {
+                    lyricsContainer.innerHTML += `<p class="lyric-line ${idx === 0 ? 'active' : ''}" data-time="${l.time}">${l.text}</p>`;
+                });
+            } else {
+                lyricsContainer.innerHTML = `<p class="lyric-line active">Letra no disponible para esta canción.</p>`;
+            }
 
             if (track.audio) {
                 audioElement.src = track.audio;
                 audioElement.play().catch(e => console.error("Error al reproducir audio:", e));
-            } else if (track.ytId) {
+            } else {
                 audioElement.pause();
             }
 
@@ -776,7 +805,9 @@
         }
 
         function updatePlayButtonUI() {
-            document.getElementById('playerPlayIcon').className = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
+            const iconClass = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
+            document.getElementById('playerPlayIcon').className = iconClass;
+            document.getElementById('lyricsPlayIcon').className = isPlaying ? "fa-solid fa-pause text-sm" : "fa-solid fa-play text-sm";
         }
 
         function nextTrack() {
@@ -789,6 +820,15 @@
             const album = albumsData[currentAlbumIndex];
             currentTrackIndex = (currentTrackIndex - 1 + album.tracks.length) % album.tracks.length;
             playAlbumTrack(currentAlbumIndex, currentTrackIndex);
+        }
+
+        function toggleLyricsModal() {
+            const modal = document.getElementById('lyricsModal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
         }
 
         function openMilestone(index) {
