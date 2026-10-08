@@ -556,8 +556,13 @@
             {
                 title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
-                    { title: "Flow Dinámico", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Noche en la Ciudad", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
+                    { title: "NENA CAPRICHOSA", duration: "3:20", audio: "https://www.youtube.com/watch?v=m6PdGE8o1xk" },
+                    { title: "TE OLVIDASTE DE MI", duration: "3:45", audio: "https://www.youtube.com/watch?v=66eroQqRkCE" },
+                    { title: "EL LOBO", duration: "3:15", audio: "https://www.youtube.com/watch?v=vWRMPc8R-oY" },
+                    { title: "NENA LOCA", duration: "3:30", audio: "https://www.youtube.com/watch?v=a7IMRFqst1k" },
+                    { title: "SUBE Y BAJA", duration: "3:12", audio: "https://www.youtube.com/watch?v=rWRu6O7IGLU" },
+                    { title: "TE QUEDA GRANDE MI AMOR", duration: "4:00", audio: "https://www.youtube.com/watch?v=tUGzQl0CG3A" },
+                    { title: "TI SEI ACORDATA DI ME", duration: "3:50", audio: "https://www.youtube.com/watch?v=TbHK8EOWrjo" }
                 ]
             },
             { title: "Sander Maurin", year: "2025", desc: "EP homónimo conceptual.", cover: "sandermedia/sanderdisco.jpeg", tracks: [{ title: "Esencia Pura", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
@@ -603,7 +608,7 @@
             }
         }
 
-    function openAlbum(index) {
+        function openAlbum(index) {
             currentAlbumIndex = index;
             const album = albumsData[index];
             document.getElementById('detailAlbumCover').src = album.cover;
@@ -631,6 +636,8 @@
             document.getElementById('playerTitle').innerText = track.title;
             document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
             document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
+            
+            // Si es un enlace de YouTube normal, lo abrimos o manejamos mediante el reproductor estándar
             audioElement.src = track.audio;
             audioElement.play().catch(() => {});
             isPlaying = true; updatePlayButtonUI();
