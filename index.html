@@ -8,7 +8,7 @@
     <!-- Configuración para App Móvil (Pantalla Completa) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#03000a">
+    <meta name="theme-color" content="#000000">
     
     <!-- Enlace al Manifiesto Web para permitir la instalación -->
     <link rel="manifest" href="manifest.json">
@@ -22,10 +22,10 @@
                 extend: {
                     colors: {
                         cyber: {
-                            900: '#03000a',
-                            800: '#0a0518',
-                            700: '#150a2b',
-                            600: '#26124f',
+                            900: '#000000',
+                            800: '#050505',
+                            700: '#0a0a0a',
+                            600: '#171717',
                             accent: '#8b5cf6',
                             cyan: '#06b6d4',
                             gold: '#f59e0b'
@@ -45,7 +45,7 @@
             height: 100%;
             overflow: hidden;
             position: fixed;
-            background-color: #03000a;
+            background-color: #000000;
             color: #f3f4f6;
             margin: 0;
             padding: 0;
@@ -69,27 +69,27 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #8b5cf6;
         }
-        /* Glassmorphism card original */
+        /* Glassmorphism card con fondo negro puro */
         .glass-card {
-            background: rgba(10, 5, 24, 0.95);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.5);
         }
         .glass-tab {
-            background: rgba(21, 10, 43, 0.6);
+            background: rgba(15, 15, 15, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .glass-tab.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(6, 182, 212, 0.3));
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.2));
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
         }
         /* Neon glow effects */
         .neon-glow {
-            text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(6, 182, 212, 0.4);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
         }
         /* Tab transitions */
         .tab-content {
@@ -114,7 +114,7 @@
         /* Welcome Overlay Transitions */
         #welcomeOverlay {
             transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-            background-color: #03000a;
+            background-color: #000000;
         }
         #welcomeOverlay.fade-out {
             opacity: 0;
@@ -122,7 +122,7 @@
         }
         /* Botón 3D delicado, sin relleno y con borde dorado estilizado */
         .gold-3d-delicate-btn {
-            background: rgba(3, 0, 10, 0.2);
+            background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             border: 1.5px solid #f59e0b;
@@ -143,15 +143,15 @@
         }
     </style>
 </head>
-<body class="bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
+<body class="bg-black flex items-center justify-center p-0 sm:p-6 relative">
 
     <!-- Pantalla de Bienvenida con Video Vertical Claro y Botón Delicado 3D -->
-    <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-cyber-900 flex items-center justify-center overflow-hidden">
-        <video id="welcomeVideo" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover bg-cyber-900">
+    <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden">
+        <video id="welcomeVideo" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover bg-black">
             <source src="videosmedia/videoverticalsander.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de video.
         </video>
-        <!-- Capa muy ligera para asegurar visibilidad manteniendo la claridad del video -->
+        <!-- Capa sutil transparente para mantener la claridad del video -->
         <div class="absolute inset-0 bg-black/15 pointer-events-none"></div>
 
         <!-- Botón Delicado 3D con Borde Dorado -->
@@ -163,16 +163,12 @@
         </div>
     </div>
 
-    <!-- Ambient Neon Background Orbs -->
-    <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-
     <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
         <!-- Header Banner Image & Profile -->
         <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
-            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
             
             <div class="absolute top-4 right-4 flex gap-2 z-20">
                 <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
@@ -197,7 +193,7 @@
 
         <!-- Navigation Tabs -->
         <div class="px-4 pb-3 shrink-0">
-            <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
+            <div class="grid grid-cols-4 gap-1 p-1 bg-black/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
                     <i class="fa-solid fa-user text-sm"></i>
                     <span class="text-[10px]">Bio</span>
@@ -218,7 +214,7 @@
         </div>
 
         <!-- Scrollable Content Area -->
-        <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
+        <div class="px-6 pb-6 overflow-y-auto flex-1 relative bg-black" id="mainScrollContainer">
 
             <!-- 1. BIO TAB -->
             <div id="content-bio" class="tab-content active space-y-3">
@@ -507,7 +503,7 @@
         </div>
 
         <!-- Floating Music Player Bar -->
-        <div id="floatingPlayer" class="hidden shrink-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
+        <div id="floatingPlayer" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
                 <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
                 <div class="truncate">
@@ -525,7 +521,7 @@
     </div>
 
     <!-- Modals & Toasts -->
-    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-cyber-800 border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
+    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-black border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
         <i class="fa-solid fa-circle-check text-cyber-cyan"></i>
         <span id="toastMessage">Acción completada con éxito</span>
     </div>
@@ -607,7 +603,7 @@
             }
         }
 
-        function openAlbum(index) {
+    function openAlbum(index) {
             currentAlbumIndex = index;
             const album = albumsData[index];
             document.getElementById('detailAlbumCover').src = album.cover;
