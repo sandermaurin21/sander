@@ -21,7 +21,7 @@
             overflow-y: auto;
         }
 
-        /* Pantalla de Bienvenida - Fondo Neón con Pantallas 3D Flotantes */
+        /* Pantalla de Bienvenida */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -37,13 +37,12 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .welcome-screen.fade-out-elegant {
             opacity: 0;
-            transform: scale(1.1);
-            filter: blur(12px);
+            visibility: hidden;
             pointer-events: none;
         }
 
@@ -55,18 +54,27 @@
             text-align: center;
             width: 550px;
             max-width: 90vw;
-            z-index: 1;
-            pointer-events: none;
+            z-index: 5;
         }
 
         .welcome-logo-video {
             width: 100%;
             height: auto;
             object-fit: contain;
-            border: none !important;
-            outline: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
+            border: none;
+            outline: none;
+            background: transparent;
+        }
+
+        .fallback-logo-text {
+            display: none;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #00f3ff, #ff2a6d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
         }
 
         .geometric-bg-3d {
@@ -88,18 +96,6 @@
             backdrop-filter: blur(2px);
             border-radius: 8px;
             animation: floatScreens 16s infinite linear;
-        }
-
-        .tv-screen-3d::after {
-            content: '';
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            width: 30%;
-            height: 3px;
-            background: rgba(255, 42, 109, 0.6);
-            border-radius: 2px;
-            box-shadow: 0 0 8px rgba(255, 42, 109, 0.8);
         }
 
         .screen-1 { width: 140px; height: 90px; top: 15%; left: 8%; animation-duration: 18s; }
@@ -131,9 +127,10 @@
             text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2);
             transition: all 0.3s ease;
+            touch-action: manipulation;
         }
 
-        .neon-enter-btn:hover {
+        .neon-enter-btn:hover, .neon-enter-btn:active {
             background: #00f3ff;
             color: #000000;
             box-shadow: 0 0 35px #00f3ff, 0 0 70px rgba(255, 42, 109, 0.6);
@@ -141,14 +138,14 @@
             text-shadow: none;
         }
 
-        /* Contenedor Principal CORREGIDO para evitar pantalla negra */
+        /* Contenedor Principal (App) */
         .app-container {
             display: none;
             opacity: 0;
             min-height: 100vh;
             position: relative;
             background-color: #0b0614;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease;
         }
 
         .app-container.active {
@@ -156,7 +153,7 @@
             opacity: 1;
         }
 
-        /* Barra Superior Fija */
+        /* Barra Superior */
         .top-nav {
             display: flex;
             justify-content: space-between;
@@ -203,7 +200,7 @@
             font-size: 0.9rem;
         }
 
-        /* Menú de Pestañas Superior */
+        /* Submenú de Navegación */
         .sub-nav {
             display: flex;
             justify-content: space-around;
@@ -235,10 +232,10 @@
             font-size: 0.9rem;
             position: relative;
             transition: color 0.3s ease;
+            touch-action: manipulation;
         }
 
-        .nav-item:hover { color: #fff; }
-        .nav-item.active { color: #fff; font-weight: bold; }
+        .nav-item:hover, .nav-item.active { color: #fff; font-weight: bold; }
         .nav-item.active::after {
             content: '';
             position: absolute;
@@ -249,7 +246,7 @@
             border-radius: 2px;
         }
 
-        /* Vistas de Contenido Dinámicas */
+        /* Secciones de Contenido */
         .content-section {
             display: none;
             padding: 20px;
@@ -381,7 +378,6 @@
             width: 24px; height: 24px; font-size: 0.7rem; cursor: pointer; display: flex;
             align-items: center; justify-content: center; z-index: 3; touch-action: manipulation;
         }
-        .card-remove-btn:active { transform: scale(1.1); }
 
         /* Famosos MS3 */
         .famosos-slider {
@@ -409,16 +405,14 @@
             z-index: 999999; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
         .vertical-mini-player.active { display: flex; flex-direction: column; }
-        .vertical-mini-player iframe, .vertical-mini-player video {
-            width: 100%; height: 100%; border: none; object-fit: cover; background: #000;
-        }
         .mini-close-btn {
             position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #ff2a6d;
             border: 1px solid #ff2a6d; border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem;
             cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000000;
+            touch-action: manipulation;
         }
 
-        /* MODAL DE PREVISIÓN */
+        /* Modal de Previsualización */
         .preview-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 9999;
@@ -450,7 +444,7 @@
         .preview-actions { display: flex; gap: 12px; }
         .preview-actions .btn { flex: 1; padding: 12px; text-align: center; justify-content: center; display: flex; align-items: center; gap: 8px; }
 
-        /* Reproductor Pantalla Completa YouTube 360° nativo */
+        /* Reproductor Pantalla Completa YouTube 360° */
         .player-fullscreen-container {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #000; z-index: 99999; display: none; justify-content: center; align-items: center;
@@ -474,10 +468,10 @@
     <!-- Pantalla de Bienvenida -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-logo-container">
-            <video class="welcome-logo-video" autoplay muted loop playsinline>
+            <video class="welcome-logo-video" id="welcomeVideo" autoplay muted loop playsinline>
                 <source src="ms3media/ms3logo.mp4.mp4" type="video/mp4">
-                Tu navegador no soporta videos.
             </video>
+            <div class="fallback-logo-text" id="fallbackLogo">MS3 VR TV</div>
         </div>
 
         <div class="geometric-bg-3d">
@@ -658,7 +652,7 @@
         </div>
     </div>
 
-    <!-- Reproductor Pantalla Completa YouTube 360° nativo -->
+    <!-- REPRODUCTOR PANTALLA COMPLETA -->
     <div class="player-fullscreen-container" id="playerContainer">
         <div class="control-top">
             <button class="close-btn" id="closePlayerBtn">✕</button>
@@ -674,13 +668,29 @@
         const welcomeScreen = document.getElementById('welcomeScreen');
         const appContainer = document.getElementById('appContainer');
         const enterBtn = document.getElementById('enterBtn');
+        const welcomeVideo = document.getElementById('welcomeVideo');
+        const fallbackLogo = document.getElementById('fallbackLogo');
+
+        // Manejo seguro si el video de bienvenida no carga o falla
+        welcomeVideo.addEventListener('error', () => {
+            welcomeVideo.style.display = 'none';
+            fallbackLogo.style.display = 'block';
+        });
+
+        // Forzar respaldo si tarda demasiado en reproducir
+        setTimeout(() => {
+            if (welcomeVideo.readyState === 0) {
+                welcomeVideo.style.display = 'none';
+                fallbackLogo.style.display = 'block';
+            }
+        }, 2000);
 
         enterBtn.addEventListener('click', () => {
             welcomeScreen.classList.add('fade-out-elegant');
+            appContainer.classList.add('active');
             setTimeout(() => {
                 welcomeScreen.style.display = 'none';
-                appContainer.classList.add('active');
-            }, 800);
+            }, 600);
         });
 
         const navItems = document.querySelectorAll('.sub-nav .nav-item');
