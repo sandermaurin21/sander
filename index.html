@@ -502,9 +502,6 @@
 
         </div>
 
-        <!-- Contenedor Oculto para Reproducir el Audio de YouTube (Iframe invisible) -->
-        <div id="youtubeAudioContainer" class="hidden"></div>
-
         <!-- Floating Music Player Bar -->
         <div id="floatingPlayer" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
@@ -558,7 +555,7 @@
             {
                 title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
-                    { title: "NENA CAPRICHOSA", duration: "3:20", ytId: "m6PdGE8o1xk" },
+                    { title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3" },
                     { title: "TE OLVIDASTE DE MI", duration: "3:45", ytId: "66eroQqRkCE" },
                     { title: "EL LOBO", duration: "3:15", ytId: "vWRMPc8R-oY" },
                     { title: "NENA LOCA", duration: "3:30", ytId: "a7IMRFqst1k" },
@@ -699,6 +696,7 @@
         ];
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, isPlaying = false;
+        let audioElement = new Audio();
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
@@ -748,24 +746,18 @@
             document.getElementById('albumsMainView').classList.remove('hidden');
         }
 
-        let audioElement = new Audio();
-
         function playAlbumTrack(albumIdx, trackIdx) {
             currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
             const track = albumsData[albumIdx].tracks[trackIdx];
             document.getElementById('playerTitle').innerText = track.title;
             document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
             document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
-            
-            const ytContainer = document.getElementById('youtubeAudioContainer');
-            ytContainer.innerHTML = '';
 
-            if (track.ytId) {
-                ytContainer.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/${track.ytId}?autoplay=1&enablejsapi=1" frameborder="0" allow="autoplay"></iframe>`;
-                audioElement.pause();
-            } else if (track.audio) {
+            if (track.audio) {
                 audioElement.src = track.audio;
-                audioElement.play().catch(() => {});
+                audioElement.play().catch(e => console.error("Error al reproducir audio:", e));
+            } else if (track.ytId) {
+                audioElement.pause();
             }
 
             isPlaying = true; updatePlayButtonUI();
@@ -777,10 +769,9 @@
             isPlaying = !isPlaying;
             updatePlayButtonUI();
             if (!isPlaying) {
-                document.getElementById('youtubeAudioContainer').innerHTML = '';
                 audioElement.pause();
             } else {
-                playAlbumTrack(currentAlbumIndex, currentTrackIndex);
+                audioElement.play().catch(() => {});
             }
         }
 
