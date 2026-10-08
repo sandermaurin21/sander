@@ -123,12 +123,19 @@
 </head>
 <body class="bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
 
-    <!-- Pantalla de Bienvenida con Video Automático -->
+    <!-- Pantalla de Bienvenida con Video Automático y Botón de Acceso -->
     <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-cyber-900 flex items-center justify-center overflow-hidden">
-        <video id="welcomeVideo" autoplay muted playsinline class="w-full h-full object-cover">
+        <video id="welcomeVideo" autoplay muted playsinline preload="auto" class="w-full h-full object-cover">
             <source src="videosmedia/videobienvenida.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de video.
         </video>
+        <!-- Botón de seguridad flotante por si el video falla o no inicia automáticamente -->
+        <div class="absolute bottom-10 z-50 w-full flex justify-center px-6">
+            <button onclick="dismissWelcomeScreen()" class="glass-tab px-6 py-3 rounded-2xl text-xs font-bold text-white uppercase tracking-widest border border-cyber-accent shadow-2xl hover:bg-cyber-accent/30 transition flex items-center gap-2">
+                <span>Entrar al Sitio</span>
+                <i class="fa-solid fa-arrow-right text-cyber-cyan"></i>
+            </button>
+        </div>
     </div>
 
     <!-- Ambient Neon Background Orbs -->
@@ -281,7 +288,7 @@
                     </div>
 
                     <div class="grid grid-cols-3 gap-3">
-                        <!-- Disc 1: Reggaeton a mi manera -->
+                        <!-- Disc 1 -->
                         <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton a mi manera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Reggaeton'">
@@ -290,7 +297,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
                         </div>
                         
-                        <!-- Disc 2: Sander Maurin -->
+                        <!-- Disc 2 -->
                         <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/sanderdisco.jpeg" alt="Sander Maurin" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Maurin'">
@@ -299,7 +306,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2025 • EP</span>
                         </div>
 
-                        <!-- Disc 3: Santan -->
+                        <!-- Disc 3 -->
                         <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/santan.jpeg" alt="Santan" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Santan'">
@@ -308,7 +315,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
                         </div>
 
-                        <!-- Disc 4: Desde la tierra al cielo -->
+                        <!-- Disc 4 -->
                         <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/desdelatierraalcielo.jpeg" alt="Desde la tierra al cielo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Tierra+Al+Cielo'">
@@ -317,7 +324,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
                         </div>
 
-                        <!-- Disc 5: Bachata -->
+                        <!-- Disc 5 -->
                         <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/bachata.jpeg" alt="Bachata" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Bachata'">
@@ -326,7 +333,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
                         </div>
 
-                        <!-- Disc 6: Maural -->
+                        <!-- Disc 6 -->
                         <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/maural.jpeg" alt="Maural" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural'">
@@ -335,7 +342,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
                         </div>
 
-                        <!-- Disc 7: Los eternos iracundos -->
+                        <!-- Disc 7 -->
                         <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/losiracundos.jpeg" alt="Los eternos iracundos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Iracundos'">
@@ -344,7 +351,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
                         </div>
 
-                        <!-- Disc 8: Sander mix -->
+                        <!-- Disc 8 -->
                         <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/sandermix.jpeg" alt="Sander Mix" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Mix'">
@@ -353,7 +360,7 @@
                             <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
                         </div>
 
-                        <!-- Disc 9: Maural rock -->
+                        <!-- Disc 9 -->
                         <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
                                 <img src="sandermedia/mauralrock.jpeg" alt="Maural Rock" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural+Rock'">
@@ -503,34 +510,44 @@
     </div>
 
     <script>
+        // Función global accesible para cerrar la bienvenida en cualquier momento
+        function dismissWelcomeScreen() {
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            const welcomeVideo = document.getElementById('welcomeVideo');
+            if (welcomeOverlay && !welcomeOverlay.classList.contains('fade-out')) {
+                welcomeOverlay.classList.add('fade-out');
+                if (welcomeVideo) welcomeVideo.pause();
+                setTimeout(() => {
+                    welcomeOverlay.remove();
+                }, 800);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const welcomeVideo = document.getElementById('welcomeVideo');
-            const welcomeOverlay = document.getElementById('welcomeOverlay');
 
-            // Función para ocultar la pantalla de bienvenida con transición fluida
-            function dismissWelcomeScreen() {
-                if (welcomeOverlay && !welcomeOverlay.classList.contains('fade-out')) {
-                    welcomeOverlay.classList.add('fade-out');
-                    setTimeout(() => {
-                        welcomeOverlay.remove();
-                    }, 800);
-                }
-            }
-
-            // Cuando finalice el video, se abre la aplicación directamente
             if (welcomeVideo) {
+                // Cuando finalice el video, se abre la aplicación
                 welcomeVideo.onended = dismissWelcomeScreen;
                 
-                // Fallback por si el navegador bloquea la reproducción automática con sonido (aunque está muted)
+                // Forzar reproducción y añadir respaldo por si el navegador bloquea el autoplay
                 welcomeVideo.play().catch(() => {
-                    // Si la reproducción automática falla por políticas estrictas del navegador, permitimos un click en cualquier parte para iniciar o saltar
+                    // Si el navegador bloquea el autoplay, permitimos un toque en cualquier parte para iniciar
                     document.body.addEventListener('click', () => {
-                        welcomeVideo.play().catch(() => {});
+                        welcomeVideo.play().catch(() => {
+                            // Si falla por completo, eliminamos la pantalla negra directamente
+                            dismissWelcomeScreen();
+                        });
                     }, { once: true });
                 });
             } else {
                 dismissWelcomeScreen();
             }
+
+            // Temporizador de seguridad máximo: si por algún motivo el video no carga en 4 segundos, se quita la pantalla negra automáticamente
+            setTimeout(() => {
+                dismissWelcomeScreen();
+            }, 4000);
         });
 
         const albumsData = [
@@ -547,139 +564,4 @@
             { title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", tracks: [{ title: "Ritmo de Pasión", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
             { title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", tracks: [{ title: "Sonido Maural", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
             { title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", tracks: [{ title: "Eterno Recuerdo", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
-            { title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.jpeg", tracks: [{ title: "Megamix Vol. 1", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "Maural Rock", year: "2021", desc: "Rock alternativo con sello propio.", cover: "sandermedia/mauralrock.jpeg", tracks: [{ title: "Energía Cruda", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
-        ];
-
-        const milestonesData = [
-            { year: "2026", title: "Lanzamiento Mundial de Gira", text: "Gira monumental por múltiples países...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
-            { year: "2024", title: "Reconocimiento Artístico", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] }
-        ];
-
-        let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
-
-        function switchTab(tabId) {
-            ['bio', 'music', 'timeline', 'booking'].forEach(t => {
-                document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
-                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
-            });
-            document.getElementById('mainScrollContainer').scrollTop = 0;
-        }
-
-        function toggleAccordion(contentId, iconId) {
-            const content = document.getElementById(contentId);
-            const icon = document.getElementById(iconId);
-            const isOpen = content.classList.contains('open');
-            
-            ['acc-carrera', 'acc-vida', 'acc-espectaculos', 'acc-situacion'].forEach(id => {
-                document.getElementById(id).classList.remove('open');
-            });
-            ['icon-carrera', 'icon-vida', 'icon-espectaculos', 'icon-situacion'].forEach(id => {
-                document.getElementById(id).style.transform = 'rotate(0deg)';
-            });
-
-            if (!isOpen) {
-                content.classList.add('open');
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        function openAlbum(index) {
-            currentAlbumIndex = index;
-            const album = albumsData[index];
-            document.getElementById('detailAlbumCover').src = album.cover;
-            document.getElementById('detailAlbumYear').innerText = album.year;
-            document.getElementById('detailAlbumTitle').innerText = album.title;
-            document.getElementById('detailAlbumDesc').innerText = album.desc;
-            
-            const tracklistEl = document.getElementById('detailTracklist');
-            tracklistEl.innerHTML = '';
-            album.tracks.forEach((track, tIdx) => {
-                tracklistEl.innerHTML += `<div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition group"><div class="flex items-center gap-2.5"><span class="text-xs font-mono text-cyber-cyan">0${tIdx + 1}</span><span class="text-xs text-white font-medium">${track.title}</span></div><i class="fa-solid fa-play text-[10px] text-cyber-accent"></i></div>`;
-            });
-            document.getElementById('albumsMainView').classList.add('hidden');
-            document.getElementById('albumDetailView').classList.remove('hidden');
-        }
-
-        function closeAlbum() {
-            document.getElementById('albumDetailView').classList.add('hidden');
-            document.getElementById('albumsMainView').classList.remove('hidden');
-        }
-
-        function playAlbumTrack(albumIdx, trackIdx) {
-            currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
-            const track = albumsData[albumIdx].tracks[trackIdx];
-            document.getElementById('playerTitle').innerText = track.title;
-            document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
-            document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
-            audioElement.src = track.audio;
-            audioElement.play().catch(() => {});
-            isPlaying = true; updatePlayButtonUI();
-            document.getElementById('floatingPlayer').classList.remove('hidden');
-            showToast(`Reproduciendo: ${track.title}`);
-        }
-
-        function togglePlayState() {
-            if (!audioElement.src) { playAlbumTrack(0, 0); return; }
-            isPlaying = !isPlaying;
-            if (isPlaying) audioElement.play(); else audioElement.pause();
-            updatePlayButtonUI();
-        }
-
-        function updatePlayButtonUI() {
-            document.getElementById('playerPlayIcon').className = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
-        }
-
-        function nextTrack() {
-            const album = albumsData[currentAlbumIndex];
-            currentTrackIndex = (currentTrackIndex + 1) % album.tracks.length;
-            playAlbumTrack(currentAlbumIndex, currentTrackIndex);
-        }
-
-        function prevTrack() {
-            const album = albumsData[currentAlbumIndex];
-            currentTrackIndex = (currentTrackIndex - 1 + album.tracks.length) % album.tracks.length;
-            playAlbumTrack(currentAlbumIndex, currentTrackIndex);
-        }
-
-        function openMilestone(index) {
-            const m = milestonesData[index];
-            document.getElementById('detailMilestoneYear').innerText = m.year;
-            document.getElementById('detailMilestoneTitle').innerText = m.title;
-            document.getElementById('detailMilestoneText').innerText = m.text;
-            const gallery = document.getElementById('detailMilestoneGallery');
-            gallery.innerHTML = '';
-            m.images.forEach(img => {
-                gallery.innerHTML += `<div class="h-28 rounded-xl overflow-hidden glass-tab group relative cursor-pointer" onclick="openLightbox('${img}')"><img src="${img}" class="w-full h-full object-cover"></div>`;
-            });
-            document.getElementById('timelineListView').classList.add('hidden');
-            document.getElementById('milestoneDetailView').classList.remove('hidden');
-        }
-
-        function closeMilestone() {
-            document.getElementById('milestoneDetailView').classList.add('hidden');
-            document.getElementById('timelineListView').classList.remove('hidden');
-        }
-
-        function shareCard() {
-            if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); showToast('¡Enlace copiado!'); }
-        }
-
-        function downloadEPK() {
-            showToast('Generando dossier EPK en PDF...');
-            setTimeout(() => showToast('¡EPK descargado!'), 1500);
-        }
-
-        function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').classList.replace('hidden', 'flex'); }
-        function closeLightbox() { document.getElementById('lightboxModal').classList.replace('flex', 'hidden'); }
-
-        function showToast(msg) {
-            const t = document.getElementById('toastNotification');
-            document.getElementById('toastMessage').innerText = msg;
-            t.classList.remove('translate-y-20', 'opacity-0');
-            t.classList.add('translate-y-0', 'opacity-100');
-            setTimeout(() => { t.classList.remove('translate-y-0', 'opacity-100'); t.classList.add('translate-y-20', 'opacity-0'); }, 3000);
-        }
-    </script>
-</body>
-</html>
+            { title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.
