@@ -531,7 +531,7 @@
     </div>
 
     <script>
-        // Función para ocultar la pantalla de bienvenida y pausar su video
+        // Ocultar pantalla de bienvenida
         function dismissWelcomeScreen() {
             const welcomeOverlay = document.getElementById('welcomeOverlay');
             const welcomeVideo = document.getElementById('welcomeVideo');
@@ -544,7 +544,6 @@
             }
         }
 
-        // Forzar reproducción inmediata
         document.addEventListener('DOMContentLoaded', () => {
             const welcomeVideo = document.getElementById('welcomeVideo');
             if (welcomeVideo) {
@@ -604,10 +603,63 @@
                     { title: "FIERAS", duration: "3:12", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
                 ] 
             },
-            { title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo con atmósferas elevadas.", cover: "sandermedia/desdelatierraalcielo.jpeg", tracks: [{ title: "IRIS", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", tracks: [{ title: "Ritmo de Pasión", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", tracks: [{ title: "Sonido Maural", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", tracks: [{ title: "Eterno Recuerdo", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
+            { 
+                title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo con atmósferas elevadas.", cover: "sandermedia/desdelatierraalcielo.jpeg", 
+                tracks: [
+                    { title: "IRIS", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "TE OLVIDASTE DE MI", duration: "3:45", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "SUAVE Y DESPACIO", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "LA EMOCION NO TIENE VOZ", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "TE INVITO A MI PARAISO", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "VOLVERE A BESARTE", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "TI SEI SCORDATA DI ME", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "BAILEN SOLO BAILEN", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "ALGO DE MI QUEDA EN TI", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "BELLEZA FINA", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "PAPA", duration: "4:00", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "YO, EL TANGO Y TU", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "FIERAS", duration: "3:12", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "CARAMELO DE MIEL", duration: "3:35", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "DESDE LA TIERRA DEL CIELO", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
+                ] 
+            },
+            { 
+                title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", 
+                tracks: [
+                    { title: "NOCHE", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "QUE MAS", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "NACI PARA SER AMANTE", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "TENDRE QUE ACOSTUMBRARME", duration: "4:00", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "DEBES DECIRLE", duration: "3:25", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "VAS A LLORAR POR MI", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
+                    { title: "QUIEN SABE DONDE ESTAS", duration: "3:45", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }
+                ] 
+            },
+            { 
+                title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", 
+                tracks: [
+                    { title: "ATENDEME", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
+                    { title: "EN ESTE VERANO", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
+                    { title: "TE EXTRAÑO A MORIR", duration: "3:50", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" },
+                    { title: "BOCA A BOCA", duration: "3:15", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }
+                ] 
+            },
+            { 
+                title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", 
+                tracks: [
+                    { title: "HACE FRIO YA", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "CALLA", duration: "2:50", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "ME QUEDE EN EL BAR", duration: "3:30", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "DE RODILLAS", duration: "3:20", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "VA CAYENDO UNA LAGRIMA", duration: "3:40", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "TORMENTA DE VERANO", duration: "3:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "VENITE VOLANDO", duration: "3:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "VEN QUE ESTOY HIRVIENDO", duration: "3:25", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "PORQUE NO VALE LA PENA", duration: "3:50", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "PUERTO MONTT", duration: "4:00", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" },
+                    { title: "EL TRIUNFADOR", duration: "3:35", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
+                ] 
+            },
             { title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.jpeg", tracks: [{ title: "Megamix Vol. 1", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
             { title: "Maural Rock", year: "2021", desc: "Rock alternativo con sello propio.", cover: "sandermedia/mauralrock.jpeg", tracks: [{ title: "Energía Cruda", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
         ];
