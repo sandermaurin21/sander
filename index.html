@@ -502,6 +502,9 @@
 
         </div>
 
+        <!-- Contenedor Oculto para Reproducir el Audio de YouTube (Iframe invisible) -->
+        <div id="youtubeAudioContainer" class="hidden"></div>
+
         <!-- Floating Music Player Bar -->
         <div id="floatingPlayer" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
             <div class="flex items-center gap-3 overflow-hidden">
@@ -555,14 +558,13 @@
             {
                 title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
-                    { title: "NENA CAPRICHOSA", duration: "3:20", audio: "musicassander/1.Nena Caprichosa.wav" },
-                    { title: "EL LOBO", duration: "3:15", audio: "musicassander/2.El Lobo.wav" },
-                    { title: "NENA LOCA", duration: "3:30", audio: "musicassander/3.Nena Loca.wav" },
-                    { title: "TE OLVIDASTE DE MI", duration: "3:45", audio: "musicassander/4.Te olvidaste de mi.wav" },
-                    { title: "NENA CAPRICHOSA (PORTUGUES)", duration: "3:35", audio: "musicassander/5.Nena Caprichosa (portugues).wav" },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:50", audio: "musicassander/6.Ti sei scordata di me.wav" },
-                    { title: "TE QUEDA GRANDE MI AMOR", duration: "4:00", audio: "musicassander/7.te queda grande.wav" },
-                    { title: "SUBE Y BAJA", duration: "3:12", audio: "musicassander/8.Sube y Baja.wav" }
+                    { title: "NENA CAPRICHOSA", duration: "3:20", ytId: "m6PdGE8o1xk" },
+                    { title: "TE OLVIDASTE DE MI", duration: "3:45", ytId: "66eroQqRkCE" },
+                    { title: "EL LOBO", duration: "3:15", ytId: "vWRMPc8R-oY" },
+                    { title: "NENA LOCA", duration: "3:30", ytId: "a7IMRFqst1k" },
+                    { title: "SUBE Y BAJA", duration: "3:12", ytId: "rWRu6O7IGLU" },
+                    { title: "TE QUEDA GRANDE MI AMOR", duration: "4:00", ytId: "tUGzQl0CG3A" },
+                    { title: "TI SEI ACORDATA DI ME", duration: "3:50", ytId: "TbHK8EOWrjo" }
                 ]
             },
             { 
@@ -696,7 +698,7 @@
             { year: "2024", title: "Reconocimiento Artístico", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] }
         ];
 
-        let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
+        let currentAlbumIndex = 0, currentTrackIndex = 0, isPlaying = false;
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
@@ -746,6 +748,8 @@
             document.getElementById('albumsMainView').classList.remove('hidden');
         }
 
+        let audioElement = new Audio(); // Para los demás audios locales o de respaldo
+
         function playAlbumTrack(albumIdx, trackIdx) {
             currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
             const track = albumsData[albumIdx].tracks[trackIdx];
@@ -753,18 +757,32 @@
             document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
             document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
             
-            audioElement.src = track.audio;
-            audioElement.play().catch(() => {});
+            const ytContainer = document.getElementById('youtubeAudioContainer');
+            ytContainer.innerHTML = '';
+
+            if (track.ytId) {
+                // Reproducir audio mediante iframe invisible de YouTube
+                ytContainer.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/${track.ytId}?autoplay=1&enablejsapi=1" frameborder="0" allow="autoplay"></iframe>`;
+                audioElement.pause();
+            } else if (track.audio) {
+                audioElement.src = track.audio;
+                audioElement.play().catch(() => {});
+            }
+
             isPlaying = true; updatePlayButtonUI();
             document.getElementById('floatingPlayer').classList.remove('hidden');
             showToast(`Reproduciendo: ${track.title}`);
         }
 
         function togglePlayState() {
-            if (!audioElement.src) { playAlbumTrack(0, 0); return; }
             isPlaying = !isPlaying;
-            if (isPlaying) audioElement.play(); else audioElement.pause();
             updatePlayButtonUI();
+            if (!isPlaying) {
+                document.getElementById('youtubeAudioContainer').innerHTML = '';
+                audioElement.pause();
+            } else {
+                playAlbumTrack(currentAlbumIndex, currentTrackIndex);
+            }
         }
 
         function updatePlayButtonUI() {
