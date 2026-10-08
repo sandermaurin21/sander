@@ -1,684 +1,846 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SANDER MAURIN // Official Artist ID</title>
-    
-    <!-- Configuración para App Móvil (Pantalla Completa) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#03000a">
-    
-    <!-- Enlace al Manifiesto Web para permitir la instalación -->
-    <link rel="manifest" href="manifest.json">
-
-    <!-- Tailwind CSS for modern responsive utility classes -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        cyber: {
-                            900: '#03000a',
-                            800: '#0a0518',
-                            700: '#150a2b',
-                            600: '#26124f',
-                            accent: '#8b5cf6',
-                            cyan: '#06b6d4',
-                            gold: '#f59e0b'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & Syncopate -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <title>MS3 - La Nueva Televisión Inmersiva</title>
     <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            position: fixed;
-            background-color: #03000a;
-            color: #f3f4f6;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-overflow-scrolling: touch;
+            -webkit-tap-highlight-color: transparent;
         }
-        .font-syncopate {
-            font-family: 'Syncopate', sans-serif;
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #fff;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
-        /* Custom scrollbar para la zona interna */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
+
+        /* Pantalla de Bienvenida - Fondo Neón con Pantallas 3D Flotantes */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000;
+            perspective: 1400px;
+            overflow: hidden;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
         }
-        ::-webkit-scrollbar-track {
+
+        .welcome-screen.fade-out-elegant {
+            opacity: 0;
+            transform: scale(1.1);
+            filter: blur(12px);
+            pointer-events: none;
+        }
+
+        .welcome-logo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -54%);
+            text-align: center;
+            width: 550px;
+            max-width: 90vw;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .welcome-logo-video {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        .geometric-bg-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            transform-style: preserve-3d;
+        }
+
+        .tv-screen-3d {
+            position: absolute;
+            background: rgba(10, 5, 20, 0.45);
+            border: 2px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.25), inset 0 0 15px rgba(255, 42, 109, 0.2);
+            backdrop-filter: blur(2px);
+            border-radius: 8px;
+            animation: floatScreens 16s infinite linear;
+        }
+
+        .tv-screen-3d::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            width: 30%;
+            height: 3px;
+            background: rgba(255, 42, 109, 0.6);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(255, 42, 109, 0.8);
+        }
+
+        .screen-1 { width: 140px; height: 90px; top: 15%; left: 8%; animation-duration: 18s; }
+        .screen-2 { width: 160px; height: 100px; top: 62%; left: 10%; animation-duration: 22s; animation-direction: reverse; }
+        .screen-3 { width: 130px; height: 85px; top: 18%; right: 10%; animation-duration: 15s; }
+        .screen-4 { width: 170px; height: 110px; bottom: 12%; right: 12%; animation-duration: 24s; }
+        .screen-5 { width: 120px; height: 75px; top: 42%; left: 3%; animation-duration: 20s; }
+        .screen-6 { width: 150px; height: 95px; top: 32%; right: 5%; animation-duration: 19s; animation-direction: reverse; }
+
+        @keyframes floatScreens {
+            0% { transform: translateZ(-300px) rotateX(0deg) rotateY(0deg) translateY(0px); opacity: 0.25; }
+            50% { transform: translateZ(280px) rotateX(180deg) rotateY(180deg) translateY(-35px); opacity: 0.8; }
+            100% { transform: translateZ(-300px) rotateX(360deg) rotateY(360deg) translateY(0px); opacity: 0.25; }
+        }
+
+        .neon-enter-btn {
+            position: absolute;
+            bottom: 12vh;
+            z-index: 10;
             background: transparent;
+            color: #00f3ff;
+            border: 2px solid #00f3ff;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #26124f;
-            border-radius: 3px;
+
+        .neon-enter-btn:hover {
+            background: #00f3ff;
+            color: #000000;
+            box-shadow: 0 0 35px #00f3ff, 0 0 70px rgba(255, 42, 109, 0.6);
+            transform: scale(1.08);
+            text-shadow: none;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
-        }
-        /* Glassmorphism card */
-        .glass-card {
-            background: rgba(10, 5, 24, 0.95);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.1);
-        }
-        .glass-tab {
-            background: rgba(21, 10, 43, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .glass-tab.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(6, 182, 212, 0.3));
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-        }
-        /* Neon glow effects */
-        .neon-glow {
-            text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(6, 182, 212, 0.4);
-        }
-        /* Tab transitions */
-        .tab-content {
+
+        /* Contenedor Principal CORREGIDO para evitar pantalla negra */
+        .app-container {
             display: none;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            min-height: 100vh;
+            position: relative;
+            background-color: #0b0614;
+            transition: opacity 0.8s ease;
         }
-        .tab-content.active {
+
+        .app-container.active {
             display: block;
             opacity: 1;
         }
-        .accordion-content {
-            max-height: 0;
+
+        /* Barra Superior Fija */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 24px;
+            background: rgba(11,6,20,0.95);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #fff, #b19fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
+        .top-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            color: #b19fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Menú de Pestañas Superior */
+        .sub-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 20px;
+            position: fixed;
+            top: 65px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(11, 6, 20, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.9rem;
+            z-index: 999;
+            overflow-x: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8a859b;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 4px;
+            white-space: nowrap;
+            padding: 0 10px;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover { color: #fff; }
+        .nav-item.active { color: #fff; font-weight: bold; }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            width: 25px;
+            height: 3px;
+            background-color: #ff2a6d;
+            border-radius: 2px;
+        }
+
+        /* Vistas de Contenido Dinámicas */
+        .content-section {
+            display: none;
+            padding: 20px;
+            padding-top: 140px;
+            padding-bottom: 60px;
+            background-color: #0b0614;
+            min-height: 100vh;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            color: #8a859b;
+            margin-bottom: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Banner Destacado */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 430px;
+            border-radius: 16px;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            opacity: 0;
+            background: linear-gradient(135deg, rgba(43, 17, 85, 0.5), rgba(117, 89, 125, 0.5)), url('ms3media/sanderdocumentalnuevo.jpeg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 42, 109, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
         }
-        .accordion-content.open {
-            max-height: 1000px;
-            opacity: 1;
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 30%, rgba(11,6,20,0.95) 100%);
+            z-index: 1;
         }
-        /* Welcome Overlay Transitions */
-        #welcomeOverlay {
-            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+
+        .hero-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(120, 50, 255, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        #welcomeOverlay.fade-out {
-            opacity: 0;
-            visibility: hidden;
+
+        .hero-details { position: relative; z-index: 2; }
+        .hero-details h2 { font-size: 1.4rem; margin-bottom: 15px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .hero-buttons { display: flex; gap: 10px; }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-primary { background-color: #fff; color: #000; }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Carruseles y Cuadrículas */
+        .row-section { margin-top: 30px; }
+        .row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .cards-slider { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .cards-slider::-webkit-scrollbar { display: none; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+
+        .card {
+            flex: 0 0 180px;
+            height: 110px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            background-color: #1a1528;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+            touch-action: manipulation;
+        }
+        .cards-grid .card { width: 100%; height: 120px; }
+        .card:active { transform: scale(0.97); }
+
+        .card-bg {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #151025, #3c2a6d);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; background-size: cover; background-position: center;
+        }
+
+        .card-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%);
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 8px;
+            pointer-events: none;
+        }
+        .card-title { font-size: 0.8rem; font-weight: bold; line-height: 1.1; }
+        .card-tag {
+            position: absolute; top: 6px; left: 6px; font-size: 0.6rem;
+            background: rgba(11, 6, 20, 0.7); padding: 2px 6px; border-radius: 4px; color: #d8b4fe; z-index: 2;
+        }
+
+        .card-remove-btn {
+            position: absolute; top: 6px; right: 6px; background: rgba(0, 0, 0, 0.7);
+            color: #ff2a6d; border: 1px solid rgba(255, 42, 109, 0.4); border-radius: 50%;
+            width: 24px; height: 24px; font-size: 0.7rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; z-index: 3; touch-action: manipulation;
+        }
+        .card-remove-btn:active { transform: scale(1.1); }
+
+        /* Famosos MS3 */
+        .famosos-slider {
+            display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        }
+        .famosos-slider::-webkit-scrollbar { display: none; }
+        .famoso-item {
+            flex: 0 0 95px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; touch-action: manipulation;
+        }
+        .famoso-circle {
+            width: 90px; height: 90px; border-radius: 50%; 
+            border: 2px solid #00f3ff;
+            box-shadow: 0 0 12px rgba(0, 243, 255, 0.6), inset 0 0 8px rgba(0, 243, 255, 0.3);
+            background-size: cover; background-position: center; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .famoso-circle:active { transform: scale(0.95); box-shadow: 0 0 20px #00f3ff; }
+        .famoso-name { font-size: 0.75rem; text-align: center; font-weight: bold; color: #d8b4fe; white-space: nowrap; }
+
+        /* Reproductor Vertical Flotante Mini */
+        .vertical-mini-player {
+            position: fixed; bottom: 30px; right: 20px; width: 160px; height: 280px;
+            background: #000; border: 2px solid #00f3ff; border-radius: 12px; overflow: hidden;
+            z-index: 999999; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+        }
+        .vertical-mini-player.active { display: flex; flex-direction: column; }
+        .vertical-mini-player iframe, .vertical-mini-player video {
+            width: 100%; height: 100%; border: none; object-fit: cover; background: #000;
+        }
+        .mini-close-btn {
+            position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #ff2a6d;
+            border: 1px solid #ff2a6d; border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000000;
+        }
+
+        /* MODAL DE PREVISIÓN */
+        .preview-modal {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .preview-modal.active { opacity: 1; pointer-events: auto; }
+        .preview-content {
+            background: #151022; width: 100%; max-width: 550px; border-radius: 16px;
+            overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8); position: relative;
+            transform: scale(0.95); transition: transform 0.3s ease;
+        }
+        .preview-modal.active .preview-content { transform: scale(1); }
+        .preview-header-img {
+            width: 100%; height: 240px; background: linear-gradient(135deg, #2b1055, #a855f7);
+            display: flex; align-items: center; justify-content: center; font-size: 4rem;
+            position: relative; background-size: cover; background-position: center;
+        }
+        .preview-close {
+            position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.6);
+            color: white; border: none; width: 36px; height: 36px; border-radius: 50%;
+            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            touch-action: manipulation;
+        }
+        .preview-body { padding: 20px; }
+        .preview-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; }
+        .preview-desc { font-size: 0.9rem; color: #b8b2cb; line-height: 1.5; margin-bottom: 25px; }
+        .preview-actions { display: flex; gap: 12px; }
+        .preview-actions .btn { flex: 1; padding: 12px; text-align: center; justify-content: center; display: flex; align-items: center; gap: 8px; }
+
+        /* Reproductor Pantalla Completa YouTube 360° nativo */
+        .player-fullscreen-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #000; z-index: 99999; display: none; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .player-fullscreen-container.active { display: flex; opacity: 1; }
+        .youtube-player-iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 9999; display: block;
+        }
+        .control-top { position: absolute; top: 20px; right: 20px; z-index: 100000; }
+        .close-btn {
+            background: rgba(0, 0, 0, 0.6); color: white; border: 2px solid white;
+            font-size: 1.2rem; width: 44px; height: 44px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            touch-action: manipulation;
         }
     </style>
 </head>
-<body class="bg-cyber-900 flex items-center justify-center p-0 sm:p-6 relative">
+<body>
 
-    <!-- Pantalla de Bienvenida con Video Automático -->
-    <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-cyber-900 flex items-center justify-center overflow-hidden">
-        <video id="welcomeVideo" autoplay muted playsinline class="w-full h-full object-cover">
-            <source src="videosmedia/videobienvenida.mp4" type="video/mp4">
-            Tu navegador no soporta la reproducción de video.
-        </video>
+    <!-- Pantalla de Bienvenida -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-logo-container">
+            <video class="welcome-logo-video" autoplay muted loop playsinline>
+                <source src="ms3media/ms3logo.mp4.mp4" type="video/mp4">
+                Tu navegador no soporta videos.
+            </video>
+        </div>
+
+        <div class="geometric-bg-3d">
+            <div class="tv-screen-3d screen-1"></div>
+            <div class="tv-screen-3d screen-2"></div>
+            <div class="tv-screen-3d screen-3"></div>
+            <div class="tv-screen-3d screen-4"></div>
+            <div class="tv-screen-3d screen-5"></div>
+            <div class="tv-screen-3d screen-6"></div>
+        </div>
+
+        <button class="neon-enter-btn" id="enterBtn">INGRESAR</button>
     </div>
 
-    <!-- Ambient Neon Background Orbs -->
-    <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-
-    <!-- Main Container Card -->
-    <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
+    <!-- Contenedor Principal (App) -->
+    <div class="app-container" id="appContainer">
         
-        <!-- Header Banner & Profile -->
-        <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
-            <div class="absolute inset-0 bg-gradient-to-t from-cyber-900 via-cyber-900/40 to-transparent"></div>
-            
-            <div class="absolute top-4 right-4 flex gap-2 z-20">
-                <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
-                    <i class="fa-solid fa-share-nodes text-sm"></i>
-                </button>
+        <!-- Barra Superior -->
+        <div class="top-nav">
+            <div class="logo" id="logoHomeBtn">MS3</div>
+            <div class="top-icons">
+                <div class="profile-icon" id="profileBtn" title="Mi Cuenta">GV</div>
+                <div id="settingsBtn" title="Ajustes">⚙</div>
             </div>
         </div>
 
-        <!-- Avatar & Artist Info -->
-        <div class="px-6 pb-3 relative -mt-16 text-right shrink-0">
-            <div class="relative inline-block mx-auto mb-2 float-right mr-1">
-                <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
-                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
+        <!-- Pestañas de Navegación -->
+        <div class="sub-nav">
+            <button class="nav-item active" data-target="tabInicio">Inicio</button>
+            <button class="nav-item" data-target="tabProgramas">Programas VR</button>
+            <button class="nav-item" data-target="tabDirectos">Noticias</button>
+            <button class="nav-item" data-target="tabMiLista">Mi Lista</button>
+            <button class="nav-item" data-target="tabBusqueda">Búsqueda</button>
+        </div>
+
+        <!-- VISTA 1: INICIO -->
+        <div class="content-section active" id="tabInicio">
+            <div class="section-title">Destacado</div>
+            <div class="hero-banner">
+                <div class="hero-overlay"></div>
+                <div class="hero-badge">MS3 EXCLUSIVO</div>
+                <div class="hero-details">
+                    <h2>SANDER MAURIN : creador y director de MS3</h2>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="openPlayer('Sander maurin creador y director de ms3', 'https://youtu.be/cQeUF8H2PR0?si=T-jnZonZnGdbJ9bs')">▶ REPRODUCIR</button>
+                        <button class="btn btn-secondary" onclick="openPreview('Sander maurin creador y director de ms3', '<img src=&quot;ms3media/sanderdocumentalnuevo.jpeg&quot; style=&quot;width:100%; height:100%; object-fit:cover;&quot;>', 'Disfruta de este contenido exclusivo inmersivo dirigido por Sander Maurin...', 'https://youtu.be/cQeUF8H2PR0?si=T-jnZonZnGdbJ9bs')">INFO</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="clear-both pt-2">
-                <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
-                <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
+            <!-- Carrusel 1: PROGRAMAS EN REALIDAD VIRTUAL -->
+            <div class="row-section">
+                <div class="row-header"><div class="section-title" style="margin-bottom:0;">PROGRAMAS EN REALIDAD VIRTUAL</div></div>
+                <div class="cards-slider">
+                    <div class="card" onclick="openPreview('Buscando a la futura vedette', '<img src=&quot;ms3media/vedettehorizontal.png&quot; style=&quot;width:100%; height:100%; object-fit:cover;&quot;>', 'Experiencia 360° en realidad virtual oficial de YouTube.', 'https://youtu.be/y3qO1OL5nRg?si=_-jENRWRLTTkCJI6')">
+                        <div class="card-bg" style="background-image: url('ms3media/vedettehorizontal.png');"></div><span class="card-tag">360° Pro</span><div class="card-overlay"><div class="card-title">Buscando a la futura vedette</div></div>
+                    </div>
+                    <div class="card" onclick="openPreview('MEDICINA VR 1', '<img src=&quot;ms3media/medicinahorizontal.png&quot; style=&quot;width:100%; height:100%; object-fit:cover;&quot;>', 'Avances médicos inmersivos parte 1.', 'https://youtu.be/cQeUF8H2PR0?si=T-jnZonZnGdbJ9bs')">
+                        <div class="card-bg" style="background-image: url('ms3media/medicinahorizontal.png');"></div><span class="card-tag">360°</span><div class="card-overlay"><div class="card-title">MEDICINA VR 1</div></div>
+                    </div>
+                    <div class="card" onclick="openPreview('LA MASA VR', '<img src=&quot;ms3media/lamasahorizontal.png&quot; style=&quot;width:100%; height:100%; object-fit:cover;&quot;>', 'Detrás de escena inmersivo de LA MASA.', 'https://youtu.be/cQeUF8H2PR0?si=T-jnZonZnGdbJ9bs')">
+                        <div class="card-bg" style="background-image: url('ms3media/lamasahorizontal.png');"></div><span class="card-tag">360°</span><div class="card-overlay"><div class="card-title">LA MASA VR</div></div>
+                    </div>
+                    <div class="card" onclick="openPreview('AGR COMPETICION', '<img src=&quot;ms3media/agrcompeticionhorizontal.png&quot; style=&quot;width:100%; height:100%; object-fit:cover;&quot;>', 'Adrenalina total en pista y boxes.', 'https://youtu.be/cQeUF8H2PR0?si=T-jnZonZnGdbJ9bs')">
+                        <div class="card-bg" style="background-image: url('ms3media/agrcompeticionhorizontal.png');"></div><span class="card-tag">Motor</span><div class="card-overlay"><div class="card-title">AGR COMPETICION</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrusel 2: NOTICIAS EN VIVO -->
+            <div class="row-section">
+                <div class="row-header"><div class="section-title" style="margin-bottom:0;">NOTICIAS EN VIVO</div></div>
+                <div class="cards-slider">
+                    <div class="card" onclick="openPlayer('CRONICA', 'https://www.youtube.com/embed/hw4uHyct4vg?autoplay=1&mute=0&enablejsapi=1')">
+                        <div class="card-bg"><span style="font-size:0.8rem; color:#b19fff;">CRÓNICA TV</span></div>
+                        <span class="card-tag">EN VIVO</span><div class="card-overlay"><div class="card-title">CRONICA</div></div>
+                    </div>
+                    <div class="card" onclick="openPlayer('A24', 'https://www.youtube.com/embed/ArKbAx1K-2U?autoplay=1&mute=0&enablejsapi=1')">
+                        <div class="card-bg"><span style="font-size:0.8rem; color:#b19fff;">A24</span></div>
+                        <span class="card-tag">EN VIVO</span><div class="card-overlay"><div class="card-title">A24</div></div>
+                    </div>
+                    <div class="card" onclick="openPlayer('TN', 'https://www.youtube.com/embed/cb12KmMMDJA?autoplay=1&mute=0&enablejsapi=1')">
+                        <div class="card-bg"><span style="font-size:0.8rem; color:#b19fff;">TN</span></div>
+                        <span class="card-tag">EN VIVO</span><div class="card-overlay"><div class="card-title">TN</div></div>
+                    </div>
+                    <div class="card" onclick="openPlayer('C5N', 'https://www.youtube.com/embed/j6oh4Kqz3UM?autoplay=1&mute=0&enablejsapi=1')">
+                        <div class="card-bg"><span style="font-size:0.8rem; color:#b19fff;">C5N</span></div>
+                        <span class="card-tag">EN VIVO</span><div class="card-overlay"><div class="card-title">C5N</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrusel 3: FAMOSOS DE MS3 -->
+            <div class="row-section">
+                <div class="row-header"><div class="section-title" style="margin-bottom:0;">FAMOSOS DE MS3</div></div>
+                <div class="famosos-slider">
+                    <div class="famoso-item" onclick="openVerticalMiniPlayer('Guillermo Francella', 'https://www.youtube.com/embed/m3UE2RQ9bJE?autoplay=1&controls=0&mute=0&loop=1&playlist=m3UE2RQ9bJE')">
+                        <div class="famoso-circle" style="background-image: url('ms3media/guillermofranchellafoto.jpeg');"></div>
+                        <div class="famoso-name">Guillermo Francella</div>
+                    </div>
+                    <div class="famoso-item" onclick="openVerticalMiniPlayer('Valeria Lynch', 'https://www.youtube.com/embed/chu-fsb3pOA?autoplay=1&controls=0&mute=0&loop=1&playlist=chu-fsb3pOA')">
+                        <div class="famoso-circle" style="background-image: url('ms3media/valerialynchfoto.jpeg');"></div>
+                        <div class="famoso-name">Valeria Lynch</div>
+                    </div>
+                    <div class="famoso-item" onclick="openVerticalMiniPlayer('Anibal Pachano', 'https://www.youtube.com/embed/EI4rURxtBcA?autoplay=1&controls=0&mute=0&loop=1&playlist=EI4rURxtBcA')">
+                        <div class="famoso-circle" style="background-image: url('ms3media/anibalpachanofoto.jpeg');"></div>
+                        <div class="famoso-name">Anibal Pachano</div>
+                    </div>
+                    <div class="famoso-item" onclick="openVerticalMiniPlayer('Lucia Galan', 'https://www.youtube.com/embed/Z6574MiZEA8?autoplay=1&controls=0&mute=0&loop=1&playlist=Z6574MiZEA8')">
+                        <div class="famoso-circle" style="background-image: url('ms3media/luciagalanfoto.jpeg');"></div>
+                        <div class="famoso-name">Lucia Galan</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Navigation Tabs -->
-        <div class="px-4 pb-3 shrink-0">
-            <div class="grid grid-cols-4 gap-1 p-1 bg-cyber-800/80 rounded-2xl border border-white/5">
-                <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
-                    <i class="fa-solid fa-user text-sm"></i>
-                    <span class="text-[10px]">Bio</span>
-                </button>
-                <button onclick="switchTab('music')" id="tab-music" class="glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-compact-disc text-sm"></i>
-                    <span class="text-[10px]">Discos</span>
-                </button>
-                <button onclick="switchTab('timeline')" id="tab-timeline" class="glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-timeline text-sm"></i>
-                    <span class="text-[10px]">Trayectoria</span>
-                </button>
-                <button onclick="switchTab('booking')" id="tab-booking" class="glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-envelope text-sm"></i>
-                    <span class="text-[10px]">Booking</span>
-                </button>
+        <!-- VISTA 2: PROGRAMAS VR -->
+        <div class="content-section" id="tabProgramas">
+            <div class="section-title">Catálogo Completo de Programas VR</div>
+            <div class="cards-grid">
+                <div class="card" onclick="openPreview('Buscando a la futura vedette', '<img src=&quot;ms3media/vedettehorizontal.png&quot; style=&quot;width:100%; height:100%; object-fit:cover;&quot;>', 'Experiencia 360° en realidad virtual.', 'https://youtu.be/y3qO1OL5nRg?si=_-jENRWRLTTkCJI6')">
+                    <div class="card-bg" style="background-image: url('ms3media/vedettehorizontal.png');"></div><span class="card-tag">360° Pro</span><div class="card-overlay"><div class="card-title">Buscando a la futura vedette</div></div>
+                </div>
             </div>
         </div>
 
-        <!-- Scrollable Content Area -->
-        <div class="px-6 pb-6 overflow-y-auto flex-1 relative" id="mainScrollContainer">
-
-            <!-- 1. BIO TAB -->
-            <div id="content-bio" class="tab-content active space-y-3">
-                <div class="glass-tab p-4 rounded-2xl mb-3">
-                    <h3 class="text-sm font-bold text-cyber-cyan uppercase tracking-wider mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-book-open"></i> Biografía Oficial & Estilo
-                    </h3>
-                    <p class="text-xs text-gray-300">
-                        Explora la trayectoria, aspectos íntimos, estructura de espectáculos y la situación actual del artista a través de los siguientes apartados desplegables:
-                    </p>
-                </div>
-
-                <!-- Acordeón: CARRERA -->
-                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
-                    <button onclick="toggleAccordion('acc-carrera', 'icon-carrera')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
-                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                            <i class="fa-solid fa-microphone-lines text-cyber-accent"></i> Carrera
-                        </span>
-                        <i id="icon-carrera" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
-                    </button>
-                    <div id="acc-carrera" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="rounded-xl overflow-hidden h-36 relative">
-                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600" alt="Carrera" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Acordeón: VIDA PRIVADA -->
-                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
-                    <button onclick="toggleAccordion('acc-vida', 'icon-vida')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
-                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                            <i class="fa-solid fa-heart text-pink-400"></i> Vida Privada
-                        </span>
-                        <i id="icon-vida" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
-                    </button>
-                    <div id="acc-vida" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="rounded-xl overflow-hidden h-36 relative">
-                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Vida Privada" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados y retiros de inspiración. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Acordeón: ESPECTACULOS Y DIRECCIONES -->
-                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
-                    <button onclick="toggleAccordion('acc-espectaculos', 'icon-espectaculos')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
-                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                            <i class="fa-solid fa-masks-theater text-cyber-cyan"></i> Espectáculos y Direcciones
-                        </span>
-                        <i id="icon-espectaculos" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
-                    </button>
-                    <div id="acc-espectaculos" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="rounded-xl overflow-hidden h-36 relative">
-                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600" alt="Espectáculos" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica, simulando un entorno distópico interactivo.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Acordeón: SITUACION ACTUAL -->
-                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
-                    <button onclick="toggleAccordion('acc-situacion', 'icon-situacion')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
-                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                            <i class="fa-solid fa-satellite-dish text-cyber-gold"></i> Situación Actual
-                        </span>
-                        <i id="icon-situacion" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
-                    </button>
-                    <div id="acc-situacion" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="rounded-xl overflow-hidden h-36 relative">
-                            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=600" alt="Situación Actual" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Actualmente se encuentra inmerso en la producción y promoción de sus nuevos lanzamientos discográficos y giras internacionales.
-                        </p>
-                    </div>
+        <!-- VISTA 3: NOTICIAS -->
+        <div class="content-section" id="tabDirectos">
+            <div class="section-title">Transmisiones en Vivo y Noticias</div>
+            <div class="cards-grid">
+                <div class="card" onclick="openPlayer('CRONICA', 'https://www.youtube.com/embed/hw4uHyct4vg?autoplay=1&mute=0&enablejsapi=1')">
+                    <div class="card-bg"><span style="font-size:0.8rem; color:#b19fff;">CRÓNICA TV</span></div>
+                    <span class="card-tag">EN VIVO</span><div class="card-overlay"><div class="card-title">CRONICA</div></div>
                 </div>
             </div>
-
-            <!-- 2. DISCOGRAPHY TAB -->
-            <div id="content-music" class="tab-content space-y-4">
-                <div id="albumsMainView">
-                    <div class="text-center mb-3">
-                        <h3 class="text-sm font-bold text-white tracking-wider">Discografía Oficial (9 Discos)</h3>
-                        <p class="text-[11px] text-gray-400">Toca cualquier disco para abrir su contenido y playlist</p>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-3">
-                        <!-- Disc 1: Reggaeton a mi manera -->
-                        <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton a mi manera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Reggaeton'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Reggaeton a mi manera</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
-                        </div>
-                        
-                        <!-- Disc 2: Sander Maurin -->
-                        <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/sanderdisco.jpeg" alt="Sander Maurin" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Maurin'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Sander Maurin</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2025 • EP</span>
-                        </div>
-
-                        <!-- Disc 3: Santan -->
-                        <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/santan.jpeg" alt="Santan" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Santan'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Santan</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
-                        </div>
-
-                        <!-- Disc 4: Desde la tierra al cielo -->
-                        <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/desdelatierraalcielo.jpeg" alt="Desde la tierra al cielo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Tierra+Al+Cielo'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Desde la tierra al cielo</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
-                        </div>
-
-                        <!-- Disc 5: Bachata -->
-                        <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/bachata.jpeg" alt="Bachata" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Bachata'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Bachata</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
-                        </div>
-
-                        <!-- Disc 6: Maural -->
-                        <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/maural.jpeg" alt="Maural" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Maural</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
-                        </div>
-
-                        <!-- Disc 7: Los eternos iracundos -->
-                        <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/losiracundos.jpeg" alt="Los eternos iracundos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Iracundos'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Los eternos iracundos</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
-                        </div>
-
-                        <!-- Disc 8: Sander mix -->
-                        <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/sandermix.jpeg" alt="Sander Mix" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Mix'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Sander Mix</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
-                        </div>
-
-                        <!-- Disc 9: Maural rock -->
-                        <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
-                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/mauralrock.jpeg" alt="Maural Rock" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural+Rock'">
-                            </div>
-                            <h4 class="text-[11px] font-bold text-white truncate">Maural Rock</h4>
-                            <span class="text-[9px] text-cyber-cyan block">2021 • LP</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Unfolded Album Detail View -->
-                <div id="albumDetailView" class="hidden space-y-4 animate-fadeIn">
-                    <button onclick="closeAlbum()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2 hover:bg-cyber-accent/20 transition">
-                        <i class="fa-solid fa-arrow-left"></i> Volver a Discos
-                    </button>
-
-                    <div class="glass-tab p-4 rounded-2xl flex flex-col sm:flex-row gap-4 items-center">
-                        <div class="w-32 h-32 rounded-xl overflow-hidden shrink-0 shadow-2xl relative">
-                            <img id="detailAlbumCover" src="" alt="Album" class="w-full h-full object-cover">
-                        </div>
-                        <div class="text-center sm:text-left">
-                            <span id="detailAlbumYear" class="text-[10px] font-mono text-cyber-cyan px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 uppercase">2026</span>
-                            <h3 id="detailAlbumTitle" class="text-lg font-bold text-white mt-1">Título del Álbum</h3>
-                            <p id="detailAlbumDesc" class="text-xs text-gray-300 mt-1">Descripción detallada...</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider px-1">Playlist del Álbum</h4>
-                        <div id="detailTracklist" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. TIMELINE TAB -->
-            <div id="content-timeline" class="tab-content space-y-4">
-                <div id="timelineListView">
-                    <div class="text-center mb-2">
-                        <h3 class="text-sm font-bold text-white tracking-wider">Trayectoria & Hitos</h3>
-                        <p class="text-[11px] text-gray-400">Toca cualquier hito para ver la historia completa</p>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div onclick="openMilestone(0)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
-                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
-                            </div>
-                            <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de Gira</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por múltiples escenarios...</p>
-                        </div>
-                        <div onclick="openMilestone(1)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-[10px] font-mono text-cyber-accent font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-800">2024</span>
-                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
-                            </div>
-                            <h4 class="text-xs font-bold text-white">Reconocimiento Artístico</h4>
-                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Premio a la innovación musical y producción...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="milestoneDetailView" class="hidden space-y-4 animate-fadeIn">
-                    <button onclick="closeMilestone()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2 hover:bg-cyber-accent/20 transition">
-                        <i class="fa-solid fa-arrow-left"></i> Volver
-                    </button>
-                    <div class="glass-tab p-4 rounded-2xl space-y-3">
-                        <span id="detailMilestoneYear" class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
-                        <h3 id="detailMilestoneTitle" class="text-base font-bold text-white">Título</h3>
-                        <p id="detailMilestoneText" class="text-xs text-gray-300 leading-relaxed"></p>
-                        <div class="pt-2">
-                            <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Galería</h4>
-                            <div id="detailMilestoneGallery" class="grid grid-cols-2 gap-2"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. BOOKING TAB -->
-            <div id="content-booking" class="tab-content space-y-4">
-                <div class="text-center mb-1">
-                    <h3 class="text-sm font-bold text-white tracking-wider">Contacto & Booking</h3>
-                    <p class="text-[11px] text-gray-400">Contrataciones y prensa oficial</p>
-                </div>
-
-                <div class="space-y-2.5">
-                    <a href="https://wa.me/1234567890" target="_blank" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center">
-                                <i class="fa-brands fa-whatsapp text-base"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white group-hover:text-green-400 transition">WhatsApp Booking</h4>
-                                <p class="text-[10px] text-gray-400">Respuesta inmediata</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
-                    </a>
-
-                    <a href="mailto:booking@sandermaurin.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyber-cyan flex items-center justify-center">
-                                <i class="fa-solid fa-envelope text-base"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white group-hover:text-cyber-cyan transition">Correo Electrónico</h4>
-                                <p class="text-[10px] text-gray-400">booking@sandermaurin.com</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
-                    </a>
-
-                    <button onclick="downloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Descargar EPK (PDF)
-                    </button>
-                </div>
-            </div>
-
         </div>
 
-        <!-- Floating Music Player Bar -->
-        <div id="floatingPlayer" class="hidden shrink-0 bg-cyber-800/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30">
-            <div class="flex items-center gap-3 overflow-hidden">
-                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
-                <div class="truncate">
-                    <h4 id="playerTitle" class="text-xs font-bold text-white truncate">Track</h4>
-                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum</p>
+        <!-- VISTA 4: MI LISTA -->
+        <div class="content-section" id="tabMiLista">
+            <div class="section-title">Tus Videos Guardados en el Perfil</div>
+            <div class="cards-grid" id="gridMyList"></div>
+        </div>
+
+        <!-- VISTA 5: BÚSQUEDA -->
+        <div class="content-section" id="tabBusqueda">
+            <div class="section-title">Resultados Populares</div>
+            <div class="cards-grid">
+                <div class="card" onclick="openPlayer('CRONICA', 'https://www.youtube.com/embed/hw4uHyct4vg?autoplay=1&mute=0&enablejsapi=1')">
+                    <div class="card-bg"><span style="font-size:0.8rem; color:#b19fff;">CRÓNICA TV</span></div>
+                    <span class="card-tag">EN VIVO</span><div class="card-overlay"><div class="card-title">CRONICA</div></div>
                 </div>
-            </div>
-            <div class="flex items-center gap-2 shrink-0">
-                <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-xs"></i></button>
-                <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i></button>
-                <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-xs"></i></button>
             </div>
         </div>
 
     </div>
 
-    <!-- Modals & Toasts -->
-    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-cyber-800 border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
-        <i class="fa-solid fa-circle-check text-cyber-cyan"></i>
-        <span id="toastMessage">Acción completada con éxito</span>
+    <!-- REPRODUCTOR VERTICAL MINI FLOTANTE -->
+    <div class="vertical-mini-player" id="verticalMiniPlayer">
+        <button class="mini-close-btn" onclick="closeVerticalMiniPlayer()">✕</button>
+        <div id="verticalPlayerWrapper" style="width:100%; height:100%; position:relative;"></div>
     </div>
 
-    <div id="lightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
-        <img id="lightboxImg" src="" alt="Ampliada" class="max-w-full max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain">
+    <!-- MODAL DE PREVISUALIZACIÓN -->
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-content">
+            <div class="preview-header-img" id="modalImg">
+                🚀
+                <button class="preview-close" onclick="closePreview()">✕</button>
+            </div>
+            <div class="preview-body">
+                <div class="preview-title" id="modalTitle">Título del Programa</div>
+                <div class="preview-desc" id="modalDesc">Descripción detallada...</div>
+                <div class="preview-actions">
+                    <button class="btn btn-primary" id="modalPlayBtn">▶ Reproducir</button>
+                    <button class="btn btn-secondary" id="modalAddListBtn">+ Agregar a mi lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reproductor Pantalla Completa YouTube 360° nativo -->
+    <div class="player-fullscreen-container" id="playerContainer">
+        <div class="control-top">
+            <button class="close-btn" id="closePlayerBtn">✕</button>
+        </div>
+        <iframe id="youtubeIframe" class="youtube-player-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; xr-spatial-tracking" allowfullscreen></iframe>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const welcomeVideo = document.getElementById('welcomeVideo');
-            const welcomeOverlay = document.getElementById('welcomeOverlay');
+        let myList = [
+            { title: 'CRONICA', icon: '📡', desc: 'Transmisión en directo de Crónica TV.', url: 'https://www.youtube.com/embed/hw4uHyct4vg?autoplay=1&mute=0&enablejsapi=1' }
+        ];
 
-            // Función para ocultar la pantalla de bienvenida con transición fluida
-            function dismissWelcomeScreen() {
-                if (welcomeOverlay && !welcomeOverlay.classList.contains('fade-out')) {
-                    welcomeOverlay.classList.add('fade-out');
-                    setTimeout(() => {
-                        welcomeOverlay.remove();
-                    }, 800);
-                }
-            }
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const appContainer = document.getElementById('appContainer');
+        const enterBtn = document.getElementById('enterBtn');
 
-            // Cuando finalice el video, se abre la aplicación directamente
-            if (welcomeVideo) {
-                welcomeVideo.onended = dismissWelcomeScreen;
-                
-                // Fallback por si el navegador bloquea la reproducción automática con sonido (aunque está muted)
-                welcomeVideo.play().catch(() => {
-                    // Si la reproducción automática falla por políticas estrictas del navegador, permitimos un click en cualquier parte para iniciar o saltar
-                    document.body.addEventListener('click', () => {
-                        welcomeVideo.play().catch(() => {});
-                    }, { once: true });
-                });
-            } else {
-                dismissWelcomeScreen();
-            }
+        enterBtn.addEventListener('click', () => {
+            welcomeScreen.classList.add('fade-out-elegant');
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                appContainer.classList.add('active');
+            }, 800);
         });
 
-        const albumsData = [
-            {
-                title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
-                tracks: [
-                    { title: "Flow Dinámico", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" },
-                    { title: "Noche en la Ciudad", duration: "4:05", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }
-                ]
-            },
-            { title: "Sander Maurin", year: "2025", desc: "EP homónimo conceptual.", cover: "sandermedia/sanderdisco.jpeg", tracks: [{ title: "Esencia Pura", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Santan", year: "2024", desc: "Ritmos intensos y vibrantes.", cover: "sandermedia/santan.jpeg", tracks: [{ title: "Santan Groove", duration: "4:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo con atmósferas elevadas.", cover: "sandermedia/desdelatierraalcielo.jpeg", tracks: [{ title: "Elevación", duration: "2:48", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", tracks: [{ title: "Ritmo de Pasión", duration: "3:40", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg" }] },
-            { title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", tracks: [{ title: "Sonido Maural", duration: "3:55", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", tracks: [{ title: "Eterno Recuerdo", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] },
-            { title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.jpeg", tracks: [{ title: "Megamix Vol. 1", duration: "3:22", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" }] },
-            { title: "Maural Rock", year: "2021", desc: "Rock alternativo con sello propio.", cover: "sandermedia/mauralrock.jpeg", tracks: [{ title: "Energía Cruda", duration: "4:15", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg" }] }
-        ];
+        const navItems = document.querySelectorAll('.sub-nav .nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
 
-        const milestonesData = [
-            { year: "2026", title: "Lanzamiento Mundial de Gira", text: "Gira monumental por múltiples países...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
-            { year: "2024", title: "Reconocimiento Artístico", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] }
-        ];
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                contentSections.forEach(sec => sec.classList.remove('active'));
 
-        let currentAlbumIndex = 0, currentTrackIndex = 0, audioElement = new Audio(), isPlaying = false;
-
-        function switchTab(tabId) {
-            ['bio', 'music', 'timeline', 'booking'].forEach(t => {
-                document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
-                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
+                item.classList.add('active');
+                const targetId = item.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if(targetId === 'tabMiLista') { renderMyList(); }
             });
-            document.getElementById('mainScrollContainer').scrollTop = 0;
+        });
+
+        document.getElementById('logoHomeBtn').addEventListener('click', () => {
+            navItems.forEach(nav => nav.classList.remove('active'));
+            contentSections.forEach(sec => sec.classList.remove('active'));
+            navItems[0].classList.add('active');
+            document.getElementById('tabInicio').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const verticalMiniPlayer = document.getElementById('verticalMiniPlayer');
+        const verticalPlayerWrapper = document.getElementById('verticalPlayerWrapper');
+
+        function openVerticalMiniPlayer(name, url) {
+            verticalPlayerWrapper.innerHTML = '';
+            const iframeEl = document.createElement('iframe');
+            iframeEl.src = url;
+            iframeEl.style.width = '100%';
+            iframeEl.style.height = '100%';
+            iframeEl.style.border = 'none';
+            iframeEl.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            verticalPlayerWrapper.appendChild(iframeEl);
+            verticalMiniPlayer.classList.add('active');
         }
 
-        function toggleAccordion(contentId, iconId) {
-            const content = document.getElementById(contentId);
-            const icon = document.getElementById(iconId);
-            const isOpen = content.classList.contains('open');
-            
-            ['acc-carrera', 'acc-vida', 'acc-espectaculos', 'acc-situacion'].forEach(id => {
-                document.getElementById(id).classList.remove('open');
-            });
-            ['icon-carrera', 'icon-vida', 'icon-espectaculos', 'icon-situacion'].forEach(id => {
-                document.getElementById(id).style.transform = 'rotate(0deg)';
-            });
+        function closeVerticalMiniPlayer() {
+            verticalMiniPlayer.classList.remove('active');
+            verticalPlayerWrapper.innerHTML = '';
+        }
 
-            if (!isOpen) {
-                content.classList.add('open');
-                icon.style.transform = 'rotate(180deg)';
+        const previewModal = document.getElementById('previewModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalImg = document.getElementById('modalImg');
+        const modalPlayBtn = document.getElementById('modalPlayBtn');
+        const modalAddListBtn = document.getElementById('modalAddListBtn');
+
+        let currentModalData = {};
+
+        function openPreview(title, iconHTML, desc, url) {
+            currentModalData = { title, icon: iconHTML, desc, url };
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            modalImg.innerHTML = iconHTML + '<button class="preview-close" onclick="closePreview()">✕</button>';
+            
+            updateAddListButtonState(title);
+
+            modalPlayBtn.onclick = function() {
+                closePreview();
+                openPlayer(title, url);
+            };
+
+            modalAddListBtn.onclick = function() {
+                if(!myList.some(item => item.title === title)) {
+                    myList.push(currentModalData);
+                    updateAddListButtonState(title);
+                } else {
+                    let index = myList.findIndex(item => item.title === title);
+                    myList.splice(index, 1);
+                    updateAddListButtonState(title);
+                }
+            };
+
+            previewModal.classList.add('active');
+        }
+
+        function updateAddListButtonState(title) {
+            let exists = myList.some(item => item.title === title);
+            if(exists) {
+                modalAddListBtn.innerHTML = '✓ Agregado';
+                modalAddListBtn.style.background = 'rgba(0, 243, 255, 0.2)';
+                modalAddListBtn.style.color = '#00f3ff';
+                modalAddListBtn.style.borderColor = '#00f3ff';
+            } else {
+                modalAddListBtn.innerHTML = '+ Agregar a mi lista';
+                modalAddListBtn.style.background = 'rgba(255, 255, 255, 0.15)';
+                modalAddListBtn.style.color = '#fff';
+                modalAddListBtn.style.borderColor = 'rgba(255,255,255,0.2)';
             }
         }
 
-        function openAlbum(index) {
-            currentAlbumIndex = index;
-            const album = albumsData[index];
-            document.getElementById('detailAlbumCover').src = album.cover;
-            document.getElementById('detailAlbumYear').innerText = album.year;
-            document.getElementById('detailAlbumTitle').innerText = album.title;
-            document.getElementById('detailAlbumDesc').innerText = album.desc;
+        function closePreview() { previewModal.classList.remove('active'); }
+
+        const playerContainer = document.getElementById('playerContainer');
+        const closePlayerBtn = document.getElementById('closePlayerBtn');
+        const youtubeIframe = document.getElementById('youtubeIframe');
+
+        function openPlayer(title, url) {
+            playerContainer.classList.add('active');
             
-            const tracklistEl = document.getElementById('detailTracklist');
-            tracklistEl.innerHTML = '';
-            album.tracks.forEach((track, tIdx) => {
-                tracklistEl.innerHTML += `<div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition group"><div class="flex items-center gap-2.5"><span class="text-xs font-mono text-cyber-cyan">0${tIdx + 1}</span><span class="text-xs text-white font-medium">${track.title}</span></div><i class="fa-solid fa-play text-[10px] text-cyber-accent"></i></div>`;
+            const elem = playerContainer;
+            if (elem.requestFullscreen) { elem.requestFullscreen().catch(() => {}); }
+            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
+
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(() => {});
+            }
+
+            let embedUrl = url;
+            if (url.includes('youtu.be/')) {
+                const videoId = url.split('youtu.be/')[1].split('?')[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&enablejsapi=1&playsinline=1&controls=1`;
+            } else if (url.includes('watch?v=')) {
+                const videoId = url.split('watch?v=')[1].split('&')[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&enablejsapi=1&playsinline=1&controls=1`;
+            } else if (url.includes('/embed/')) {
+                embedUrl = url + (url.includes('?') ? '&' : '?') + 'autoplay=1&enablejsapi=1&playsinline=1';
+            }
+            
+            youtubeIframe.src = embedUrl;
+        }
+
+        closePlayerBtn.addEventListener('click', () => {
+            playerContainer.classList.remove('active');
+            youtubeIframe.src = '';
+            if (document.exitFullscreen) { document.exitFullscreen().catch(() => {}); }
+            else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+            if (screen.orientation && screen.orientation.unlock) { try { screen.orientation.unlock(); } catch (e) {} }
+        });
+
+        function renderMyList() {
+            const grid = document.getElementById('gridMyList');
+            grid.innerHTML = '';
+            if(myList.length === 0) {
+                grid.innerHTML = '<p style="color: #8a859b; grid-column: 1/-1;">No tienes videos guardados en tu lista todavía.</p>';
+                return;
+            }
+            myList.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-bg">${item.icon || '🎬'}</div>
+                    <span class="card-tag">Guardado</span>
+                    <button class="card-remove-btn" title="Eliminar" onclick="event.stopPropagation(); removeFromList(${index})">✕</button>
+                    <div class="card-overlay"><div class="card-title">${item.title}</div></div>
+                `;
+                card.onclick = () => openPreview(item.title, item.icon, item.desc, item.url);
+                grid.appendChild(card);
             });
-            document.getElementById('albumsMainView').classList.add('hidden');
-            document.getElementById('albumDetailView').classList.remove('hidden');
         }
 
-        function closeAlbum() {
-            document.getElementById('albumDetailView').classList.add('hidden');
-            document.getElementById('albumsMainView').classList.remove('hidden');
-        }
-
-        function playAlbumTrack(albumIdx, trackIdx) {
-            currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
-            const track = albumsData[albumIdx].tracks[trackIdx];
-            document.getElementById('playerTitle').innerText = track.title;
-            document.getElementById('playerAlbumName').innerText = albumsData[albumIdx].title;
-            document.getElementById('playerCover').style.backgroundImage = `url('${albumsData[albumIdx].cover}')`;
-            audioElement.src = track.audio;
-            audioElement.play().catch(() => {});
-            isPlaying = true; updatePlayButtonUI();
-            document.getElementById('floatingPlayer').classList.remove('hidden');
-            showToast(`Reproduciendo: ${track.title}`);
-        }
-
-        function togglePlayState() {
-            if (!audioElement.src) { playAlbumTrack(0, 0); return; }
-            isPlaying = !isPlaying;
-            if (isPlaying) audioElement.play(); else audioElement.pause();
-            updatePlayButtonUI();
-        }
-
-        function updatePlayButtonUI() {
-            document.getElementById('playerPlayIcon').className = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
-        }
-
-        function nextTrack() {
-            const album = albumsData[currentAlbumIndex];
-            currentTrackIndex = (currentTrackIndex + 1) % album.tracks.length;
-            playAlbumTrack(currentAlbumIndex, currentTrackIndex);
-        }
-
-        function prevTrack() {
-            const album = albumsData[currentAlbumIndex];
-            currentTrackIndex = (currentTrackIndex - 1 + album.tracks.length) % album.tracks.length;
-            playAlbumTrack(currentAlbumIndex, currentTrackIndex);
-        }
-
-        function openMilestone(index) {
-            const m = milestonesData[index];
-            document.getElementById('detailMilestoneYear').innerText = m.year;
-            document.getElementById('detailMilestoneTitle').innerText = m.title;
-            document.getElementById('detailMilestoneText').innerText = m.text;
-            const gallery = document.getElementById('detailMilestoneGallery');
-            gallery.innerHTML = '';
-            m.images.forEach(img => {
-                gallery.innerHTML += `<div class="h-28 rounded-xl overflow-hidden glass-tab group relative cursor-pointer" onclick="openLightbox('${img}')"><img src="${img}" class="w-full h-full object-cover"></div>`;
-            });
-            document.getElementById('timelineListView').classList.add('hidden');
-            document.getElementById('milestoneDetailView').classList.remove('hidden');
-        }
-
-        function closeMilestone() {
-            document.getElementById('milestoneDetailView').classList.add('hidden');
-            document.getElementById('timelineListView').classList.remove('hidden');
-        }
-
-        function shareCard() {
-            if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); showToast('¡Enlace copiado!'); }
-        }
-
-        function downloadEPK() {
-            showToast('Generando dossier EPK en PDF...');
-            setTimeout(() => showToast('¡EPK descargado!'), 1500);
-        }
-
-        function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').classList.replace('hidden', 'flex'); }
-        function closeLightbox() { document.getElementById('lightboxModal').classList.replace('flex', 'hidden'); }
-
-        function showToast(msg) {
-            const t = document.getElementById('toastNotification');
-            document.getElementById('toastMessage').innerText = msg;
-            t.classList.remove('translate-y-20', 'opacity-0');
-            t.classList.add('translate-y-0', 'opacity-100');
-            setTimeout(() => { t.classList.remove('translate-y-0', 'opacity-100'); t.classList.add('translate-y-20', 'opacity-0'); }, 3000);
+        function removeFromList(index) {
+            myList.splice(index, 1);
+            renderMyList();
         }
     </script>
 </body>
