@@ -114,6 +114,7 @@
         /* Welcome Overlay Transitions */
         #welcomeOverlay {
             transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+            background-color: #03000a;
         }
         #welcomeOverlay.fade-out {
             opacity: 0;
@@ -146,7 +147,7 @@
 
     <!-- Pantalla de Bienvenida con Video Vertical y Botón 3D sin Relleno (Borde Dorado) -->
     <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-cyber-900 flex items-center justify-center overflow-hidden">
-        <video id="welcomeVideo" autoplay muted loop playsinline class="w-full h-full object-cover">
+        <video id="welcomeVideo" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover bg-cyber-900">
             <source src="videosmedia/videoverticalsander.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de video.
         </video>
@@ -547,6 +548,14 @@
             }
         }
 
+        // Forzar reproducción inmediata y respaldo si el navegador bloquea el autoplay
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeVideo = document.getElementById('welcomeVideo');
+            if (welcomeVideo) {
+                welcomeVideo.play().catch(() => {});
+            }
+        });
+
         const albumsData = [
             {
                 title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
@@ -633,7 +642,7 @@
             showToast(`Reproduciendo: ${track.title}`);
         }
 
-        function togglePlayState() {
+    function togglePlayState() {
             if (!audioElement.src) { playAlbumTrack(0, 0); return; }
             isPlaying = !isPlaying;
             if (isPlaying) audioElement.play(); else audioElement.pause();
