@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SANDER MAURIN // Official Artist ID</title>
     
+    <!-- Configuración para App Móvil (Pantalla Completa) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
     
+    <!-- Enlace al Manifiesto Web para permitir la instalación -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Tailwind CSS for modern responsive utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -30,7 +35,9 @@
             }
         }
     </script>
+    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Syncopate -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -47,6 +54,7 @@
         .font-syncopate {
             font-family: 'Syncopate', sans-serif;
         }
+        /* Custom scrollbar para la zona interna */
         ::-webkit-scrollbar {
             width: 4px;
             height: 4px;
@@ -58,6 +66,10 @@
             background: #26124f;
             border-radius: 3px;
         }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+        /* Glassmorphism card con fondo negro puro */
         .glass-card {
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(16px);
@@ -75,9 +87,11 @@
             border-color: rgba(245, 158, 11, 0.5);
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
         }
+        /* Neon glow effects */
         .neon-glow {
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
         }
+        /* Tab transitions */
         .tab-content {
             display: none;
             opacity: 0;
@@ -97,6 +111,7 @@
             max-height: 1000px;
             opacity: 1;
         }
+        /* Welcome Overlay Transitions */
         #welcomeOverlay {
             transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
             background-color: #000000;
@@ -105,6 +120,7 @@
             opacity: 0;
             visibility: hidden;
         }
+        /* Botón 3D delicado, sin relleno y con borde dorado estilizado */
         .gold-3d-delicate-btn {
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(6px);
@@ -112,6 +128,7 @@
             border: 1.5px solid #f59e0b;
             box-shadow: 0 5px 0 #78350f, 0 10px 20px rgba(0, 0, 0, 0.7), inset 0 0 10px rgba(245, 158, 11, 0.2);
             transition: all 0.15s ease;
+            transform: translateY(0);
         }
         .gold-3d-delicate-btn:active {
             transform: translateY(4px);
@@ -121,8 +138,10 @@
             background: linear-gradient(180deg, #ffffff 0%, #fef08a 40%, #f59e0b 80%, #b45309 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
             font-weight: 700;
         }
+        /* Estilos de la Letra Sincronizada */
         .lyric-line {
             transition: all 0.3s ease;
             color: rgba(255, 255, 255, 0.4);
@@ -140,159 +159,431 @@
 </head>
 <body class="bg-black flex items-center justify-center p-0 sm:p-6 relative">
 
-    <!-- Pantalla de Bienvenida -->
+    <!-- Pantalla de Bienvenida con Video Vertical Claro y Botón Delicado 3D -->
     <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden">
         <video id="welcomeVideo" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover bg-black">
             <source src="videosmedia/videoverticalsander.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
         </video>
+        <!-- Capa sutil transparente para mantener la claridad del video -->
         <div class="absolute inset-0 bg-black/15 pointer-events-none"></div>
+
+        <!-- Botón Delicado 3D con Borde Dorado -->
         <div class="absolute bottom-12 z-50 w-full flex justify-center px-6">
             <button onclick="dismissWelcomeScreen()" class="gold-3d-delicate-btn w-full max-w-xs py-3 px-6 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer group">
                 <span class="gold-3d-text font-syncopate text-xs sm:text-sm tracking-widest uppercase">INICIAR</span>
-                <i class="fa-solid fa-arrow-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                <i class="fa-solid fa-arrow-right text-amber-400 text-xs filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] group-hover:translate-x-1 transition-transform"></i>
             </button>
         </div>
     </div>
 
-    <!-- Contenedor Principal -->
+    <!-- Main Container Card -->
     <div class="w-full h-full sm:h-[90vh] sm:max-w-xl glass-card sm:rounded-3xl overflow-hidden relative z-10 flex flex-col">
         
-        <!-- Header Banner -->
+        <!-- Header Banner Image & Profile -->
         <div class="relative h-44 sm:h-52 bg-cover bg-center overflow-hidden shrink-0" style="background-image: url('sandermedia/imageninicialsander.png')">
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
+            
             <div class="absolute top-4 right-4 flex gap-2 z-20">
-                <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95">
+                <button onclick="shareCard()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-cyber-cyan hover:scale-105 transition active:scale-95" title="Compartir Tarjeta">
                     <i class="fa-solid fa-share-nodes text-sm"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Info del Artista -->
+        <!-- Avatar & Artist Info -->
         <div class="px-6 pb-3 relative -mt-16 text-right shrink-0">
             <div class="relative inline-block mx-auto mb-2 float-right mr-1">
                 <div class="w-20 h-28 sm:w-24 sm:h-32 overflow-hidden shadow-2xl">
-                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
+                    <img src="sandermedia/sanderportada.png" alt="SANDER MAURIN Artist" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=SANDER'">
                 </div>
             </div>
+
             <div class="clear-both pt-2">
                 <h1 class="font-syncopate text-2xl sm:text-3xl font-bold tracking-wider text-white neon-glow">SANDER MAURIN</h1>
                 <p class="text-xs sm:text-sm text-cyber-cyan tracking-widest uppercase mt-1">Cyber-Pop / Dark Electronic Artist</p>
             </div>
         </div>
 
-        <!-- Navegación de Pestañas -->
+        <!-- Navigation Tabs -->
         <div class="px-4 pb-3 shrink-0">
             <div class="grid grid-cols-4 gap-1 p-1 bg-black/80 rounded-2xl border border-white/5">
                 <button onclick="switchTab('bio')" id="tab-bio" class="glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white">
-                    <i class="fa-solid fa-user text-sm"></i><span class="text-[10px]">Bio</span>
+                    <i class="fa-solid fa-user text-sm"></i>
+                    <span class="text-[10px]">Bio</span>
                 </button>
                 <button onclick="switchTab('music')" id="tab-music" class="glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-compact-disc text-sm"></i><span class="text-[10px]">Discos</span>
+                    <i class="fa-solid fa-compact-disc text-sm"></i>
+                    <span class="text-[10px]">Discos</span>
                 </button>
                 <button onclick="switchTab('timeline')" id="tab-timeline" class="glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-timeline text-sm"></i><span class="text-[10px]">Trayectoria</span>
+                    <i class="fa-solid fa-timeline text-sm"></i>
+                    <span class="text-[10px]">Trayectoria</span>
                 </button>
                 <button onclick="switchTab('booking')" id="tab-booking" class="glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-envelope text-sm"></i><span class="text-[10px]">Booking</span>
+                    <i class="fa-solid fa-envelope text-sm"></i>
+                    <span class="text-[10px]">Booking</span>
                 </button>
             </div>
         </div>
 
-        <!-- Contenido Desplazable -->
+        <!-- Scrollable Content Area -->
         <div class="px-6 pb-6 overflow-y-auto flex-1 relative bg-black" id="mainScrollContainer">
-            <!-- Pestaña Bio -->
+
+            <!-- 1. BIO TAB -->
             <div id="content-bio" class="tab-content active space-y-3">
                 <div class="glass-tab p-4 rounded-2xl mb-3">
                     <h3 class="text-sm font-bold text-cyber-cyan uppercase tracking-wider mb-1 flex items-center gap-2">
                         <i class="fa-solid fa-book-open"></i> Biografía Oficial & Estilo
                     </h3>
-                    <p class="text-xs text-gray-300">Explora la trayectoria y detalles del artista.</p>
+                    <p class="text-xs text-gray-300">
+                        Explora la trayectoria, aspectos íntimos, estructura de espectáculos y la situación actual del artista a través de los siguientes apartados desplegables:
+                    </p>
+                </div>
+
+                <!-- Acordeón: CARRERA -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-carrera', 'icon-carrera')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-microphone-lines text-cyber-accent"></i> Carrera
+                        </span>
+                        <i id="icon-carrera" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-carrera" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600" alt="Carrera" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Sander Maurin comenzó su andadura en la escena underground europea con sintetizadores modulares antes de consolidar su propuesta de cyber-pop y dark synth. Su obra ha evolucionado incorporando paisajes sonoros futuristas y colaboraciones con productores de talla global.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Acordeón: VIDA PRIVADA -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-vida', 'icon-vida')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-heart text-pink-400"></i> Vida Privada
+                        </span>
+                        <i id="icon-vida" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-vida" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Vida Privada" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Celoso de su intimidad, divide su tiempo creativo entre estudios insonorizados y retiros de inspiración. Aficionado al diseño de hardware analógico y la literatura de ciencia ficción cyberpunk.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Acordeón: ESPECTACULOS Y DIRECCIONES -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-espectaculos', 'icon-espectaculos')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-masks-theater text-cyber-cyan"></i> Espectáculos y Direcciones
+                        </span>
+                        <i id="icon-espectaculos" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-espectaculos" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600" alt="Espectáculos" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Sus directos destacan por una puesta en escena inmersiva con proyecciones holográficas y dirección artística milimétrica, simulando un entorno distópico interactivo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Acordeón: SITUACION ACTUAL -->
+                <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
+                    <button onclick="toggleAccordion('acc-situacion', 'icon-situacion')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <i class="fa-solid fa-satellite-dish text-cyber-gold"></i> Situación Actual
+                        </span>
+                        <i id="icon-situacion" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-situacion" class="accordion-content px-4 pb-4 space-y-3">
+                        <div class="rounded-xl overflow-hidden h-36 relative">
+                            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=600" alt="Situación Actual" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Actualmente se encuentra inmerso en la producción y promoción de sus nuevos lanzamientos discográficos y giras internacionales.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Pestaña Música -->
+            <!-- 2. DISCOGRAPHY TAB -->
             <div id="content-music" class="tab-content space-y-4">
                 <div id="albumsMainView">
                     <div class="text-center mb-3">
-                        <h3 class="text-sm font-bold text-white tracking-wider">Discografía Oficial</h3>
+                        <h3 class="text-sm font-bold text-white tracking-wider">Discografía Oficial (9 Discos)</h3>
+                        <p class="text-[11px] text-gray-400">Toca cualquier disco para abrir su contenido y playlist</p>
                     </div>
+
                     <div class="grid grid-cols-3 gap-3">
-                        <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition">
-                            <div class="aspect-square rounded-lg overflow-hidden mb-1.5">
-                                <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton" class="w-full h-full object-cover">
+                        <!-- Disc 1 -->
+                        <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton a mi manera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Reggaeton'">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Reggaeton a mi manera</h4>
                             <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
                         </div>
+                        
+                        <!-- Disc 2 -->
+                        <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/sanderdisco.jpeg" alt="Sander Maurin" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Maurin'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Sander Maurin</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2025 • EP</span>
+                        </div>
+
+                        <!-- Disc 3 -->
+                        <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/santan.jpeg" alt="Santan" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Santan'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Santan</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
+                        </div>
+
+                        <!-- Disc 4 -->
+                        <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/desdelatierraalcielo.jpeg" alt="Desde la tierra al cielo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Tierra+Al+Cielo'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Desde la tierra al cielo</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
+                        </div>
+
+                        <!-- Disc 5 -->
+                        <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/bachata.jpeg" alt="Bachata" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Bachata'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Bachata</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
+                        </div>
+
+                        <!-- Disc 6 -->
+                        <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/maural.jpeg" alt="Maural" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Maural</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
+                        </div>
+
+                        <!-- Disc 7 -->
+                        <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/losiracundos.jpeg" alt="Los eternos iracundos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Iracundos'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Los eternos iracundos</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
+                        </div>
+
+                        <!-- Disc 8 -->
+                        <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/sandermix.jpeg" alt="Sander Mix" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Mix'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Sander Mix</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
+                        </div>
+
+                        <!-- Disc 9 -->
+                        <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
+                            <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
+                                <img src="sandermedia/mauralrock.jpeg" alt="Maural Rock" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural+Rock'">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-white truncate">Maural Rock</h4>
+                            <span class="text-[9px] text-cyber-cyan block">2021 • LP</span>
+                        </div>
                     </div>
                 </div>
-                <div id="albumDetailView" class="hidden space-y-4">
-                    <button onclick="closeAlbum()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-left"></i> Volver
+
+                <!-- Unfolded Album Detail View -->
+                <div id="albumDetailView" class="hidden space-y-4 animate-fadeIn">
+                    <button onclick="closeAlbum()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2 hover:bg-cyber-accent/20 transition">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a Discos
                     </button>
-                    <div id="detailTracklist" class="space-y-2"></div>
+
+                    <div class="glass-tab p-4 rounded-2xl flex flex-col sm:flex-row gap-4 items-center">
+                        <div class="w-32 h-32 rounded-xl overflow-hidden shrink-0 shadow-2xl relative">
+                            <img id="detailAlbumCover" src="" alt="Album" class="w-full h-full object-cover">
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <span id="detailAlbumYear" class="text-[10px] font-mono text-cyber-cyan px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 uppercase">2026</span>
+                            <h3 id="detailAlbumTitle" class="text-lg font-bold text-white mt-1">Título del Álbum</h3>
+                            <p id="detailAlbumDesc" class="text-xs text-gray-300 mt-1">Descripción detallada...</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider px-1">Playlist del Álbum</h4>
+                        <div id="detailTracklist" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Pestaña Trayectoria -->
+            <!-- 3. TIMELINE TAB -->
             <div id="content-timeline" class="tab-content space-y-4">
-                <div class="text-center text-xs text-gray-400">Próximamente hitos y eventos.</div>
+                <div id="timelineListView">
+                    <div class="text-center mb-2">
+                        <h3 class="text-sm font-bold text-white tracking-wider">Trayectoria & Hitos</h3>
+                        <p class="text-[11px] text-gray-400">Toca cualquier hito para ver la historia completa</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div onclick="openMilestone(0)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
+                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
+                            </div>
+                            <h4 class="text-xs font-bold text-white">Lanzamiento Mundial de Gira</h4>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Gira internacional por múltiples escenarios...</p>
+                        </div>
+                        <div onclick="openMilestone(1)" class="glass-tab p-3.5 rounded-2xl cursor-pointer hover:border-cyber-accent transition group">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-[10px] font-mono text-cyber-accent font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-800">2024</span>
+                                <i class="fa-solid fa-arrow-right text-xs text-cyber-accent"></i>
+                            </div>
+                            <h4 class="text-xs font-bold text-white">Reconocimiento Artístico</h4>
+                            <p class="text-[11px] text-gray-300 mt-1 line-clamp-2">Premio a la innovación musical y producción...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="milestoneDetailView" class="hidden space-y-4 animate-fadeIn">
+                    <button onclick="closeMilestone()" class="glass-tab px-3 py-1.5 rounded-xl text-xs font-semibold text-cyber-cyan flex items-center gap-2 hover:bg-cyber-accent/20 transition">
+                        <i class="fa-solid fa-arrow-left"></i> Volver
+                    </button>
+                    <div class="glass-tab p-4 rounded-2xl space-y-3">
+                        <span id="detailMilestoneYear" class="text-[10px] font-mono text-cyber-cyan font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800">2026</span>
+                        <h3 id="detailMilestoneTitle" class="text-base font-bold text-white">Título</h3>
+                        <p id="detailMilestoneText" class="text-xs text-gray-300 leading-relaxed"></p>
+                        <div class="pt-2">
+                            <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Galería</h4>
+                            <div id="detailMilestoneGallery" class="grid grid-cols-2 gap-2"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Pestaña Booking -->
+            <!-- 4. BOOKING TAB -->
             <div id="content-booking" class="tab-content space-y-4">
-                <div class="text-center text-xs text-gray-400">Contacto y contrataciones abiertas.</div>
+                <div class="text-center mb-1">
+                    <h3 class="text-sm font-bold text-white tracking-wider">Contacto & Booking</h3>
+                    <p class="text-[11px] text-gray-400">Contrataciones y prensa oficial</p>
+                </div>
+
+                <div class="space-y-2.5">
+                    <a href="https://wa.me/1234567890" target="_blank" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center">
+                                <i class="fa-brands fa-whatsapp text-base"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white group-hover:text-green-400 transition">WhatsApp Booking</h4>
+                                <p class="text-[10px] text-gray-400">Respuesta inmediata</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
+                    </a>
+
+                    <a href="mailto:booking@sandermaurin.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyber-cyan flex items-center justify-center">
+                                <i class="fa-solid fa-envelope text-base"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white group-hover:text-cyber-cyan transition">Correo Electrónico</h4>
+                                <p class="text-[10px] text-gray-400">booking@sandermaurin.com</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
+                    </a>
+
+                    <button onclick="downloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> Descargar EPK (PDF)
+                    </button>
+                </div>
             </div>
+
         </div>
 
-        <!-- Barra Reproductor Flotante -->
-        <div id="floatingPlayer" onclick="toggleLyricsModal()" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30 cursor-pointer">
+        <!-- Floating Music Player Bar (Al presionarla despliega la Letra) -->
+        <div id="floatingPlayer" onclick="toggleLyricsModal()" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30 cursor-pointer hover:bg-white/5 transition" title="Toca para ver la letra sincronizada">
             <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
+                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
                 <div class="truncate">
                     <h4 id="playerTitle" class="text-xs font-bold text-white truncate">Track</h4>
-                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum</p>
+                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum (Toca para ver letra)</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 shrink-0" onclick="event.stopPropagation()">
-                <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center">
-                    <i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i>
-                </button>
+                <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-xs"></i></button>
+                <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i></button>
+                <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-xs"></i></button>
             </div>
         </div>
 
     </div>
 
-    <!-- Modal de Letras -->
-    <div id="lyricsModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden flex flex-col justify-between p-6">
+    <!-- Pantalla Flotante / Modal de Letra Sincronizada -->
+    <div id="lyricsModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden flex flex-col justify-between p-6 transition-all duration-300">
+        <!-- Header del Modal -->
         <div class="flex items-center justify-between border-b border-white/10 pb-4">
-            <h3 id="lyricsTitle" class="text-sm font-bold text-white">Letra</h3>
-            <button onclick="toggleLyricsModal()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-cover bg-center overflow-hidden" id="lyricsCover" style="background-image: url('sandermedia/reggaeton.jpeg')"></div>
+                <div>
+                    <h3 id="lyricsTitle" class="text-sm font-bold text-white">NENA CAPRICHOSA</h3>
+                    <p id="lyricsAlbum" class="text-xs text-cyber-cyan">Reggaeton a mi manera</p>
+                </div>
+            </div>
+            <button onclick="toggleLyricsModal()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white hover:scale-110 transition">
                 <i class="fa-solid fa-xmark text-base"></i>
             </button>
         </div>
-        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-center"></div>
-        <div class="border-t border-white/10 pt-4 flex items-center justify-center">
-            <button onclick="togglePlayState()" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center">
-                <i class="fa-solid fa-pause text-sm" id="lyricsPlayIcon"></i>
-            </button>
+
+        <!-- Contenedor con Scroll de las Líneas de la Letra -->
+        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-center select-none scroll-smooth">
+            <!-- Las líneas se inyectarán dinámicamente mediante JS -->
+        </div>
+
+        <!-- Footer / Controles dentro de la Letra -->
+        <div class="border-t border-white/10 pt-4 flex items-center justify-center gap-6">
+            <button onclick="prevTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-sm"></i></button>
+            <button onclick="togglePlayState()" id="lyricsPlayBtn" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-sm" id="lyricsPlayIcon"></i></button>
+            <button onclick="nextTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-sm"></i></button>
         </div>
     </div>
 
-    <!-- Toast -->
+    <!-- Modals & Toasts -->
     <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 transition-all duration-300 z-50 bg-black border border-cyber-accent text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
         <i class="fa-solid fa-circle-check text-cyber-cyan"></i>
-        <span id="toastMessage">Acción completada</span>
+        <span id="toastMessage">Acción completada con éxito</span>
+    </div>
+
+    <div id="lightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="Ampliada" class="max-w-full max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain">
     </div>
 
     <script>
+        // Ocultar pantalla de bienvenida
         function dismissWelcomeScreen() {
             const welcomeOverlay = document.getElementById('welcomeOverlay');
             const welcomeVideo = document.getElementById('welcomeVideo');
-            if (welcomeOverlay) {
+            if (welcomeOverlay && !welcomeOverlay.classList.contains('fade-out')) {
                 welcomeOverlay.classList.add('fade-out');
                 if (welcomeVideo) welcomeVideo.pause();
-                setTimeout(() => { welcomeOverlay.remove(); }, 800);
+                setTimeout(() => {
+                    welcomeOverlay.remove();
+                }, 800);
             }
         }
 
@@ -305,14 +596,66 @@
 
         const albumsData = [
             {
-                title: "Reggaeton a mi manera", year: "2026", desc: "Ritmos urbanos de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
+                title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
                     { 
                         title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3",
                         lyrics: [
                             { time: 0, text: "Hey, tratando de conquistar" },
                             { time: 2.0, text: "el mundo para todos ustedes" },
-                            { time: 4.2, text: "Sander." }
+                            { time: 4.2, text: "Sander." },
+                            { time: 7.0, text: "Busco uma menina bem ingosa" },
+                            { time: 9.8, text: "que não, que não se sinta pouca" },
+                            { time: 12.5, text: "coisa. Pode ser ruiva, loira ou morena" },
+                            { time: 15.8, text: "Isso reggaeton lambada pra dançar, pra suar." },
+                            { time: 19.5, text: "Busco uma menina bem ingosa" },
+                            { time: 22.2, text: "que não, que não se sienta pouca" },
+                            { time: 25.0, text: "coisa. Pode ser ruiva, loira ou morena" },
+                            { time: 28.2, text: "Isso reggaeton lambada pra dançar, pra suar." },
+                            { time: 32.0, text: "Ela, somos três modelos aí" },
+                            { time: 34.2, text: "ma' bela do planeta" },
+                            { time: 36.5, text: "dos estrela" },
+                            { time: 38.5, text: "competindo pra ver qual de ela" },
+                            { time: 41.2, text: "tem mais ginga pra dançar." },
+                            { time: 44.5, text: "Estoy queriendo, estoy buscando" },
+                            { time: 47.0, text: "Es la morocha la que está ganando" },
+                            { time: 49.5, text: "Está danzando, me está mirando" },
+                            { time: 52.0, text: "Leo en sus labios que dice:" },
+                            { time: 55.0, text: "Busco, busco una nena caprichosa" },
+                            { time: 58.5, text: "que no, que no se sienta poca" },
+                            { time: 62.0, text: "cosa. Que venga una colorada," },
+                            { time: 65.5, text: "una rubia, una morocha." },
+                            { time: 69.0, text: "Esto reggaeton lambada pa' bailarlo, pa' gozarlo." },
+                            { time: 73.5, text: "Busco, busco una nena caprichosa" },
+                            { time: 77.0, text: "que no, que no se sienta poca" },
+                            { time: 80.5, text: "cosa. Que venga una colorada," },
+                            { time: 84.0, text: "una rubia, una morocha." },
+                            { time: 87.5, text: "Esto reggaeton lambada pa' bailarlo, pa' gozarlo." },
+                            { time: 92.5, text: "Pode ser ruiva, loira ou morena" },
+                            { time: 96.0, text: "Isso reggaeton lambada pra dançar, pra suar." },
+                            { time: 100.5, text: "Busco, busco una nena caprichosa" },
+                            { time: 104.0, text: "que no, que no se sienta poca" },
+                            { time: 107.5, text: "cosa. Que venga una colorada," },
+                            { time: 111.0, text: "una rubia, una morocha." },
+                            { time: 114.5, text: "Esto reggaeton lambada pa' bailarlo, pa' gozarlo." },
+                            { time: 120.0, text: "Ella, somos las tres" },
+                            { time: 122.8, text: "modelos de las más bellas del planeta" },
+                            { time: 126.2, text: "y la estrella" },
+                            { time: 128.5, text: "compitiendo para ver cuál de ella" },
+                            { time: 132.0, text: "tiene más candela pa' bailarlo." },
+                            { time: 135.5, text: "Me está tentando, me está gostando" },
+                            { time: 138.5, text: "Es la morocha la que está ganando" },
+                            { time: 141.5, text: "Sigue bailando, me está mirando" },
+                            { time: 144.5, text: "Leo sus labios y dice:" },
+                            { time: 148.0, text: "Busco uma menina bem ingosa" },
+                            { time: 151.5, text: "que não, que não se sinta pouca" },
+                            { time: 155.0, text: "coisa. Pode ser ruiva, loira ou morena" },
+                            { time: 159.5, text: "Isso reggaeton lambada pra dançar, pra suar." },
+                            { time: 164.0, text: "Busco, busco una nena caprichosa" },
+                            { time: 167.5, text: "que no, que no se sienta poca" },
+                            { time: 171.0, text: "cosa. Que venga una colorada," },
+                            { time: 174.5, text: "una rubia, una morocha." },
+                            { time: 178.5, text: "Esto reggaeton lambada pa' bailarlo, pa' gozarlo." }
                         ]
                     },
                     { 
@@ -320,16 +663,111 @@
                         lyrics: [
                             { time: 0, text: "(Intro Instrumental)" },
                             { time: 4.5, text: "Yo solo fui quien estuvo detrás" },
-                            { time: 8.5, text: "yo solo fui quien te ayudó a caminar" }
+                            { time: 8.5, text: "yo solo fui quien te ayudó a caminar" },
+                            { time: 13.0, text: "quién levantó a tu alma con paz" },
+                            { time: 17.0, text: "cada vez que tropezó." },
+                            { time: 20.5, text: "Te olvidaste de mí..." },
+                            { time: 24.0, text: "Yo solo fui quien querías que sea" },
+                            { time: 28.5, text: "yo solo fui quien no puso barrera" },
+                            { time: 33.0, text: "quién te entendió, el que más te amó" },
+                            { time: 37.5, text: "por cómo eras, por cómo eras." },
+                            { time: 43.5, text: "Te olvidaste de mí, de quién era" },
+                            { time: 49.0, text: "te olvidaste de mí, qué pena." },
+                            { time: 53.5, text: "Quién te dio libertad, quién te dejó equivocar" },
+                            { time: 60.5, text: "Aunque eso duela, aunque eso duela." },
+                            { time: 67.5, text: "¿Cómo puede ser?" },
+                            { time: 70.5, text: "Solo fui quien levantó a tu alma con paz." },
+                            { time: 76.5, text: "Sander." },
+                            { time: 80.0, text: "Yo solo fui quien querías que sea" },
+                            { time: 84.5, text: "yo solo fui quien no puso barreras" },
+                            { time: 89.5, text: "quién te entendió, el que más te amó por cómo eras." },
+                            { time: 96.0, text: "Te olvidaste de mí, te olvidaste de mi" },
+                            { time: 101.0, text: "de quién era, te olvidaste de mí, qué pena." },
+                            { time: 107.0, text: "Quién te dio libertad, quién te dejó equivocar" },
+                            { time: 114.5, text: "Aunque eso duela, aunque eso duela." },
+                            { time: 121.5, text: "¿Cómo puede ser que ya no estás?" },
+                            { time: 125.5, text: "¿Cómo puede ser que me dejaste de pensar?" },
+                            { time: 130.5, text: "¿Cómo puede ser que se olvidó" },
+                            { time: 136.0, text: "que el recuerdo de mi voz se quedó en su corazón?" },
+                            { time: 143.5, text: "Te olvidaste de mí, de quién era" },
+                            { time: 149.0, text: "te olvidaste de mí, qué pena." },
+                            { time: 155.0, text: "Quién te dio libertad" },
+                            { time: 159.0, text: "quién te dejó equivocar" },
+                            { time: 163.5, text: "Aunque eso duela, aunque eso duela." },
+                            { time: 170.5, text: "Te olvidaste de mí, de quién era" },
+                            { time: 176.0, text: "te olvidaste de mí, qué pena" },
+                            { time: 181.0, text: "quién te dio libertad" },
+                            { time: 185.0, text: "quién te dejó equivocar..." },
+                            { time: 189.5, text: "Aunque eso duela, aunque eso duela." }
                         ]
-                    }
+                    },
+                    { title: "EL LOBO", duration: "3:15", ytId: "vWRMPc8R-oY", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "NENA LOCA", duration: "3:30", ytId: "a7IMRFqst1k", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "SUBE Y BAJA", duration: "3:12", ytId: "rWRu6O7IGLU", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "TE QUEDA GRANDE MI AMOR", duration: "4:00", ytId: "tUGzQl0CG3A", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] },
+                    { title: "TI SEI ACORDATA DI ME", duration: "3:50", ytId: "TbHK8EOWrjo", lyrics: [{time: 0, text: "Letra no disponible para este tema."}] }
                 ]
+            },
+            { 
+                title: "Sander Maurin", year: "2025", desc: "EP homónimo conceptual.", cover: "sandermedia/sanderdisco.jpeg", 
+                tracks: [
+                    { title: "MUJER MISTERIO", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] },
+                    { title: "BAILA", duration: "2:55", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Santan", year: "2024", desc: "Ritmos intensos y vibrantes.", cover: "sandermedia/santan.jpeg", 
+                tracks: [
+                    { title: "IRIS castellano", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Desde la tierra al cielo", year: "2024", desc: "Sencillo con atmósferas elevadas.", cover: "sandermedia/desdelatierraalcielo.jpeg", 
+                tracks: [
+                    { title: "IRIS", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Bachata", year: "2023", desc: "Sensualidad y romanticismo en cada acorde.", cover: "sandermedia/bachata.jpeg", 
+                tracks: [
+                    { title: "NOCHE", duration: "3:30", audio: "https://actions.google.com/sounds/v1/ambiences/night_club.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Maural", year: "2023", desc: "Exploración sonora vanguardista.", cover: "sandermedia/maural.jpeg", 
+                tracks: [
+                    { title: "ATENDEME", duration: "3:10", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Los eternos iracundos", year: "2022", desc: "Homenaje a los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg", 
+                tracks: [
+                    { title: "HACE FRIO YA", duration: "3:10", audio: "https://actions.google.com/sounds/v1/science_fiction/teleport.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Sander Mix", year: "2022", desc: "Mezcla continua de éxitos.", cover: "sandermedia/sandermix.jpeg", 
+                tracks: [
+                    { title: "COMO TE AMO YO", duration: "3:20", audio: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
+            },
+            { 
+                title: "Maural Rock", year: "2021", desc: "Rock alternativo con sello propio.", cover: "sandermedia/mauralrock.jpeg", 
+                tracks: [
+                    { title: "ANGEL", duration: "3:15", audio: "https://actions.google.com/science_fiction/teleport.ogg", lyrics: [{time: 0, text: "Instrumental / Ambiente"}] }
+                ] 
             }
+        ];
+
+        const milestonesData = [
+            { year: "2026", title: "Lanzamiento Mundial de Gira", text: "Gira monumental por múltiples países...", images: ["https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600"] },
+            { year: "2024", title: "Reconocimiento Artístico", text: "Consagración internacional...", images: ["https://images.unsplash.com/photo-1598387181040-825015cc3b92?auto=format&fit=crop&q=80&w=600"] }
         ];
 
         let currentAlbumIndex = 0, currentTrackIndex = 0, isPlaying = false;
         let audioElement = new Audio();
 
+        // Actualizar letra en tiempo real conforme avanza el audio
         audioElement.addEventListener('timeupdate', () => {
             const album = albumsData[currentAlbumIndex];
             if (!album) return;
@@ -367,13 +805,36 @@
             document.getElementById('mainScrollContainer').scrollTop = 0;
         }
 
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            const isOpen = content.classList.contains('open');
+            
+            ['acc-carrera', 'acc-vida', 'acc-espectaculos', 'acc-situacion'].forEach(id => {
+                document.getElementById(id).classList.remove('open');
+            });
+            ['icon-carrera', 'icon-vida', 'icon-espectaculos', 'icon-situacion'].forEach(id => {
+                document.getElementById(id).style.transform = 'rotate(0deg)';
+            });
+
+            if (!isOpen) {
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
         function openAlbum(index) {
             currentAlbumIndex = index;
             const album = albumsData[index];
+            document.getElementById('detailAlbumCover').src = album.cover;
+            document.getElementById('detailAlbumYear').innerText = album.year;
+            document.getElementById('detailAlbumTitle').innerText = album.title;
+            document.getElementById('detailAlbumDesc').innerText = album.desc;
+            
             const tracklistEl = document.getElementById('detailTracklist');
             tracklistEl.innerHTML = '';
             album.tracks.forEach((track, tIdx) => {
-                tracklistEl.innerHTML += `<div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition"><div class="flex items-center gap-2.5"><span class="text-xs font-mono text-cyber-cyan">0${tIdx + 1}</span><span class="text-xs text-white font-medium">${track.title}</span></div><i class="fa-solid fa-play text-[10px] text-cyber-accent"></i></div>`;
+                tracklistEl.innerHTML += `<div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition group"><div class="flex items-center gap-2.5"><span class="text-xs font-mono text-cyber-cyan">0${tIdx + 1}</span><span class="text-xs text-white font-medium">${track.title}</span></div><i class="fa-solid fa-play text-[10px] text-cyber-accent"></i></div>`;
             });
             document.getElementById('albumsMainView').classList.add('hidden');
             document.getElementById('albumDetailView').classList.remove('hidden');
@@ -388,55 +849,3 @@
             currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
             const album = albumsData[albumIdx];
             const track = album.tracks[trackIdx];
-            
-            document.getElementById('playerTitle').innerText = track.title;
-            document.getElementById('playerAlbumName').innerText = album.title;
-            document.getElementById('playerCover').style.backgroundImage = `url('${album.cover}')`;
-            
-            document.getElementById('lyricsTitle').innerText = track.title;
-
-            const lyricsContainer = document.getElementById('lyricsContainer');
-            lyricsContainer.innerHTML = '';
-            if (track.lyrics && track.lyrics.length > 0) {
-                track.lyrics.forEach((l, idx) => {
-                    lyricsContainer.innerHTML += `<p class="lyric-line ${idx === 0 ? 'active' : ''}" data-time="${l.time}">${l.text}</p>`;
-                });
-            }
-
-            if (track.audio) {
-                audioElement.src = track.audio;
-                audioElement.play().catch(e => console.error(e));
-            }
-
-            isPlaying = true;
-            updatePlayButtonUI();
-            document.getElementById('floatingPlayer').classList.remove('hidden');
-        }
-
-        function togglePlayState() {
-            isPlaying = !isPlaying;
-            updatePlayButtonUI();
-            if (!isPlaying) {
-                audioElement.pause();
-            } else {
-                audioElement.play().catch(() => {});
-            }
-        }
-
-        function updatePlayButtonUI() {
-            const iconClass = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
-            document.getElementById('playerPlayIcon').className = iconClass;
-            document.getElementById('lyricsPlayIcon').className = isPlaying ? "fa-solid fa-pause text-sm" : "fa-solid fa-play text-sm";
-        }
-
-        function toggleLyricsModal() {
-            const modal = document.getElementById('lyricsModal');
-            modal.classList.toggle('hidden');
-        }
-
-        function shareCard() {
-            if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); }
-        }
-    </script>
-</body>
-</html>
