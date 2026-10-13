@@ -140,6 +140,9 @@
             color: rgba(255, 255, 255, 0.4);
             font-size: 1rem;
             line-height: 1.6;
+            text-align: left;
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
         }
         .lyric-line.active {
             color: #06b6d4;
@@ -511,12 +514,12 @@
 
     </div>
 
-    <!-- Modal de Letra -->
+    <!-- Modal de Letra (Alineado a la izquierda) -->
     <div id="lyricsModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden flex flex-col justify-between p-6 transition-all duration-300">
         <div class="flex items-center justify-between border-b border-white/10 pb-4">
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-xl bg-cover bg-center overflow-hidden" id="lyricsCover" style="background-image: url('sandermedia/reggaeton.jpeg')"></div>
-                <div>
+                <div class="text-left">
                     <h3 id="lyricsTitle" class="text-sm font-bold text-white">EL LOBO</h3>
                     <p id="lyricsAlbum" class="text-xs text-cyber-cyan">Reggaeton a mi manera</p>
                 </div>
@@ -526,7 +529,7 @@
             </button>
         </div>
 
-        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-center select-none scroll-smooth"></div>
+        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-left select-none scroll-smooth"></div>
 
         <div class="border-t border-white/10 pt-4 flex items-center justify-center gap-6">
             <button onclick="prevTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-sm"></i></button>
@@ -582,10 +585,34 @@
                     { 
                         title: "EL LOBO", duration: "3:15", audio: "audiossan/el lobo.mp3",
                         lyrics: [
-                            { time: 17, text: "Llegó la noche bajo la luz de la luna espera algo malvado..." },
-                            { time: 45, text: "Cuando bailas la bestia está por atacar" },
-                            { time: 53, text: "El lobo, el lobo, el lobo está..." },
-                            { time: 60, text: "Atacar el lobo, el lobo, el lobo, el lobo..." }
+                            { time: 0, text: "[Música]" },
+                            { time: 17.0, text: "Llegó la noche bajo la luz de la luna, espera algo malvado que paraliza el corazón y te provoca miedo" },
+                            { time: 24.0, text: "Intentarás gritar pero el terror atrapa el sonido" },
+                            { time: 32.0, text: "Antes que lo hagas tu cuerpo se congelará" },
+                            { time: 38.0, text: "Puedes sentir el miedo, puedes escuchar tu cuerpo temblando cuando bailas, la bestia está por atacar" },
+                            { time: 45.0, text: "Puedes sentir el miedo, puedes escuchar tu cuerpo temblando cuando bailas, la bestia está por atacar" },
+                            { time: 53.0, text: "El lobo, el lobo, el lobo está..." },
+                            { time: 60.0, text: "Atacar el lobo, el lobo, el lobo, el lobo, el lobo está por..." },
+                            { time: 69.0, text: "Atacar al lobo, al lobo" },
+                            { time: 72.0, text: "Busca una chica sensual, muy simpática, que para bailar rompe el suelo con su técnica" },
+                            { time: 77.0, text: "Que estás bien loca, atrevida y muy rápida, porque este lobo seguro la enamorará" },
+                            { time: 82.0, text: "Y no te duermas porque te lo ganó, tu chica para comerla" },
+                            { time: 86.0, text: "Es una bestia, es una fiera, y te atacó con fuerza el lobo, el lobo, el lobo está por..." },
+                            { time: 96.0, text: "Atacar el lobo, el lobo, el lobo, el lobo, el lobo está por..." },
+                            { time: 104.0, text: "Atacar el lobo, el lobo" },
+                            { time: 108.0, text: "[Música]" },
+                            { time: 127.0, text: "Eh, puedes sentir el miedo, puedes escuchar tu cuerpo temblando cuando bailas la bestia está por atacar" },
+                            { time: 135.0, text: "Puedes sentir el miedo, puedo escuchar tu cuerpo temblando cuando bailas, la bestia está por atacar" },
+                            { time: 152.0, text: "El lobo, el lobo, el lobo está por..." },
+                            { time: 162.0, text: "Atacar el lobo, el lobo, eh, el lobo, el lobo, el lobo está por..." },
+                            { time: 171.0, text: "Atacar el lobo, el lobo" },
+                            { time: 174.0, text: "Busca una chica sensual, muy simpática, que pa' bailar rompe el suelo con su técnica" },
+                            { time: 179.0, text: "Que está bien loca, atrevida y muy rápida, porque este lobo seguro la enamorará" },
+                            { time: 184.0, text: "Y no te duermas porque te lo gano, tu chica para comerla" },
+                            { time: 188.0, text: "Es una bestia, una fiera, y te atacó con fuerza el lobo, el lobo, el lobo está por..." },
+                            { time: 198.0, text: "Atacar el lobo, el lobo, el lobo, el lobo, el lobo está por..." },
+                            { time: 206.0, text: "Atacar al lobo, el lobo" },
+                            { time: 210.0, text: "[Música]" }
                         ]
                     }
                 ]
