@@ -155,7 +155,7 @@
 </head>
 <body class="bg-black flex items-center justify-center p-0 sm:p-6 relative">
 
-    <!-- Pantalla de Bienvenida con Video Vertical Claro y Botón Delicado 3D -->
+    <!-- Pantalla de Bienvenida -->
     <div id="welcomeOverlay" class="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden">
         <video id="welcomeVideo" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover bg-black">
             <source src="videosmedia/videoverticalsander.mp4" type="video/mp4">
@@ -497,18 +497,27 @@
         </div>
 
         <!-- Floating Music Player Bar -->
-        <div id="floatingPlayer" onclick="toggleLyricsModal()" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex items-center justify-between gap-3 z-30 cursor-pointer hover:bg-white/5 transition" title="Toca para ver la letra sincronizada">
-            <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
-                <div class="truncate">
-                    <h4 id="playerTitle" class="text-xs font-bold text-white truncate">Track</h4>
-                    <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum (Toca para ver letra)</p>
-                </div>
+        <div id="floatingPlayer" class="hidden shrink-0 bg-black/95 backdrop-blur-xl border-t border-cyber-accent/40 p-3 px-4 flex flex-col gap-2 z-30 transition">
+            <!-- Barra de progreso -->
+            <div class="flex items-center gap-2 w-full text-[10px] text-gray-400 font-mono">
+                <span id="currentTimeLabel">0:00</span>
+                <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyber-accent" oninput="seekAudio(this.value)">
+                <span id="durationLabel">0:00</span>
             </div>
-            <div class="flex items-center gap-2 shrink-0" onclick="event.stopPropagation()">
-                <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-xs"></i></button>
-                <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i></button>
-                <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-xs"></i></button>
+
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 overflow-hidden cursor-pointer" onclick="toggleLyricsModal()">
+                    <div class="w-10 h-10 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" id="playerCover" style="background-image: url('sandermedia/sanderdisco.jpeg')"></div>
+                    <div class="truncate">
+                        <h4 id="playerTitle" class="text-xs font-bold text-white truncate">Track</h4>
+                        <p id="playerAlbumName" class="text-[10px] text-cyber-cyan truncate">Álbum (Toca para ver letra)</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="prevTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-xs"></i></button>
+                    <button onclick="togglePlayState()" id="playerPlayBtn" class="w-9 h-9 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-xs" id="playerPlayIcon"></i></button>
+                    <button onclick="nextTrack()" class="w-8 h-8 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-xs"></i></button>
+                </div>
             </div>
         </div>
 
@@ -531,10 +540,19 @@
 
         <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-left select-none scroll-smooth"></div>
 
-        <div class="border-t border-white/10 pt-4 flex items-center justify-center gap-6">
-            <button onclick="prevTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-sm"></i></button>
-            <button onclick="togglePlayState()" id="lyricsPlayBtn" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-sm" id="lyricsPlayIcon"></i></button>
-            <button onclick="nextTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-sm"></i></button>
+        <div class="border-t border-white/10 pt-4 space-y-3">
+            <!-- Barra de progreso en el modal -->
+            <div class="flex items-center gap-2 w-full text-xs text-gray-400 font-mono">
+                <span id="modalCurrentTime">0:00</span>
+                <input type="range" id="modalProgressBar" value="0" min="0" max="100" step="0.1" class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyber-accent" oninput="seekAudio(this.value)">
+                <span id="modalDuration">0:00</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-6">
+                <button onclick="prevTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-sm"></i></button>
+                <button onclick="togglePlayState()" id="lyricsPlayBtn" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-sm" id="lyricsPlayIcon"></i></button>
+                <button onclick="nextTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-sm"></i></button>
+            </div>
         </div>
     </div>
 
@@ -570,9 +588,31 @@
                     { 
                         title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3",
                         lyrics: [
-                            { time: 0, text: "Hey, tratando de conquistar" },
-                            { time: 3.0, text: "el mundo para todos ustedes" },
-                            { time: 6.0, text: "Sander." }
+                            { time: 0, text: "Tratando de conquistar el mundo para todos ustedes" },
+                            { time: 7.0, text: "[Música]" },
+                            { time: 35.0, text: "Poca y suya, modelo del planeta" },
+                            { time: 44.0, text: "[Música]" },
+                            { time: 48.0, text: "Está buscando, ganando su..." },
+                            { time: 55.0, text: "Labios... Busco, busco una nena caprichosa que no..." },
+                            { time: 61.0, text: "Que no se sienta poca cosa, que venga una colorada, una rubia, una morocha" },
+                            { time: 69.0, text: "Es reguetón lada para bailarlo, para gozarlo" },
+                            { time: 78.0, text: "Busco, busco una nena caprichosa que no..." },
+                            { time: 85.0, text: "Que no se sienta poca cosa, que venga una colorada, una rubia, una morocha" },
+                            { time: 90.0, text: "Esto es reguetón lada para bailarlo, para gozarlo" },
+                            { time: 95.0, text: "[Música]" },
+                            { time: 99.0, text: "Morena y su reguetón amada para danzar, para su arco" },
+                            { time: 106.0, text: "Buscó, busco una nena caprichosa que no..." },
+                            { time: 110.0, text: "Que no se sienta poca cosa, que tenga una colorada, una rubia, una morocha" },
+                            { time: 118.0, text: "Es reguetón lada, bail..." },
+                            { time: 120.0, text: "[Música]" },
+                            { time: 122.0, text: "Modelo del planeta, está compitiendo para ver cuál de ellas tiene que bailar" },
+                            { time: 130.0, text: "Gustando, ganando, sigue bailando, mirando labios y..." },
+                            { time: 137.0, text: "[Música]" },
+                            { time: 150.0, text: "La lada para danzar, para su ar... Busco, busco una nena caprichosa que no..." },
+                            { time: 159.0, text: "Que no se sienta poca cosa, que una colorada, una rubia, una morocha" },
+                            { time: 168.0, text: "Está regatón lada para bailarlo para..." },
+                            { time: 171.0, text: "[Música]" },
+                            { time: 178.0, text: "Gozarlo, eee" }
                         ]
                     },
                     { 
@@ -622,13 +662,33 @@
         let currentAlbumIndex = 0, currentTrackIndex = 0, isPlaying = false;
         let audioElement = new Audio();
 
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
         audioElement.addEventListener('timeupdate', () => {
+            const currentTime = audioElement.currentTime;
+            const duration = audioElement.duration || 0;
+
+            // Actualizar barras de progreso
+            if (duration > 0) {
+                const progressPercent = (currentTime / duration) * 100;
+                document.getElementById('progressBar').value = progressPercent;
+                document.getElementById('modalProgressBar').value = progressPercent;
+
+                document.getElementById('currentTimeLabel').innerText = formatTime(currentTime);
+                document.getElementById('durationLabel').innerText = formatTime(duration);
+                document.getElementById('modalCurrentTime').innerText = formatTime(currentTime);
+                document.getElementById('modalDuration').innerText = formatTime(duration);
+            }
+
             const album = albumsData[currentAlbumIndex];
             if (!album) return;
             const track = album.tracks[currentTrackIndex];
             if (!track || !track.lyrics) return;
 
-            const currentTime = audioElement.currentTime;
             let activeIndex = 0;
             for (let i = 0; i < track.lyrics.length; i++) {
                 if (currentTime >= track.lyrics[i].time) {
@@ -650,6 +710,17 @@
                 }
             });
         });
+
+        audioElement.addEventListener('ended', () => {
+            nextTrack();
+        });
+
+        function seekAudio(value) {
+            if (audioElement.duration) {
+                const seekTime = (value / 100) * audioElement.duration;
+                audioElement.currentTime = seekTime;
+            }
+        }
 
         function switchTab(tabId) {
             ['bio', 'music', 'timeline', 'booking'].forEach(t => {
