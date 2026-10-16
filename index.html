@@ -759,21 +759,6 @@
                     { title: "SERE TU GUARDIAN", duration: "3:20", audio: "sandermix/sere tu guardian.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
                     { title: "NUNCA VOY A OLVIDARTE", duration: "3:35", audio: "sandermix/nunca voy a olvidarte.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
                 ]
-            },
-            {
-                title: "Maural Rock", year: "2021", desc: "El álbum Maural Rock con reversiones y grandes éxitos.", cover: "sandermedia/mauralrock.jpeg",
-                tracks: [
-                    { title: "ANGEL (ELEFANTE)", duration: "3:30", audio: "mauralrock/angel (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "MENTIROSA (ELEFANTE)", duration: "3:15", audio: "mauralrock/mentirosa (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "HACE FRIO YA", duration: "3:40", audio: "mauralrock/hace frio ya.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DE RODILLAS", duration: "3:25", audio: "mauralrock/de rodillas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "SI TE VAS (ENRIQUE IGLESIAS)", duration: "3:10", audio: "mauralrock/si te vas (enrique iglesias).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DE LA NOCHE A LA MAÑANA", duration: "3:50", audio: "mauralrock/de la noche a la mañana.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LOCO", duration: "3:20", audio: "mauralrock/loco.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "NO SABER DE TI (LOS NOCHEROS)", duration: "3:12", audio: "mauralrock/no saber de ti (los nocheros).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "PUERTO MONTT", duration: "3:35", audio: "mauralrock/puerto montt.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "Y ME QUEDE EN EL BAR", duration: "3:45", audio: "mauralrock/y me quede en el bar.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
-                ]
             }
         ];
 
@@ -972,4 +957,10 @@
         function showToast(msg) {
             const t = document.getElementById('toastNotification');
             document.getElementById('toastMessage').innerText = msg;
-            t.classList.remove('
+            t.classList.remove('translate-y-20', 'opacity-0');
+            t.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => { t.classList.remove('translate-y-0', 'opacity-100'); t.classList.add('translate-y-20', 'opacity-0'); }, 3000);
+        }
+    </script>
+</body>
+</html>
