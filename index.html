@@ -518,7 +518,8 @@
                 </div>
 
                 <div class="space-y-2.5">
-                    <a href="https://wa.me/1234567890" target="_blank" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
+                    <!-- Enlace de WhatsApp actualizado -->
+                    <a href="https://wa.link/3b7q5k" target="_blank" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center">
                                 <i class="fa-brands fa-whatsapp text-base"></i>
@@ -531,21 +532,23 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <a href="mailto:booking@sandermaurin.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
+                    <!-- Correo electrónico actualizado -->
+                    <a href="mailto:sandermaurin21@gmail.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyber-cyan flex items-center justify-center">
                                 <i class="fa-solid fa-envelope text-base"></i>
                             </div>
                             <div>
                                 <h4 class="text-xs font-bold text-white group-hover:text-cyber-cyan transition">Correo Electrónico</h4>
-                                <p class="text-[10px] text-gray-400">booking@sandermaurin.com</p>
+                                <p class="text-[10px] text-gray-400">sandermaurin21@gmail.com</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <button onclick="downloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Descargar EPK (PDF)
+                    <!-- Botón de Descargar EPK configurado para instalación PWA y pantalla de inicio -->
+                    <button onclick="installAppOrDownloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> Descargar EPK / Instalar App
                     </button>
                 </div>
             </div>
@@ -621,6 +624,31 @@
     </div>
 
     <script>
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function installAppOrDownloadEPK() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast('¡App instalada en la pantalla de inicio!');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                showToast('Preparando descarga de EPK y acceso directo...');
+                // Simula descarga o guardado automático en el dispositivo
+                setTimeout(() => {
+                    showToast('¡EPK guardado con éxito!');
+                }, 1500);
+            }
+        }
+
         function dismissWelcomeScreen() {
             const welcomeOverlay = document.getElementById('welcomeOverlay');
             const welcomeVideo = document.getElementById('welcomeVideo');
@@ -727,7 +755,6 @@
             const icon = document.getElementById(`prod-icon-${index}`);
             const isOpen = content.classList.contains('open');
 
-            // Cierra los demás desplegables
             productionsData.forEach((_, i) => {
                 const c = document.getElementById(`prod-acc-${i}`);
                 const ic = document.getElementById(`prod-icon-${i}`);
@@ -1119,11 +1146,6 @@
 
         function shareCard() {
             if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); showToast('¡Enlace copiado!'); }
-        }
-
-        function downloadEPK() {
-            showToast('Generando dossier EPK en PDF...');
-            setTimeout(() => showToast('¡EPK descargado!'), 1500);
         }
 
         function showToast(msg) {
