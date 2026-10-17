@@ -397,7 +397,7 @@
                 <div id="albumsMainView">
                     <div class="text-center mb-3">
                         <h3 class="text-sm font-bold text-white tracking-wider">Discografía Oficial</h3>
-                        <p class="text-[11px] text-gray-400">Toca cualquier disco para abrir su contenido y playlist</p>
+                        <p class="text-[11px] text-gray-400">Toca cualquier disco para abrir contenido y playlist</p>
                     </div>
 
                     <div class="grid grid-cols-3 gap-3">
@@ -498,16 +498,14 @@
                 </div>
             </div>
 
-            <!-- 3. TIMELINE TAB (PRODUCCIONES Y DIRECCIONES ARTÍSTICAS DESPLEGABLES) -->
+            <!-- 3. TIMELINE TAB -->
             <div id="content-timeline" class="tab-content space-y-3">
                 <div class="text-center mb-3">
                     <h3 class="text-sm font-bold text-white tracking-wider uppercase">Producciones & Direcciones Artísticas</h3>
                     <p class="text-[11px] text-gray-400">Toca cualquier título para desplegar la información</p>
                 </div>
 
-                <div id="productionsAccordionList" class="space-y-2">
-                    <!-- Las producciones se generan dinámicamente mediante JS -->
-                </div>
+                <div id="productionsAccordionList" class="space-y-2"></div>
             </div>
 
             <!-- 4. BOOKING TAB -->
@@ -518,7 +516,7 @@
                 </div>
 
                 <div class="space-y-2.5">
-                    <!-- Enlace de WhatsApp actualizado -->
+                    <!-- Enlace de WhatsApp -->
                     <a href="https://wa.link/3b7q5k" target="_blank" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center">
@@ -532,7 +530,7 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <!-- Correo electrónico actualizado -->
+                    <!-- Correo electrónico -->
                     <a href="mailto:sandermaurin21@gmail.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyber-cyan flex items-center justify-center">
@@ -546,9 +544,9 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <!-- Botón de Descargar EPK configurado para instalación PWA y pantalla de inicio -->
+                    <!-- Botón Inteligente de Instalación / PWA / EPK -->
                     <button onclick="installAppOrDownloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Descargar EPK / Instalar App
+                        <i class="fa-solid fa-download"></i> Instalar App / Descargar EPK
                     </button>
                 </div>
             </div>
@@ -579,6 +577,32 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Modal de Guía para iOS (Apple / iPhone) -->
+    <div id="iosInstallModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-6" onclick="closeIosModal()">
+        <div class="glass-card max-w-sm w-full p-6 rounded-3xl text-center space-y-4 relative border border-cyber-accent/40" onclick="event.stopPropagation()">
+            <div class="w-14 h-14 bg-cyber-accent/20 text-cyber-cyan rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-lg">
+                <i class="fa-brands fa-apple"></i>
+            </div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Instalar App en iPhone / iPad</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+                Para agregar esta aplicación a tu pantalla de inicio en dispositivos Apple, sigue estos sencillos pasos:
+            </p>
+            <div class="text-left bg-black/50 p-3.5 rounded-xl space-y-2 border border-white/5 text-xs text-gray-300">
+                <p class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
+                    Pulsa el botón <i class="fa-solid fa-share-nodes text-cyber-cyan mx-1"></i> <b>Compartir</b> en la barra inferior de Safari.
+                </p>
+                <p class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
+                    Desplázate y selecciona <i class="fa-solid fa-square-plus text-cyber-gold mx-1"></i> <b>"Añadir a la pantalla de inicio"</b>.
+                </p>
+            </div>
+            <button onclick="closeIosModal()" class="w-full py-2.5 rounded-xl bg-cyber-accent text-white text-xs font-bold uppercase tracking-wider shadow-md">
+                Entendido
+            </button>
+        </div>
     </div>
 
     <!-- Modal de Letra -->
@@ -613,7 +637,7 @@
         </div>
     </div>
 
-    <!-- Lightbox Modal para ampliar imágenes -->
+    <!-- Lightbox Modal -->
     <div id="lightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 cursor-pointer" onclick="closeLightbox()">
         <img id="lightboxImg" src="" alt="Ampliada" class="max-w-full max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain">
     </div>
@@ -631,8 +655,16 @@
             deferredPrompt = e;
         });
 
+        // Detección automática de plataforma (Apple vs Android/Otros)
         function installAppOrDownloadEPK() {
-            if (deferredPrompt) {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+            if (isIOS) {
+                // Mostrar instrucciones específicas para iOS / iPhone
+                document.getElementById('iosInstallModal').classList.remove('hidden');
+            } else if (deferredPrompt) {
+                // Lanzar aviso nativo en Android / Chrome
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
@@ -641,12 +673,15 @@
                     deferredPrompt = null;
                 });
             } else {
-                showToast('Preparando descarga de EPK y acceso directo...');
-                // Simula descarga o guardado automático en el dispositivo
+                showToast('Preparando descarga de EPK...');
                 setTimeout(() => {
                     showToast('¡EPK guardado con éxito!');
                 }, 1500);
             }
+        }
+
+        function closeIosModal() {
+            document.getElementById('iosInstallModal').classList.add('hidden');
         }
 
         function dismissWelcomeScreen() {
@@ -682,7 +717,7 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Datos de Producciones, Direcciones Artísticas e Hitos Actualizados
+        // Datos de Producciones e Hitos Actualizados
         const productionsData = [
             { title: "KANTARSIS (Villa Carlos Paz)", desc: "Dirección artística premiada en Villa Carlos Paz en el Teatro Timbao." },
             { title: "LOS DUARTE (Espectáculo Folklórico)", desc: "Espectáculo folklórico en Villa Carlos Paz con Pardo Producciones, bajo su dirección general y premiado." },
