@@ -544,10 +544,44 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <!-- Botón Inteligente de Instalación / PWA / EPK -->
-                    <button onclick="installAppOrDownloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Instalar App / Descargar EPK
-                    </button>
+                    <!-- Botón Automático Inteligente según Dispositivo -->
+                    <div class="pt-2">
+                        <button onclick="smartInstallApp()" id="smartInstallBtn" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-mobile-screen-button text-sm"></i>
+                            <span id="smartInstallBtnText">Instalar App en Pantalla de Inicio</span>
+                        </button>
+                    </div>
+
+                    <!-- Explicativo de Instalación de App -->
+                    <div class="glass-tab p-4 rounded-2xl space-y-3 mt-3 border border-white/10">
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-mobile-screen text-cyber-cyan"></i> Guía de Instalación App Móvil
+                        </h4>
+                        
+                        <!-- Guía Apple / iOS -->
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
+                            <div class="flex items-center gap-2 text-cyber-cyan font-bold text-xs">
+                                <i class="fa-brands fa-apple text-sm"></i> iPhone / iPad (Safari)
+                            </div>
+                            <ol class="text-[11px] text-gray-300 space-y-1 list-decimal list-inside pl-1 leading-relaxed">
+                                <li>Toca el botón <b>Compartir</b> <i class="fa-solid fa-share-nodes text-cyber-cyan mx-0.5"></i> en la barra inferior de Safari.</li>
+                                <li>Desplázate y selecciona <b>"Añadir a la pantalla de inicio"</b> <i class="fa-solid fa-square-plus text-cyber-gold mx-0.5"></i>.</li>
+                                <li>Confirma tocando <b>"Añadir"</b> arriba a la derecha.</li>
+                            </ol>
+                        </div>
+
+                        <!-- Guía Android / Chrome -->
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
+                            <div class="flex items-center gap-2 text-green-400 font-bold text-xs">
+                                <i class="fa-brands fa-android text-sm"></i> Android (Chrome / Navegadores)
+                            </div>
+                            <ol class="text-[11px] text-gray-300 space-y-1 list-decimal list-inside pl-1 leading-relaxed">
+                                <li>Toca los <b>3 puntos</b> <i class="fa-solid fa-ellipsis-vertical text-green-400 mx-0.5"></i> del menú del navegador.</li>
+                                <li>Selecciona <b>"Instalar aplicación"</b> o <b>"Añadir a pantalla de inicio"</b>.</li>
+                                <li>Acepta el mensaje en pantalla para agregar el ícono.</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -592,11 +626,11 @@
             <div class="text-left bg-black/50 p-3.5 rounded-xl space-y-2 border border-white/5 text-xs text-gray-300">
                 <p class="flex items-center gap-2">
                     <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
-                    Pulsa el botón <i class="fa-solid fa-share-nodes text-cyber-cyan mx-1"></i> <b>Compartir</b> en la barra inferior de Safari.
+                    Pulsa el botón <i class="fa-solid fa-share-nodes text-cyber-cyan mx-1"></i> <b>Compartir</b> en Safari.
                 </p>
                 <p class="flex items-center gap-2">
                     <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
-                    Desplázate y selecciona <i class="fa-solid fa-square-plus text-cyber-gold mx-1"></i> <b>"Añadir a la pantalla de inicio"</b>.
+                    Selecciona <i class="fa-solid fa-square-plus text-cyber-gold mx-1"></i> <b>"Añadir a la pantalla de inicio"</b>.
                 </p>
             </div>
             <button onclick="closeIosModal()" class="w-full py-2.5 rounded-xl bg-cyber-accent text-white text-xs font-bold uppercase tracking-wider shadow-md">
@@ -653,30 +687,31 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            const btnText = document.getElementById('smartInstallBtnText');
+            if (btnText) {
+                btnText.innerText = "Instalar App (Android 1-Clic)";
+            }
         });
 
-        // Detección automática de plataforma (Apple vs Android/Otros)
-        function installAppOrDownloadEPK() {
+        // Detección automática y ejecución inteligente según la plataforma
+        function smartInstallApp() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
             if (isIOS) {
-                // Mostrar instrucciones específicas para iOS / iPhone
+                // Abre guía visual automática para Apple / iPhone
                 document.getElementById('iosInstallModal').classList.remove('hidden');
             } else if (deferredPrompt) {
-                // Lanzar aviso nativo en Android / Chrome
+                // Ejecuta la instalación automática de 1-Clic en Android
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        showToast('¡App instalada en la pantalla de inicio!');
+                        showToast('¡App instalada en tu pantalla de inicio!');
                     }
                     deferredPrompt = null;
                 });
             } else {
-                showToast('Preparando descarga de EPK...');
-                setTimeout(() => {
-                    showToast('¡EPK guardado con éxito!');
-                }, 1500);
+                showToast('Despliega el menú del navegador y elige "Añadir a pantalla de inicio"');
             }
         }
 
@@ -700,6 +735,19 @@
                 welcomeVideo.muted = true; 
                 welcomeVideo.play().catch(() => {}); 
             }
+            
+            // Adaptar texto del botón inteligente al inicio
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+            const btnText = document.getElementById('smartInstallBtnText');
+            if (btnText) {
+                if (isIOS) {
+                    btnText.innerText = "Cómo Instalar App en iPhone / iPad";
+                } else {
+                    btnText.innerText = "Instalar App en Pantalla de Inicio";
+                }
+            }
+
             renderProductionsList();
         });
 
