@@ -104,7 +104,7 @@
             opacity: 0;
         }
         .accordion-content.open {
-            max-height: 3000px;
+            max-height: 3500px;
             opacity: 1;
         }
         #welcomeOverlay {
@@ -244,7 +244,6 @@
                         <i id="icon-carrera" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
                     <div id="acc-carrera" class="accordion-content px-4 pb-4 space-y-3">
-                        <!-- Galería con las 3 imágenes solicitadas -->
                         <div class="grid grid-cols-3 gap-2 my-2">
                             <div class="rounded-xl overflow-hidden h-28 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/familia.jpeg')">
                                 <img src="sandermedia/familia.jpeg" alt="Familia" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600'">
@@ -291,14 +290,31 @@
                         <i id="icon-vida" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
                     <div id="acc-vida" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="grid grid-cols-2 gap-2 my-2">
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sander_giuliana_tulum.jpg')">
-                                <img src="sandermedia/sander_giuliana_tulum.jpg" alt="Sander y Giuliana en Tulum" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1.5 py-0.5 rounded text-white">Sander & Giuliana</span>
+                        <!-- Galería completa de Vida Privada -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 my-2">
+                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sanderyfedericoayos.jpeg')">
+                                <img src="sandermedia/sanderyfedericoayos.jpeg" alt="Sander y Federico Ayos" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
+                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Sander & Fede Ayos</span>
                             </div>
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sander_hijas_familia.jpg')">
-                                <img src="sandermedia/sander_hijas_familia.jpg" alt="Sander Maurín y sus hijas" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1.5 py-0.5 rounded text-white">Carola, Rihanna y Reyna</span>
+                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/carolamaurin.jpeg')">
+                                <img src="sandermedia/carolamaurin.jpeg" alt="Carola Maurin" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
+                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Carola Maurín</span>
+                            </div>
+                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/rihannamaurin.jpeg')">
+                                <img src="sandermedia/rihannamaurin.jpeg" alt="Rihanna Maurin" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
+                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Rihanna Maurín</span>
+                            </div>
+                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/reynamaurin.jpeg')">
+                                <img src="sandermedia/reynamaurin.jpeg" alt="Reyna Maurin" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
+                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Reyna Maurín</span>
+                            </div>
+                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sanderreynaygiuli.jpeg')">
+                                <img src="sandermedia/sanderreynaygiuli.jpeg" alt="Sander, Reyna y Giuli" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
+                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Sander, Reyna & Giuli</span>
+                            </div>
+                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermadia/giuliysandermexico.jpeg')">
+                                <img src="sandermadia/giuliysandermexico.jpeg" alt="Giuli y Sander en México" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
+                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Giuli & Sander (México)</span>
                             </div>
                         </div>
 
@@ -1039,7 +1055,7 @@
         }
 
         function downloadEPK() {
-            showToast('Generando dossier EPK in PDF...');
+            showToast('Generando dossier EPK en PDF...');
             setTimeout(() => showToast('¡EPK descargado!'), 1500);
         }
 
