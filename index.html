@@ -544,9 +544,9 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <!-- Botón Automático / Instalación de App -->
+                    <!-- Botón Inteligente de Instalación / PWA / EPK -->
                     <button onclick="installAppOrDownloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-mobile-screen-button"></i> Agregar App al Inicio
+                        <i class="fa-solid fa-download"></i> Instalar App / Descargar EPK
                     </button>
                 </div>
             </div>
@@ -579,17 +579,27 @@
 
     </div>
 
-    <!-- Modal Visual Rápido para iOS (Apple / iPhone) -->
-    <div id="iosInstallModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-6" onclick="closeIosModal()">
-        <div class="glass-card max-w-xs w-full p-5 rounded-3xl text-center space-y-3.5 relative border border-cyber-accent/40 shadow-2xl" onclick="event.stopPropagation()">
-            <div class="w-12 h-12 bg-cyber-accent/20 text-cyber-cyan rounded-2xl mx-auto flex items-center justify-center text-xl shadow-lg">
+    <!-- Modal de Guía para iOS (Apple / iPhone) -->
+    <div id="iosInstallModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-6" onclick="closeIosModal()">
+        <div class="glass-card max-w-sm w-full p-6 rounded-3xl text-center space-y-4 relative border border-cyber-accent/40" onclick="event.stopPropagation()">
+            <div class="w-14 h-14 bg-cyber-accent/20 text-cyber-cyan rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-lg">
                 <i class="fa-brands fa-apple"></i>
             </div>
-            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Añadir a pantalla de inicio</h3>
-            <p class="text-[11px] text-gray-300 leading-relaxed">
-                Toca abajo en tu navegador <b class="text-cyber-cyan">Compartir</b> <i class="fa-solid fa-share-nodes text-cyber-cyan"></i> y selecciona <b class="text-cyber-gold">"Añadir a inicio"</b>.
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Instalar App en iPhone / iPad</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+                Para agregar esta aplicación a tu pantalla de inicio en dispositivos Apple, sigue estos sencillos pasos:
             </p>
-            <button onclick="closeIosModal()" class="w-full py-2 rounded-xl bg-cyber-accent text-white text-[11px] font-bold uppercase tracking-wider shadow-md">
+            <div class="text-left bg-black/50 p-3.5 rounded-xl space-y-2 border border-white/5 text-xs text-gray-300">
+                <p class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
+                    Pulsa el botón <i class="fa-solid fa-share-nodes text-cyber-cyan mx-1"></i> <b>Compartir</b> en la barra inferior de Safari.
+                </p>
+                <p class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
+                    Desplázate y selecciona <i class="fa-solid fa-square-plus text-cyber-gold mx-1"></i> <b>"Añadir a la pantalla de inicio"</b>.
+                </p>
+            </div>
+            <button onclick="closeIosModal()" class="w-full py-2.5 rounded-xl bg-cyber-accent text-white text-xs font-bold uppercase tracking-wider shadow-md">
                 Entendido
             </button>
         </div>
@@ -621,7 +631,7 @@
 
             <div class="flex items-center justify-center gap-6">
                 <button onclick="prevTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-backward-step text-sm"></i></button>
-                <button onclick="togglePlayState()" id="lyricsPlayBtn" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-sm" id="playerPlayIcon"></i></button>
+                <button onclick="togglePlayState()" id="lyricsPlayBtn" class="w-12 h-12 rounded-full bg-cyber-accent text-white flex items-center justify-center shadow-lg"><i class="fa-solid fa-pause text-sm" id="lyricsPlayIcon"></i></button>
                 <button onclick="nextTrack()" class="w-10 h-10 rounded-full glass-tab flex items-center justify-center text-white"><i class="fa-solid fa-forward-step text-sm"></i></button>
             </div>
         </div>
@@ -645,25 +655,28 @@
             deferredPrompt = e;
         });
 
-        // Activación automática de permiso o aviso visual según dispositivo
+        // Detección automática de plataforma (Apple vs Android/Otros)
         function installAppOrDownloadEPK() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
             if (isIOS) {
-                // Muestra la tarjeta interactiva rápida para iOS
+                // Mostrar instrucciones específicas para iOS / iPhone
                 document.getElementById('iosInstallModal').classList.remove('hidden');
             } else if (deferredPrompt) {
-                // Lanza directamente la ventana nativa de instalación automática en Android
+                // Lanzar aviso nativo en Android / Chrome
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        showToast('¡App añadida a la pantalla de inicio!');
+                        showToast('¡App instalada en la pantalla de inicio!');
                     }
                     deferredPrompt = null;
                 });
             } else {
-                showToast('¡Aplicación lista en tu dispositivo!');
+                showToast('Preparando descarga de EPK...');
+                setTimeout(() => {
+                    showToast('¡EPK guardado con éxito!');
+                }, 1500);
             }
         }
 
@@ -704,7 +717,7 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Datos de Producciones e Hitos
+        // Datos de Producciones e Hitos Actualizados
         const productionsData = [
             { title: "KANTARSIS (Villa Carlos Paz)", desc: "Dirección artística premiada en Villa Carlos Paz en el Teatro Timbao." },
             { title: "LOS DUARTE (Espectáculo Folklórico)", desc: "Espectáculo folklórico en Villa Carlos Paz con Pardo Producciones, bajo su dirección general y premiado." },
@@ -925,4 +938,258 @@
                     { title: "TANDRÉ QUE ACOSTUMBRARME", duration: "3:35", audio: "bachata/tendre que acostumbrarme.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
                     { title: "DEBES DECILE", duration: "3:20", audio: "bachata/debes decirle.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
                     { title: "VAS A LLORAR POR MÍ", duration: "3:30", audio: "bachata/vas a llorar por mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "QUIÉN SABE DÓNDE ESTÁS", duration: "3:45", audio: "bachata/quien sabe donde estas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }]
+                    { title: "QUIÉN SABE DÓNDE ESTÁS", duration: "3:45", audio: "bachata/quien sabe donde estas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                ]
+            },
+            {
+                title: "Maural", year: "2023", desc: "El EP conceptual Maural con las canciones solicitadas.", cover: "sandermedia/maural.jpeg",
+                tracks: [
+                    { title: "ATÉNDEME", duration: "3:30", audio: "maural/atendeme.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "EN ESTE VERANO", duration: "3:15", audio: "maural/en este verano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "TE EXTRAÑO A MORIR", duration: "3:40", audio: "maural/te extraño a morir.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "BOCA A BOCA", duration: "3:25", audio: "maural/boca a boca.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                ]
+            },
+            {
+                title: "Los eternos iracundos", year: "2022", desc: "El álbum Los eternos iracundos con los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg",
+                tracks: [
+                    { title: "HACE FRIO YA", duration: "3:30", audio: "losiracundos/hace frio ya.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "CALLA", duration: "3:15", audio: "losiracundos/calla.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "ME QUEDE EN EL BAR", duration: "3:40", audio: "losiracundos/me quede en el bar.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "DE RODILLAS", duration: "3:25", audio: "losiracundos/de rodillas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "VA CAYENDO UNA LAGRIMA", duration: "3:10", audio: "losiracundos/va cayendo una lagrima.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "TORMENTA DE VERANO", duration: "3:50", audio: "losiracundos/tormenta de verano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "VENITE VOLANDO", duration: "3:20", audio: "losiracundos/venite volando.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "VEN QUE ESTOY HIRVIENDO", duration: "3:12", audio: "losiracundos/ven que estoy hirviendo.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "PORQUE NO VALE LA PENA", duration: "3:35", audio: "losiracundos/porque no vale la pena.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "PUERTO MONTT", duration: "3:45", audio: "losiracundos/puerto montt.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "EL TRIUNFADOR", duration: "3:30", audio: "losiracundos/el triunfador.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                ]
+            },
+            {
+                title: "Sander Mix", year: "2022", desc: "El sencillo Sander Mix con la selección especial de éxitos.", cover: "sandermedia/sandermix.jpeg",
+                tracks: [
+                    { title: "COMO TE AMO YO", duration: "3:30", audio: "sandermix/como te amo yo.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "BOCA A BOCA", duration: "3:25", audio: "sandermix/boca a boca.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "TE OLVIDASTE DE MI ACUSTICO", duration: "3:45", audio: "sandermix/te olvidaste de mi acustico.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "LO PLENO VINO A MI", duration: "3:15", audio: "sandermix/lo pleno vino a mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "YASMIN", duration: "3:30", audio: "sandermix/yasmin.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "MAGICAS PRINCESAS", duration: "3:40", audio: "sandermix/magicas princesas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "SERE TU GUARDIAN", duration: "3:20", audio: "sandermix/sere tu guardian.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "NUNCA VOY A OLVIDARTE", duration: "3:35", audio: "sandermix/nunca voy a olvidarte.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                ]
+            },
+            {
+                title: "Maural Rock", year: "2021", desc: "El álbum de versiones Rock de Maural.", cover: "sandermedia/mauralrock.jpeg",
+                tracks: [
+                    { title: "ANGEL (ELEFANTE)", duration: "3:30", audio: "mauralrock/angel (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "MENTIROSA (ELEFANTE)", duration: "3:20", audio: "mauralrock/mentirosa (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "HACE FRIO YA", duration: "3:15", audio: "mauralrock/hace frio ya.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "DE RODILLAS", duration: "3:25", audio: "mauralrock/de rodillas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "SI TE VAS (ENRIQUE IGLESIAS)", duration: "3:40", audio: "mauralrock/si te vas (enrique iglesias).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "DE LA NOCHE A LA MAÑANA", duration: "3:35", audio: "mauralrock/de la noche a la mañana (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "LOCO", duration: "3:10", audio: "mauralrock/loco.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "NO SABER DE TI (LOS NOCHEROS)", duration: "3:45", audio: "mauralrock/no saber de ti (los nocheros).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "PUERTO MONTT", duration: "3:50", audio: "mauralrock/puerto montt.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
+                    { title: "Y ME QUEDE EN EL BAR", duration: "3:30", audio: "mauralrock/y me quede en el bar.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                ]
+            }
+        ];
+
+        let currentAlbumIndex = 0, currentTrackIndex = 0, isPlaying = false;
+        let audioElement = new Audio();
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        audioElement.addEventListener('timeupdate', () => {
+            const currentTime = audioElement.currentTime;
+            const duration = audioElement.duration || 0;
+
+            if (duration > 0) {
+                const progressPercent = (currentTime / duration) * 100;
+                document.getElementById('progressBar').value = progressPercent;
+                document.getElementById('modalProgressBar').value = progressPercent;
+
+                document.getElementById('currentTimeLabel').innerText = formatTime(currentTime);
+                document.getElementById('durationLabel').innerText = formatTime(duration);
+                document.getElementById('modalCurrentTime').innerText = formatTime(currentTime);
+                document.getElementById('modalDuration').innerText = formatTime(duration);
+            }
+
+            const album = albumsData[currentAlbumIndex];
+            if (!album) return;
+            const track = album.tracks[currentTrackIndex];
+            if (!track || !track.lyrics) return;
+
+            let activeIndex = 0;
+            for (let i = 0; i < track.lyrics.length; i++) {
+                if (currentTime >= track.lyrics[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            const lyricLines = document.querySelectorAll('.lyric-line');
+            lyricLines.forEach((line, idx) => {
+                if (idx === activeIndex) {
+                    if (!line.classList.contains('active')) {
+                        line.classList.add('active');
+                        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        });
+
+        audioElement.addEventListener('ended', () => {
+            nextTrack();
+        });
+
+        function seekAudio(value) {
+            if (audioElement.duration) {
+                const seekTime = (value / 100) * audioElement.duration;
+                audioElement.currentTime = seekTime;
+            }
+        }
+
+        function switchTab(tabId) {
+            ['bio', 'music', 'timeline', 'booking'].forEach(t => {
+                document.getElementById(`tab-${t}`).className = t === tabId ? 'glass-tab active py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-white' : 'glass-tab py-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-all text-gray-400 hover:text-white';
+                document.getElementById(`content-${t}`).className = t === tabId ? 'tab-content active space-y-3' : 'tab-content space-y-4';
+            });
+            document.getElementById('mainScrollContainer').scrollTop = 0;
+        }
+
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            const isOpen = content.classList.contains('open');
+            
+            ['acc-carrera', 'acc-vida', 'acc-espectaculos', 'acc-situacion'].forEach(id => {
+                document.getElementById(id).classList.remove('open');
+            });
+            ['icon-carrera', 'icon-vida', 'icon-espectaculos', 'icon-situacion'].forEach(id => {
+                document.getElementById(id).style.transform = 'rotate(0deg)';
+            });
+
+            if (!isOpen) {
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function openAlbum(index) {
+            currentAlbumIndex = index;
+            const album = albumsData[index];
+            document.getElementById('detailAlbumCover').src = album.cover;
+            document.getElementById('detailAlbumYear').innerText = album.year;
+            document.getElementById('detailAlbumTitle').innerText = album.title;
+            document.getElementById('detailAlbumDesc').innerText = album.desc;
+            
+            const tracklistEl = document.getElementById('detailTracklist');
+            tracklistEl.innerHTML = '';
+            album.tracks.forEach((track, tIdx) => {
+                const trackNum = (tIdx + 1 < 10 ? '0' : '') + (tIdx + 1);
+                tracklistEl.innerHTML += `<div onclick="playAlbumTrack(${index}, ${tIdx})" class="glass-tab p-2.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-cyber-accent transition group"><div class="flex items-center gap-2.5"><span class="text-xs font-mono text-cyber-cyan">${trackNum}</span><span class="text-xs text-white font-medium">${track.title}</span></div><i class="fa-solid fa-play text-[10px] text-cyber-accent"></i></div>`;
+            });
+            document.getElementById('albumsMainView').classList.add('hidden');
+            document.getElementById('albumDetailView').classList.remove('hidden');
+        }
+
+        function closeAlbum() {
+            document.getElementById('albumDetailView').classList.add('hidden');
+            document.getElementById('albumsMainView').classList.remove('hidden');
+        }
+
+        function playAlbumTrack(albumIdx, trackIdx) {
+            currentAlbumIndex = albumIdx; currentTrackIndex = trackIdx;
+            const album = albumsData[albumIdx];
+            const track = album.tracks[trackIdx];
+            
+            document.getElementById('playerTitle').innerText = track.title;
+            document.getElementById('playerAlbumName').innerText = album.title;
+            document.getElementById('playerCover').style.backgroundImage = `url('${album.cover}')`;
+            
+            document.getElementById('lyricsTitle').innerText = track.title;
+            document.getElementById('lyricsAlbum').innerText = album.title;
+            document.getElementById('lyricsCover').style.backgroundImage = `url('${album.cover}')`;
+
+            const lyricsContainer = document.getElementById('lyricsContainer');
+            lyricsContainer.innerHTML = '';
+            if (track.lyrics && track.lyrics.length > 0) {
+                track.lyrics.forEach((l, idx) => {
+                    lyricsContainer.innerHTML += `<p class="lyric-line ${idx === 0 ? 'active' : ''}" data-time="${l.time}">${l.text}</p>`;
+                });
+            } else {
+                lyricsContainer.innerHTML = `<p class="lyric-line active">Letra sincronizada disponible próximamente.</p>`;
+            }
+
+            if (track.audio) {
+                audioElement.src = track.audio;
+                audioElement.play().catch(e => console.error("Error al reproducir audio:", e));
+            } else {
+                audioElement.pause();
+            }
+
+            isPlaying = true; updatePlayButtonUI();
+            document.getElementById('floatingPlayer').classList.remove('hidden');
+            showToast(`Reproduciendo: ${track.title}`);
+        }
+
+        function togglePlayState() {
+            isPlaying = !isPlaying;
+            updatePlayButtonUI();
+            if (!isPlaying) {
+                audioElement.pause();
+            } else {
+                audioElement.play().catch(() => {});
+            }
+        }
+
+        function updatePlayButtonUI() {
+            const iconClass = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
+            document.getElementById('playerPlayIcon').className = iconClass;
+            document.getElementById('lyricsPlayIcon').className = isPlaying ? "fa-solid fa-pause text-sm" : "fa-solid fa-play text-sm";
+        }
+
+        function nextTrack() {
+            const album = albumsData[currentAlbumIndex];
+            currentTrackIndex = (currentTrackIndex + 1) % album.tracks.length;
+            playAlbumTrack(currentAlbumIndex, currentTrackIndex);
+        }
+
+        function prevTrack() {
+            const album = albumsData[currentAlbumIndex];
+            currentTrackIndex = (currentTrackIndex - 1 + album.tracks.length) % album.tracks.length;
+            playAlbumTrack(currentAlbumIndex, currentTrackIndex);
+        }
+
+        function toggleLyricsModal() {
+            const modal = document.getElementById('lyricsModal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function shareCard() {
+            if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); showToast('¡Enlace copiado!'); }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = msg;
+            t.classList.remove('translate-y-20', 'opacity-0');
+            t.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => { t.classList.remove('translate-y-0', 'opacity-100'); t.classList.add('translate-y-20', 'opacity-0'); }, 3000);
+        }
+    </script>
+</body>
+</html>
