@@ -135,15 +135,21 @@
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
             font-weight: 700;
         }
-        /* Estilo estático y fijo para la letra */
         .lyric-line {
-            color: #e5e7eb;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.4);
             font-size: 1rem;
-            line-height: 1.8;
+            line-height: 1.6;
             text-align: left;
-            margin-left: 1rem;
-            margin-right: 1rem;
-            white-space: pre-wrap;
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+        .lyric-line.active {
+            color: #06b6d4;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+            transform: scale(1.02);
         }
     </style>
 </head>
@@ -229,7 +235,7 @@
                     </p>
                 </div>
 
-                <!-- 1. CARRERA, FORMACIÓN Y ORIGEN FAMILIAR -->
+                <!-- CARRERA -->
                 <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
                     <button onclick="toggleAccordion('acc-carrera', 'icon-carrera')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
                         <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
@@ -240,42 +246,33 @@
                     <div id="acc-carrera" class="accordion-content px-4 pb-4 space-y-3">
                         <div class="grid grid-cols-3 gap-2 my-2">
                             <div class="rounded-xl overflow-hidden h-28 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/familia.jpeg')">
-                                <img src="sandermedia/familia.jpeg" alt="Familia" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=600'">
+                                <img src="sandermedia/familia.jpeg" alt="Familia" class="w-full h-full object-cover">
                                 <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] px-1 py-0.5 rounded text-white">Familia</span>
                             </div>
                             <div class="rounded-xl overflow-hidden h-28 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/reynasanderpapa.jpeg')">
-                                <img src="sandermedia/reynasanderpapa.jpeg" alt="Reyna, Sander y Papá" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600'">
+                                <img src="sandermedia/reynasanderpapa.jpeg" alt="Reyna, Sander y Papá" class="w-full h-full object-cover">
                                 <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] px-1 py-0.5 rounded text-white">Reyna, Sander & Papá</span>
                             </div>
                             <div class="rounded-xl overflow-hidden h-28 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sanderpapa.jpeg')">
-                                <img src="sandermedia/sanderpapa.jpeg" alt="Sander y Papá" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600'">
+                                <img src="sandermedia/sanderpapa.jpeg" alt="Sander y Papá" class="w-full h-full object-cover">
                                 <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] px-1 py-0.5 rounded text-white">Sander & Papá</span>
                             </div>
                         </div>
 
-                        <p class="text-xs text-gray-300 leading-relaxed font-semibold text-cyber-gold">
-                            Origen artístico de raza:
-                        </p>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Hijo de la gran bailarina acrobática de América, <strong>Nélida Palacios</strong>, y del reconocido artista multidisciplinario <strong>Alejandro Maurín</strong> (creador del malambo sobre hielo, showman de <em>Holiday On Ice</em> y autor de más de 20 trucos acrobáticos). Hermano de <strong>Reina Reech</strong> y Greta Maurín. Padrino de bautismo: Eber Lobato.
-                        </p>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Debutó profesionalmente a los 4 años con su familia "El Comandante Maurín y su Familia" en España (Valencia, Madrid, Barcelona) contratados por El Corte Inglés en junio de 1979.
-                        </p>
+                        <p class="text-xs text-gray-300 leading-relaxed font-semibold text-cyber-gold">Origen artístico de raza:</p>
+                        <p class="text-xs text-gray-300 leading-relaxed">Hijo de Nélida Palacios y Alejandro Maurín. Hermano de Reina Reech y Greta Maurín. Padrino: Eber Lobato. Debutó a los 4 años en España (1979).</p>
 
-                        <p class="text-xs text-gray-300 leading-relaxed font-semibold text-cyber-cyan mt-2">
-                            Formación integral multidisciplinaria (1982-1992):
-                        </p>
+                        <p class="text-xs text-gray-300 leading-relaxed font-semibold text-cyber-cyan mt-2">Formación integral (1982-1992):</p>
                         <ul class="text-xs text-gray-300 list-disc list-inside space-y-1 pl-1">
-                            <li><strong>Canto:</strong> Mireya (1982-1987), Mario Galván (1988-1997) y Mariana Grisiglione.</li>
-                            <li><strong>Danza:</strong> Escuela José Neglia (Clásica), Jazz, Hip Hop, Flamenco, Charleston, Rap y Tango con maestros como Alfredo Alaria, Norberto Guichanduc, Alicia Bossi, Carlos Copes y Birulazo.</li>
-                            <li><strong>Acrobacia y Actuación:</strong> Formado por su padre Alejandro Maurín, Tito Tula, José Luis y Jorge Videla (Escuela de Circo en Argentina).</li>
-                            <li><strong>Modelaje y Composición:</strong> Roberto Satragno (1989-2002), dirección escénica, anatomía y pintura.</li>
+                            <li><strong>Canto:</strong> Mireya, Mario Galván, Mariana Grisiglione.</li>
+                            <li><strong>Danza:</strong> Escuela José Neglia, Alfredo Alaria, Norberto Guichanduc, Alicia Bossi, Carlos Copes, Birulazo.</li>
+                            <li><strong>Acrobacia/Actuación:</strong> Alejandro Maurín, Tito Tula, José Luis, Jorge Videla.</li>
+                            <li><strong>Modelaje:</strong> Roberto Satragno.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 2. VIDA PRIVADA Y FAMILIA -->
+                <!-- VIDA PRIVADA -->
                 <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
                     <button onclick="toggleAccordion('acc-vida', 'icon-vida')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
                         <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
@@ -284,43 +281,11 @@
                         <i id="icon-vida" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
                     <div id="acc-vida" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 my-2">
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sanderyfedericoayos.jpeg')">
-                                <img src="sandermedia/sanderyfedericoayos.jpeg" alt="Sander y Federico Ayos" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Sander & Fede Ayos</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/carolamaurin.jpeg')">
-                                <img src="sandermedia/carolamaurin.jpeg" alt="Carola Maurin" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Carola Maurín</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/rihannamaurin.jpeg')">
-                                <img src="sandermedia/rihannamaurin.jpeg" alt="Rihanna Maurin" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Rihanna Maurín</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/reynamaurin.jpeg')">
-                                <img src="sandermedia/reynamaurin.jpeg" alt="Reyna Maurin" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Reyna Maurín</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/sanderreynaygiuli.jpeg')">
-                                <img src="sandermedia/sanderreynaygiuli.jpeg" alt="Sander, Reyna y Giuli" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Sander, Reyna & Giuli</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-32 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/giuliysandermexico.jpeg')">
-                                <img src="sandermedia/giuliysandermexico.jpeg" alt="Giuli y Sander en México" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Giuli & Sander (México)</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Padre de tres hijas: <strong>Carola</strong>, <strong>Rihanna</strong> y la más pequeña, <strong>Reyna Maurín</strong>. Estuvo en pareja durante 7 años con la actriz Mónica Ayos (siendo figura paterna fundamental de Federico Ayos).
-                        </p>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            A mediados de 2021 conoce al amor de su vida y compañera artística, <strong>Giuliana Valenzuela</strong>, a quien impulsó y potenció como la primera Vedette Contorsionista de la Argentina. Unieron sus vidas en dos bodas: matrimonio por Civil en Villa Carlos Paz (21/09/2023) y una Ceremonia Maya de Unión Cósmica en Tulum, México (21/09/2024).
-                        </p>
+                        <p class="text-xs text-gray-300 leading-relaxed">Padre de Carola, Rihanna y Reyna Maurín. En pareja con Giuliana Valenzuela, primera Vedette Contorsionista de Argentina.</p>
                     </div>
                 </div>
 
-                <!-- 3. ESPECTÁCULOS, PRODUCCIONES Y DIRECCIONES -->
+                <!-- ESPECTÁCULOS -->
                 <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
                     <button onclick="toggleAccordion('acc-espectaculos', 'icon-espectaculos')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
                         <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
@@ -329,34 +294,11 @@
                         <i id="icon-espectaculos" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
                     <div id="acc-espectaculos" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="grid grid-cols-3 gap-2 my-2">
-                            <div class="rounded-xl overflow-hidden h-36 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/carmenbarbieriysander.jpeg')">
-                                <img src="sandermedia/carmenbarbieriysander.jpeg" alt="Carmen Barbieri y Sander" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Carmen Barbieri</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-36 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/academiadevedettes.jpeg')">
-                                <img src="sandermedia/academiadevedettes.jpeg" alt="Academia de Vedettes" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Academia Vedettes</span>
-                            </div>
-                            <div class="rounded-xl overflow-hidden h-36 relative bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/vedettes.jpeg')">
-                                <img src="sandermedia/vedettes.jpeg" alt="Vedettes" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600'">
-                                <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1 py-0.5 rounded text-white">Vedettes</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Consolidado en Villa Carlos Paz y en los teatros más emblemáticos de la Calle Corrientes, Mar del Plata y giras internacionales:
-                        </p>
-                        <ul class="text-xs text-gray-300 list-disc list-inside space-y-1 pl-1">
-                            <li><strong>Premios Carlos y Mfalo de Oro (2002):</strong> Revelación y mejor espectáculo con <em>"Al fin Solos"</em> en el Teatro del Lago y <em>"Humor, amor y más humor"</em> en Teatro del Sol.</li>
-                            <li><strong>Fundador de la Marca "Academia de Vedette" (2003):</strong> Primera carrera profesional con título nacional e internacional otorgado por IMPI.</li>
-                            <li><strong>Dúo SANTAN & Maural (2008-2016):</strong> Dúo pop latino en castellano e italiano, e incursión en la cumbia cheta y pop tropical con el exitoso proyecto Maural.</li>
-                            <li><strong>Éxitos recientes:</strong> <em>"Evolución Burlesque"</em>, <em>"Bravisimo Show"</em>, <em>"Circo Smail"</em>, <em>"Atentado Fallido"</em> (Nominación a Premios Carlos), <em>"Menories Magic Show"</em> (Ganador Estrella de Conocer 2024), y producciones como <em>"MODO RISA"</em> y <em>"MAGNÍFICO SHOW"</em>.</li>
-                        </ul>
+                        <p class="text-xs text-gray-300 leading-relaxed">Ganador de Premios Carlos, fundador de "Academia de Vedette" (2003) y creador de producciones de gran impacto.</p>
                     </div>
                 </div>
 
-                <!-- 4. INNOVACIÓN Y SITUACIÓN ACTUAL -->
+                <!-- INNOVACIÓN -->
                 <div class="glass-tab rounded-2xl overflow-hidden border border-white/5">
                     <button onclick="toggleAccordion('acc-situacion', 'icon-situacion')" class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition">
                         <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
@@ -365,23 +307,7 @@
                         <i id="icon-situacion" class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
                     <div id="acc-situacion" class="accordion-content px-4 pb-4 space-y-3">
-                        <div class="rounded-xl overflow-hidden h-40 relative my-2 bg-neutral-900 cursor-pointer" onclick="openLightbox('sandermedia/ms3equipo.jpeg')">
-                            <img src="sandermedia/ms3equipo.jpeg" alt="Equipo MS3" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=600'">
-                            <span class="absolute bottom-1 left-1 bg-black/70 text-[9px] px-1.5 py-0.5 rounded text-white">Equipo MS3</span>
-                        </div>
-
-                        <p class="text-xs text-gray-300 leading-relaxed font-semibold text-cyber-cyan">
-                            Pionero en Televisión en Realidad Virtual 360° (MS3):
-                        </p>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Creador junto a Maxi Di Tata y Seba Geler del primer Canal de Televisión y plataforma streaming interactiva del mundo en Realidad Virtual Aumentada en 360° (<a href="http://www.ms3lanuevatelevision.com" target="_blank" class="text-cyber-cyan underline hover:text-white font-mono">www.ms3lanuevatelevision.com</a>), lanzando formatos inéditos e inmersivos.
-                        </p>
-                        <p class="text-xs text-gray-300 leading-relaxed font-semibold text-cyber-gold mt-2">
-                            Actualidad 2025 - 2026:
-                        </p>
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            Gira nacional de celebración <strong>"SANDER 50 AÑOS"</strong>, dirección artística para espectáculos de relieve en Villa Carlos Paz, y constante impulso a lanzamientos discográficos y producciones audiovisuales inmersivas.
-                        </p>
+                        <p class="text-xs text-gray-300 leading-relaxed">Pionero en Realidad Virtual 360° (MS3). Actualmente en gira "SANDER 50 AÑOS".</p>
                     </div>
                 </div>
             </div>
@@ -397,7 +323,7 @@
                     <div class="grid grid-cols-3 gap-3">
                         <div onclick="openAlbum(0)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton a mi manera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Reggaeton'">
+                                <img src="sandermedia/reggaeton.jpeg" alt="Reggaeton a mi manera" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Reggaeton a mi manera</h4>
                             <span class="text-[9px] text-cyber-cyan block">2026 • LP</span>
@@ -405,7 +331,7 @@
                         
                         <div onclick="openAlbum(1)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/sanderdisco.jpeg" alt="Sander Maurin" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Maurin'">
+                                <img src="sandermedia/sanderdisco.jpeg" alt="Sander Maurin" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Sander Maurin</h4>
                             <span class="text-[9px] text-cyber-cyan block">2026 • EP</span>
@@ -413,7 +339,7 @@
 
                         <div onclick="openAlbum(2)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/santan.jpeg" alt="Santan" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Santan'">
+                                <img src="sandermedia/santan.jpeg" alt="Santan" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Santan</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • LP</span>
@@ -421,7 +347,7 @@
 
                         <div onclick="openAlbum(3)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/desdelatierraalcielo.jpeg" alt="Desde la tierra al cielo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Tierra+Al+Cielo'">
+                                <img src="sandermedia/desdelatierraalcielo.jpeg" alt="Desde la tierra al cielo" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Desde la tierra al cielo</h4>
                             <span class="text-[9px] text-cyber-cyan block">2024 • Single</span>
@@ -429,7 +355,7 @@
 
                         <div onclick="openAlbum(4)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/bachata.jpeg" alt="Bachata" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Bachata'">
+                                <img src="sandermedia/bachata.jpeg" alt="Bachata" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Bachata</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • LP</span>
@@ -437,7 +363,7 @@
 
                         <div onclick="openAlbum(5)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/maural.jpeg" alt="Maural" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural'">
+                                <img src="sandermedia/maural.jpeg" alt="Maural" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Maural</h4>
                             <span class="text-[9px] text-cyber-cyan block">2023 • EP</span>
@@ -445,7 +371,7 @@
 
                         <div onclick="openAlbum(6)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/losiracundos.jpeg" alt="Los eternos iracundos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Iracundos'">
+                                <img src="sandermedia/losiracundos.jpeg" alt="Los eternos iracundos" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Los eternos iracundos</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • LP</span>
@@ -453,7 +379,7 @@
 
                         <div onclick="openAlbum(7)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/sandermix.jpeg" alt="Sander Mix" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Sander+Mix'">
+                                <img src="sandermedia/sandermix.jpeg" alt="Sander Mix" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Sander Mix</h4>
                             <span class="text-[9px] text-cyber-cyan block">2022 • Single</span>
@@ -461,7 +387,7 @@
 
                         <div onclick="openAlbum(8)" class="glass-tab p-2 rounded-xl group cursor-pointer hover:border-cyber-accent transition transform hover:-translate-y-1">
                             <div class="aspect-square rounded-lg overflow-hidden relative mb-1.5">
-                                <img src="sandermedia/mauralrock.jpeg" alt="Maural Rock" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/300x400/150a2b/ffffff?text=Maural+Rock'">
+                                <img src="sandermedia/mauralrock.jpeg" alt="Maural Rock" class="w-full h-full object-cover">
                             </div>
                             <h4 class="text-[11px] font-bold text-white truncate">Maural Rock</h4>
                             <span class="text-[9px] text-cyber-cyan block">2021 • LP</span>
@@ -510,7 +436,6 @@
                 </div>
 
                 <div class="space-y-2.5">
-                    <!-- Enlace de WhatsApp -->
                     <a href="https://wa.link/3b7q5k" target="_blank" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-green-500 transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center">
@@ -524,7 +449,6 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <!-- Correo electrónico -->
                     <a href="mailto:sandermaurin21@gmail.com" class="glass-tab p-3.5 rounded-xl flex items-center justify-between hover:border-cyber-cyan transition group">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyber-cyan flex items-center justify-center">
@@ -538,7 +462,6 @@
                         <i class="fa-solid fa-arrow-right text-xs text-gray-400"></i>
                     </a>
 
-                    <!-- Botón Inteligente de Instalación / PWA / EPK -->
                     <button onclick="installAppOrDownloadEPK()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-cyan text-white text-xs font-bold tracking-wider uppercase shadow-lg hover:opacity-95 transition active:scale-95 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-download"></i> Instalar App / Descargar EPK
                     </button>
@@ -573,7 +496,7 @@
 
     </div>
 
-    <!-- Modal de Guía para iOS (Apple / iPhone) -->
+    <!-- Modal de Guía para iOS -->
     <div id="iosInstallModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-6" onclick="closeIosModal()">
         <div class="glass-card max-w-sm w-full p-6 rounded-3xl text-center space-y-4 relative border border-cyber-accent/40" onclick="event.stopPropagation()">
             <div class="w-14 h-14 bg-cyber-accent/20 text-cyber-cyan rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-lg">
@@ -581,16 +504,16 @@
             </div>
             <h3 class="text-sm font-bold text-white uppercase tracking-wider">Instalar App en iPhone / iPad</h3>
             <p class="text-xs text-gray-300 leading-relaxed">
-                Para agregar esta aplicación a tu pantalla de inicio en dispositivos Apple, sigue estos sencillos pasos:
+                Para agregar esta aplicación a tu pantalla de inicio en dispositivos Apple, sigue estos pasos:
             </p>
             <div class="text-left bg-black/50 p-3.5 rounded-xl space-y-2 border border-white/5 text-xs text-gray-300">
                 <p class="flex items-center gap-2">
                     <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
-                    Pulsa el botón <i class="fa-solid fa-share-nodes text-cyber-cyan mx-1"></i> <b>Compartir</b> en la barra inferior de Safari.
+                    Pulsa el botón <i class="fa-solid fa-share-nodes text-cyber-cyan mx-1"></i> <b>Compartir</b> en Safari.
                 </p>
                 <p class="flex items-center gap-2">
                     <span class="w-5 h-5 rounded-full bg-cyber-accent text-white flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
-                    Desplázate y selecciona <i class="fa-solid fa-square-plus text-cyber-gold mx-1"></i> <b>"Añadir a la pantalla de inicio"</b>.
+                    Selecciona <i class="fa-solid fa-square-plus text-cyber-gold mx-1"></i> <b>"Añadir a la pantalla de inicio"</b>.
                 </p>
             </div>
             <button onclick="closeIosModal()" class="w-full py-2.5 rounded-xl bg-cyber-accent text-white text-xs font-bold uppercase tracking-wider shadow-md">
@@ -599,7 +522,7 @@
         </div>
     </div>
 
-    <!-- Modal de Letra (Estática / Fija) -->
+    <!-- Modal de Letra -->
     <div id="lyricsModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden flex flex-col justify-between p-6 transition-all duration-300">
         <div class="flex items-center justify-between border-b border-white/10 pb-4">
             <div class="flex items-center gap-3">
@@ -614,8 +537,7 @@
             </button>
         </div>
 
-        <!-- Contenedor estático para la letra completa -->
-        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-6 space-y-4 text-left select-none scroll-smooth"></div>
+        <div id="lyricsContainer" class="flex-1 overflow-y-auto py-8 space-y-6 text-left select-none scroll-smooth"></div>
 
         <div class="border-t border-white/10 pt-4 space-y-3">
             <div class="flex items-center gap-2 w-full text-xs text-gray-400 font-mono">
@@ -650,7 +572,6 @@
             deferredPrompt = e;
         });
 
-        // Detección automática de plataforma (Apple vs Android/Otros)
         function installAppOrDownloadEPK() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
@@ -661,15 +582,13 @@
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        showToast('¡App instalada en la pantalla de inicio!');
+                        showToast('¡App instalada!');
                     }
                     deferredPrompt = null;
                 });
             } else {
                 showToast('Preparando descarga de EPK...');
-                setTimeout(() => {
-                    showToast('¡EPK guardado con éxito!');
-                }, 1500);
+                setTimeout(() => { showToast('¡EPK guardado con éxito!'); }, 1500);
             }
         }
 
@@ -710,50 +629,12 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Datos de Producciones e Hitos Actualizados
         const productionsData = [
             { title: "KANTARSIS (Villa Carlos Paz)", desc: "Dirección artística premiada en Villa Carlos Paz en el Teatro Timbao." },
             { title: "LOS DUARTE (Espectáculo Folklórico)", desc: "Espectáculo folklórico en Villa Carlos Paz con Pardo Producciones, bajo su dirección general y premiado." },
-            { title: "Manager y Creador de la Primera Vedette Contorsionista", desc: "Creador, mentor y manager de la primera vedette contorsionista de la historia: Giuliana Valenzuela \"GIULÍ\"." },
-            { title: "El comandante Maurin y su Familia", desc: "Protagonizó bailando y actuando. (Europa, Chile y Argentina)" },
-            { title: "El show más chico del mundo", desc: "Protagonizó cantando bailando y actuando. (Argentina, Uruguay, Bolivia, Brasil)" },
-            { title: "Dancer de Música Electrónica", desc: "Creador de un estilo de Baile en latinoamérica y Europa. Coreógrafo y considerado el mejor Bailarín de música electrónica del mundo." },
-            { title: "Lanzamiento de CD \"SANDER\"", desc: "Teatro ASTROS Calle Corrientes, Dirección General. Creador de \"Nuevo formato de CD\" para Laser Disc." },
-            { title: "Asociación Ilícita Para el Humor", desc: "Teatro del Lago Villa Carlos Paz. Dirección Coreográfica y Protagonizó." },
-            { title: "ALFIN SOLOS", desc: "Teatro del Lago, Villa Carlos Paz. Dirección coreográfica y Protagonizó." },
-            { title: "Amor Humor y Mucho Amor", desc: "Teatro del Sol, Villa Carlos Paz. Dirección General y Protagonizó." },
-            { title: "Retorno a la música 2 CD \"Desde la tierra al Cielo\"", desc: "Director Musical y de las presentaciones en Gira." },
-            { title: "1ra \"Academia de Vedettes\"", desc: "Creador y Director General." },
-            { title: "3er CD \"SANTAN\" Castellano e Italiano", desc: "Dirección Musical. Lanzamiento \"SANTAN\" Teatro Broadway, Calle Corrientes Bs As. Dirección General." },
-            { title: "Charly Toon", desc: "Infantil. Dirección General." },
-            { title: "Positive Group Models", desc: "Dirección Artística." },
-            { title: "Carcajadas por un sueño", desc: "Calle Corrientes Paseo la Plaza. Protagonizó." },
-            { title: "4to CD \"Reggaetón a mi manera\"", desc: "Dirección General y Artística." },
-            { title: "Colonizado de Risa (con Jorge Corona)", desc: "Temporada verano, Teatro Colonial de Entre Ríos. Dirección Coreográfica y Protagonizó." },
-            { title: "Vedette Models", desc: "Dirección General." },
-            { title: "5to CD \"Bachata Romántica\"", desc: "Dirección musical." },
-            { title: "Gira \"Bachata Romántica\"", desc: "Dirección General." },
-            { title: "6to CD \"Los IRACUNDOS Hoy en la voz de SANDER\"", desc: "Dirección Musical y Producción." },
-            { title: "Tango y Plumas (con Jorge Corona)", desc: "Teatro Las Naciones, calle Corrientes de Bs As. Temporada invierno. Dirección Coreográfica y Protagonizó." },
-            { title: "Tango y Plumas (con Gladis Florimonte)", desc: "Gira nacional, Dirección Coreográfica y Protagonizó." },
-            { title: "Tango y Plumas en Pinamar", desc: "Temporada verano, Dirección Coreográfica y Protagonizó." },
-            { title: "7mo CD \"MAURAL\"", desc: "Dirección Musical y General." },
-            { title: "ATENDEME", desc: "Director General del Primer Video clip en Realidad Aumentada vr 360. En Sudamérica, 4to en todo el mundo." },
-            { title: "Buscando a la Futura Vedette", desc: "Director del Primer Reality del mundo en dos formatos 2D y 360 realidad virtual Aumentada." },
-            { title: "MS3VRTV (Ms3lanuevatelevision.com)", desc: "Creador productor y director General del primer canal de TV en Realidad virtual Aumentada. Lanzado con 14 producciones distintas, en plena pandemia 2019, con 13 programas completos sin fines de lucro, \"Furman VR\" medicina del más alto nivel. Para la tranquilidad de todos en sus casas." },
-            { title: "8vo CD \"MAURAL ROCK\"", desc: "Dirección Musical y General." },
-            { title: "BRAVISIMO SHOW", desc: "Invitado Estelar. Teatro Fenix, temporada invierno Villa Carlos Paz." },
-            { title: "9no CD \"SANDER MIX\"", desc: "Dirección Musical y General." },
-            { title: "Evolución Burlesque", desc: "Teatro Luisa, Temporada Villa Carlos Paz. Idea, Co Producción, Dirección General y Protagonizó." },
-            { title: "Circo Smail", desc: "Gira por Córdoba, invitado Especial. Dirección Coreográfica." },
-            { title: "ATENTADO FALLIDO", desc: "Teatro del SOL, temporada Villa Carlos Paz. Idea, co-Producción y Dirección General. Protagonizó." },
-            { title: "SHOW A LA CARTA", desc: "Teatro del SOL, temporada Villa Carlos Paz, Dirección General y Protagonizó." },
-            { title: "DESOPILANTE", desc: "Teatro Estudio Concert, temporada otoño, Villa Carlos Paz. Protagonizó." },
-            { title: "AIPE LATIN GOLDEN AWARD", desc: "Miami Florida. Director Artístico." },
-            { title: "MEMORIES", desc: "Teatro TIMBAO, Temporada invierno, Villa Carlos Paz. Dirección General y Protagonizó." },
-            { title: "TREVEJITOS", desc: "Infantil Intercolegial. Dirección Artística." },
-            { title: "MEMORIES MAGIC SHOW", desc: "Teatro TIMBAO, Temporada Verano, Villa Carlos Paz. Dirección General y Protagonizó." },
-            { title: "ENAMORIARTE", desc: "Gira MÉXICO, Cancún, Playa del Carmen, Puerto Morelos, El Cuyo, Puerto Aventura, Tulum. Dirección General y Protagonizó." },
+            { title: "Manager y Creador de la Primera Vedette Contorsionista", desc: "Creador, mentor y manager de Giuliana Valenzuela \"GIULÍ\"." },
+            { title: "El comandante Maurin y su Familia", desc: "Protagonizó bailando y actuando." },
+            { title: "El show más chico del mundo", desc: "Protagonizó cantando bailando y actuando." },
             { title: "50 Años SANDER INTERNACIONAL", desc: "Gira Latinoamérica. Dirección General y Protagonizó." }
         ];
 
@@ -801,36 +682,67 @@
                 title: "Reggaeton a mi manera", year: "2026", desc: "El disco con los ritmos urbanos más potentes de Sander Maurin.", cover: "sandermedia/reggaeton.jpeg",
                 tracks: [
                     { 
+                        title: "EL LOBO", duration: "3:15", audio: "audiossan/el lobo.mp3",
+                        lyrics: [
+                            { time: 0, text: "Llegó la noche bajo la luz de la luna..." },
+                            { time: 10, text: "Espera algo malvado que paraliza el corazón..." },
+                            { time: 20, text: "El lobo, el lobo, el lobo está por atacar..." },
+                            { time: 30, text: "Busco una chica sensual y muy simpática..." }
+                        ]
+                    },
+                    { 
                         title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3",
-                        lyrics: "Tratando de conquistar el mundo para todos ustedes\n\n[Música]\n\nPoca y suya, modelo del planeta"
+                        lyrics: [
+                            { time: 0, text: "Hey, tratando de conquistar el mundo para todos ustedes..." },
+                            { time: 10, text: "Busco, busco una nena caprichosa..." },
+                            { time: 20, text: "Que no, que no se sienta poca cosa..." },
+                            { time: 30, text: "Esto es reguetón la mala, pa bailarlo, pa gozarlo..." }
+                        ]
                     },
                     { 
                         title: "TE OLVIDASTE DE MI", duration: "3:45", audio: "audiossan/te olvidaste de mi.mp3",
-                        lyrics: "(Intro Instrumental)\n\nYo solo fui quien estuvo detrás"
-                    },
-                    { 
-                        title: "EL LOBO", duration: "3:15", audio: "audiossan/el lobo.mp3",
-                        lyrics: "[Música]\n\nLlegó la noche bajo la luz de la luna, espera algo malvado que paraliza el corazón"
+                        lyrics: [
+                            { time: 0, text: "Yo solo fui quien estuvo detrás..." },
+                            { time: 10, text: "Yo solo fui quien te ayudó a caminar..." },
+                            { time: 20, text: "Te olvidaste de mí, qué pena..." },
+                            { time: 30, text: "Quién te dio libertad, quién te dejó equivocar..." }
+                        ]
                     },
                     { 
                         title: "NENA LOCA", duration: "3:36", audio: "audiossan/nena loca.mp3",
-                        lyrics: "Mi corazón se enamoró otra vez qué voy a hacer qué voy a hacer se enloqueció...\n\nEra una nena tan linda y Loca loca con su boca floja..."
+                        lyrics: [
+                            { time: 0, text: "Mi corazón se enamoró otra vez..." },
+                            { time: 10, text: "Era una nena tan linda y loca, loca..." },
+                            { time: 20, text: "Con su boca floja, floja..." },
+                            { time: 30, text: "Se me ha acercado y de un beso me rompió la boca..." }
+                        ]
                     },
                     { 
                         title: "SUBE Y BAJA", duration: "3:00", audio: "audiossan/sube y baja.mp3",
-                        lyrics: "Nena, a mí me gusta cuando te veo en la pista y mueves tu boom boom\n\nDos manos en la cabeza mando la cinturita y baja su boom boom"
+                        lyrics: [
+                            { time: 0, text: "Nena a mí me gusta cuando te veo en la pista..." },
+                            { time: 10, text: "Y mueves tu bum bum..." },
+                            { time: 20, text: "Este es el ritmo que las nenas más lo saben..." },
+                            { time: 30, text: "Alza la mano meneando la cadera..." }
+                        ]
                     },
                     { 
                         title: "TE QUEDA GRANDE MI AMOR", duration: "3:25", audio: "audiossan/te queda grande mi amor.mp3",
-                        lyrics: "[Música]\n\nTe queda grande mi amor, lo siento en mi corazón"
-                    },
-                    { 
-                        title: "NENA CAPRICHOSA REGGAETON", duration: "2:55", audio: "audiossan/nena caprichosa reggaeton.mp3",
-                        lyrics: "Hey, tratando de conquistar el mundo para todos ustedes Sander\n\nBusco, busco una nena caprichosa que no, que no se sienta poca cosa"
+                        lyrics: [
+                            { time: 0, text: "Te queda grande mi amor, lo siento en mi corazón..." },
+                            { time: 10, text: "Cada beso de tu boca le pone frío a este amor..." },
+                            { time: 20, text: "Nunca me dices te amo cuando te doy mi pasión..." },
+                            { time: 30, text: "Nena, nena, puede ser que nunca me amaste tú..." }
+                        ]
                     },
                     { 
                         title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "audiossan/ti sei scordata di me.mp3",
-                        lyrics: "[Música]\n\n[Aplausos]"
+                        lyrics: [
+                            { time: 0, text: "Io sono colui che è stato di dietro..." },
+                            { time: 10, text: "Sono colui che ti ha aiutato a camminare..." },
+                            { time: 20, text: "Ti sei scordata di me, di chi ero..." },
+                            { time: 30, text: "Chi ti ha dato libertà, chi ti ha lasciato sbagliare..." }
+                        ]
                     }
                 ]
             },
@@ -838,143 +750,571 @@
                 title: "Sander Maurin", year: "2026", desc: "El EP oficial conceptual del artista.", cover: "sandermedia/sanderdisco.jpeg",
                 tracks: [
                     { 
-                        title: "MUJER MISTERIO", duration: "3:45", audio: "sandermaurinplay/mujer misterio.mp3", 
-                        lyrics: "[Música]\n\nSe llamaba y vivía ese paraíso que a tu lado yo pude ver, ese paraíso era una hoguera cada vez que sentía tu piel.\nAy si aquella noche no hubiera dejado mi vida al hablarte al oído, tu dulce mirada que no me soltaba tampoco me habría mentido.\n\nSé que no puedo olvidarte mujer misterio, me llena la cien, que devuelva mi alma si no ha de volver mujer misterio, me llena la cien, ah tu piel...\n\nMi corazón no me quiso llevar por el camino de tu hambre y tu sed, y yo me traicionaba al sentirte cerca hoy no lo puedo creer.\nAy tu piel, si aquella noche no hubiera dejado mi vida al hablarte al oído, tu dulce mirada que no me soltaba tampoco me habría mentido.\n\nSé que no puedo olvidarte mujer misterio, me llena la cien, que devuelva mi alma si no ha de volver mujer misterio, me llena la cien, ah tu piel...\n\nMe supe dar esa libertad hasta el fondo de mi locura, ya estaban mis sensaciones sin cura a una piedra negra que nunca pude ver bien.\nAy si aquella noche no hubiera dejado mi vida al hablarte al oído, tu dulce mirada que no me soltaba tampoco me habría mentido.\n\nSé que no puedo olvidarte mujer, mujer misterio, me llena la cien, que devuelva mi alma si no ha de volver mujer misterio, me llena la cien, ayy tu piel.\n\nSé que no puedo olvidarte mujer misterio, me llena la cien, que devuelva mi alma si no ha de volver mujer misterio, me llena la cien.\nSé que no puedo olvidarte mujer misterio, me llena la cien, que devuelva mi alma si no ha de volver mujer misterio, me llena la cien.\nSé que no puedo olvidarte mujer, ayy tu piel." 
+                        title: "MUJER MISTERIO", duration: "3:45", audio: "sandermaurinplay/mujer misterio.mp3",
+                        lyrics: [
+                            { time: 0, text: "Vivía ese paraíso que a tu lado yo pude ver..." },
+                            { time: 10, text: "Sé que no puedo olvidarte, mujer misterio..." },
+                            { time: 20, text: "Me llena la sien..." },
+                            { time: 30, text: "Que devuelva mi alma si no ha de volver..." }
+                        ]
                     },
                     { 
-                        title: "BAILA", duration: "3:05", audio: "sandermaurinplay/baila.mp3", 
-                        lyrics: "[Música]\n\nTe veo girar y no te puedo alcanzar, te siento mirar y no encuentro más que tu destino.\nSolo me imagino que ya nada encontrarás que detenga tu camino del que solo reirás.\n\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\n\n(Música)\n\nPienso un lugar, veo tu alma frente al mar, el cielo dirá lo que sientes sin hablarle al viento.\nMi tiempo se pierde acordándome de ti, solo estás aquí y siento revivir.\n\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\n\nBaila, baila, baila, baila...\n\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar.\nBaila, mi corazón es todo lo que pide.\nBaila, y me verás volando sobre el mar." 
+                        title: "BAILA", duration: "3:05", audio: "sandermaurinplay/baila.mp3",
+                        lyrics: [
+                            { time: 0, text: "Te veo girar y no te puedo alcanzar..." },
+                            { time: 10, text: "Baila, mi corazón es todo lo que pide..." },
+                            { time: 20, text: "Baila y me verás volando sobre el mar..." },
+                            { time: 30, text: "Pienso un lugar, veo tu alma frente al mar..." }
+                        ]
                     },
                     { 
-                        title: "DEMASIADO AMOR", duration: "3:30", audio: "sandermaurinplay/demasiado amor.mp3", 
-                        lyrics: "[Música]\n\nDe repente mis instintos son los que me acercan a tu boca y devuelven tu pasión con mi calor de una manera loca.\nEs tu figura, tu sabor, tus sentimientos los que me seducen a desafiar este contacto tan perfecto que tu piel trasluce.\n\nDe repente me pregunto si me puedo haber equivocado, si a cada movimiento de tu piel me siento provocado.\nY me enloquece tu mirada desafiante que lo pide todo, y no hacen falta las palabras porque este contacto es nuestro modo.\n\n[Música]\n\nIdioma de amor, ternura y pasión, un sentimiento algo desesperado, desbordamos demasiado amor, demasiado amor.\n\nDe repente son tus manos que se acercan y me acarician, nos abrazamos, nos tocamos conociéndonos la piel sin prisa.\nMientras quitamos todo aquello de vestir que lleva un ser humano, nos encontramos en el punto más distinto que los dos llevamos.\n\nDe repente nuestros movimientos están pegados, muy mojados, y se encienden nuestras almas y los cuerpos van acelerando.\nYa va llegando ese momento que uno al otro estamos esperando, y estallamos muy unidos en un grito suspirando te amo.\n\n[Música]\n\nIdioma de amor, ternura y pasión, un sentimiento algo desesperado, desbordamos demasiado amor, demasiado amor.\nIdioma de amor, ternura y pasión, un sentimiento algo desesperado, desbordamos demasiado amor, demasiado amor." 
+                        title: "DEMASIADO AMOR", duration: "3:30", audio: "sandermaurinplay/demasiado amor.mp3",
+                        lyrics: [
+                            { time: 0, text: "De repente mis instintos son los que me acercan a tu boca..." },
+                            { time: 10, text: "Y me enloquece tu mirada desafiante..." },
+                            { time: 20, text: "Idioma de amor, ternura y pasión..." },
+                            { time: 30, text: "Desbordamos demasiado amor..." }
+                        ]
                     },
                     { 
-                        title: "SI TE VAS", duration: "3:15", audio: "sandermaurinplay/si te vas.mp3", 
-                        lyrics: "[Música]\n\nSi te vas ya nada será igual, me verás volando por todo el cielo de tu verdad.\nHoy verás que nada quedará, pensarás que solo un camino puede ver el final.\n\nSi te vas ya nada será igual.\nSi te vas ya nada será igual.\nSi te vas ya nada será igual.\n\nNo podrás salir del momento aquel que te marcará, ya no estás, no puedes ver detrás y mirar que tu corazón no dejará de amar.\n\nSi te vas ya nada será igual.\nSi te vas ya nada será igual.\nSi te vas ya nada será igual.\n\nSi te vas.....\nSi te vas..." 
+                        title: "SI TE VAS", duration: "3:15", audio: "sandermaurinplay/si te vas.mp3",
+                        lyrics: [
+                            { time: 0, text: "Si te vas ya nada será igual..." },
+                            { time: 10, text: "Me verás volando por todo el cielo de tu verdad..." },
+                            { time: 20, text: "Pensarás que solo un camino puede ver el final..." },
+                            { time: 30, text: "Si te vas ya nada será igual..." }
+                        ]
                     },
                     { 
-                        title: "NADA ESTA PERDIDO", duration: "3:20", audio: "sandermaurinplay/nada esta perdido.mp3", 
-                        lyrics: "[Música]\n\nDesde el lamento yo solo puedo observar estrellas que cubren el sol, vivir a oscuras sin fuerzas para poder mirar que la noche terminó.\nDesde el lamento yo solo puedo pensar en los atajos que ya no están, tu corazón cada vez más lejos irá llevándose mi pasión al mar.\n\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido.\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido.\n\n(Música)\n\nAl ver el mar solo veo tu vida hundirse en la verdad, solo así despertarás un día escuchándome rezar.\nSin saber estás volando junto a mí y yo siento sin pensar, las estrellas ya no son oscuridad y junto a mí ahora estás.\n\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido, hoy lo sé.\n\n(Música)\n\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido, hoy lo sé.\nHoy sé que nada está perdido, hoy lo sé." 
+                        title: "NADA ESTA PERDIDO", duration: "3:20", audio: "sandermaurinplay/nada esta perdido.mp3",
+                        lyrics: [
+                            { time: 0, text: "Desde el lamento yo solo puedo observar..." },
+                            { time: 10, text: "Estrellas que cubren el sol..." },
+                            { time: 20, text: "Hoy sé que nada está perdido, hoy lo sé..." },
+                            { time: 30, text: "Hoy sé que nada está perdido..." }
+                        ]
                     },
-                    { title: "DESESPERADO", duration: "3:10", audio: "sandermaurinplay/desesperado.mp3", lyrics: "[Música]" },
-                    { title: "LA FUERZA QUE NOS UNE", duration: "3:40", audio: "sandermaurinplay/la fuerza que nos une.mp3", lyrics: "[Música]" },
-                    { title: "EL ANGEL", duration: "3:25", audio: "sandermaurinplay/el angel.mp3", lyrics: "[Música]" },
-                    { title: "TODO ESTA BIEN", duration: "3:12", audio: "sandermaurinplay/todo esta bien.mp3", lyrics: "[Música]" },
-                    { title: "BAILA REMIX", duration: "3:50", audio: "sandermaurinplay/baila remix.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "DESESPERADO", duration: "3:10", audio: "sandermaurinplay/desesperado.mp3",
+                        lyrics: [
+                            { time: 0, text: "Voy solo a condenarme por tener tu perdón..." },
+                            { time: 10, text: "Puedo ver tu ángel sintiendo mi dolor..." },
+                            { time: 20, text: "Quiero ser tu sueño, ser el dueño de tu amor..." },
+                            { time: 30, text: "Quiero ser tu sueño, ser el dueño de tu amor..." }
+                        ]
+                    },
+                    { 
+                        title: "LA FUERZA QUE NOS UNE", duration: "3:40", audio: "sandermaurinplay/la fuerza que nos une.mp3",
+                        lyrics: [
+                            { time: 0, text: "Si me pidieran contar mi historia yo te nombraría..." },
+                            { time: 10, text: "Si me borraran toda mi memoria te recordaría..." },
+                            { time: 20, text: "Hay una fuerza que une, algo pendiente que quedó..." },
+                            { time: 30, text: "Mil palabras te debía y te las debía yo..." }
+                        ]
+                    },
+                    { 
+                        title: "EL ANGEL", duration: "3:25", audio: "sandermaurinplay/el angel.mp3",
+                        lyrics: [
+                            { time: 0, text: "Si lo ven causa tristeza y pena..." },
+                            { time: 10, text: "Es un ángel que ha caído del paraíso..." },
+                            { time: 20, text: "Es un alma que no consiguió perdón..." },
+                            { time: 30, text: "Es un hombre que rompió su corazón..." }
+                        ]
+                    },
+                    { 
+                        title: "TODO ESTA BIEN", duration: "3:12", audio: "sandermaurinplay/todo esta bien.mp3",
+                        lyrics: [
+                            { time: 0, text: "No busques otra, todo está bien..." },
+                            { time: 10, text: "Todo está bien, todo está bien..." },
+                            { time: 20, text: "No busques otra, todo está bien..." },
+                            { time: 30, text: "No busques otra, todo está bien..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Santan", year: "2024", desc: "El álbum conceptual Santan con versiones multilingües y éxitos.", cover: "sandermedia/santan.jpeg",
+                title: "Santan", year: "2024", desc: "El álbum conceptual Santan con versiones multilingües.", cover: "sandermedia/santan.jpeg",
                 tracks: [
-                    { title: "IRIS (CASTELLANO)", duration: "3:30", audio: "santan/iris cantellano.mp3", lyrics: "[Música]" },
-                    { title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "santan/la emocion no tiene voz.mp3", lyrics: "[Música]" },
-                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "santan/te olvidaste de mi.mp3", lyrics: "[Música]" },
-                    { title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3", lyrics: "[Música]" },
-                    { title: "OTRO AMOR", duration: "3:20", audio: "santan/otro amor.mp3", lyrics: "[Música]" },
-                    { title: "VOLVERÉ A BESARTE (CASTELLANO)", duration: "3:40", audio: "santan/volvere a besarte castellano.mp3", lyrics: "[Música]" },
-                    { title: "IRIS (ITALIANO)", duration: "3:30", audio: "santan/iris italiano.mp3", lyrics: "[Música]" },
-                    { title: "LA EMOCIÓN NO TIENE VOZ (ITALIANO)", duration: "3:15", audio: "santan/la emocion no tiene voz italiano.mp3", lyrics: "[Música]" },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "santan/ti sei scordata di me.mp3", lyrics: "[Música]" },
-                    { title: "POR QUÉ MI CORAZÓN (ITALIANO)", duration: "3:10", audio: "santan/porque mi corazon italiano.mp3", lyrics: "[Música]" },
-                    { title: "OTRO AMOR (ITALIANO)", duration: "3:20", audio: "santan/otro amor italiano.mp3", lyrics: "[Música]" },
-                    { title: "VOLVERÉ A BESARTE (ITALIANO)", duration: "3:40", audio: "santan/volvere a besarte italiano.mp3", lyrics: "[Música]" },
-                    { title: "BUSCANDO INSPIRACIÓN", duration: "3:12", audio: "santan/buscando inspiracion.mp3", lyrics: "[Música]" },
-                    { title: "EL AMOR EXISTE EN EL CIELO", duration: "3:28", audio: "santan/el amor existe en el cielo.mp3", lyrics: "[Música]" },
-                    { title: "BAILEN TODOS BAILEN", duration: "3:05", audio: "santan/bailen todos bailen.mp3", lyrics: "[Música]" },
-                    { title: "SUAVE Y DESPACIO", duration: "3:18", audio: "santan/suave y despacio.mp3", lyrics: "[Música]" },
-                    { title: "TE INVITO A MI PARAÍSO REMIX", duration: "3:45", audio: "santan/te invito a mi paraiso remix.mp3", lyrics: "[Música]" },
-                    { title: "FIERAS", duration: "3:12", audio: "santan/fieras.mp3", lyrics: "[Música]" },
-                    { title: "VIBRARÁS", duration: "3:22", audio: "santan/vibraras.mp3", lyrics: "[Música]" },
-                    { title: "FIERAS REMIX", duration: "3:35", audio: "santan/fieras remix.mp3", lyrics: "[Música]" },
-                    { title: "IRIS CASTELLANO", duration: "3:30", audio: "santan/iris castellano.mp3", lyrics: "[Música]" },
-                    { title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "IRIS (CASTELLANO)", duration: "3:30", audio: "santan/iris cantellano.mp3",
+                        lyrics: [
+                            { time: 0, text: "Y tras tus poesías encontré tantas cosas..." },
+                            { time: 10, text: "Iris, tengo que decirte que yo te amo tanto..." },
+                            { time: 20, text: "Y no lo dije jamás..." },
+                            { time: 30, text: "Cuánta vida hay, cuánta vida junto a ti..." }
+                        ]
+                    },
+                    { 
+                        title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "santan/la emocion no tiene voz.mp3",
+                        lyrics: [
+                            { time: 0, text: "Yo no sé hablar de amores, la emoción no tiene voces..." },
+                            { time: 10, text: "Tan preciosa tú eres para mí..." },
+                            { time: 20, text: "Entre mis brazos dormirás serenamente..." },
+                            { time: 30, text: "Es importante, ya verás, sentirte plenamente..." }
+                        ]
+                    },
+                    { 
+                        title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3",
+                        lyrics: [
+                            { time: 0, text: "Fuiste la mujer que un hombre quiere tener..." },
+                            { time: 10, text: "Por qué mi corazón no vuelve a amarte..." },
+                            { time: 20, text: "Si es lo que deseo, he sido un cobarde..." },
+                            { time: 30, text: "Bonitas palabras solía entregarte..." }
+                        ]
+                    },
+                    { 
+                        title: "OTRO AMOR", duration: "3:20", audio: "santan/otro amor.mp3",
+                        lyrics: [
+                            { time: 0, text: "Decime dónde vas a encontrar tantas caricias si te vas..." },
+                            { time: 10, text: "Otro amor que se va..." },
+                            { time: 20, text: "Y se lleva sin mí mi último aliento..." },
+                            { time: 30, text: "Nunca más, nunca más, siempre vuelvo al mismo cuento..." }
+                        ]
+                    },
+                    { 
+                        title: "VOLVERÉ A BESARTE", duration: "3:40", audio: "santan/volvere a besarte castellano.mp3",
+                        lyrics: [
+                            { time: 0, text: "Por la calle voy recordándote..." },
+                            { time: 10, text: "Volveré a besarte, volveré a tus brazos..." },
+                            { time: 20, text: "Volveré a descansar en tus faldas..." },
+                            { time: 30, text: "Acariciar tu espalda, a ser yo..." }
+                        ]
+                    },
+                    { 
+                        title: "BUSCANDO INSPIRACIÓN", duration: "3:12", audio: "santan/buscando inspiracion.mp3",
+                        lyrics: [
+                            { time: 0, text: "Buscando inspiración vamos creando esta canción..." },
+                            { time: 10, text: "Uniendo voces y motivos y recurriendo al corazón..." },
+                            { time: 20, text: "La música vive en nosotros, es nuestro motivo..." },
+                            { time: 30, text: "La música energía que crece, nos da paz..." }
+                        ]
+                    },
+                    { 
+                        title: "EL AMOR EXISTE EN EL CIELO", duration: "3:28", audio: "santan/el amor existe en el cielo.mp3",
+                        lyrics: [
+                            { time: 0, text: "El amor existe en el cielo..." },
+                            { time: 10, text: "El amor aquí es como un juego..." },
+                            { time: 20, text: "Donde dos almas en un traje..." },
+                            { time: 30, text: "Disfraces de humanos se brindan enteros..." }
+                        ]
+                    },
+                    { 
+                        title: "SUAVE Y DESPACIO", duration: "3:18", audio: "santan/suave y despacio.mp3",
+                        lyrics: [
+                            { time: 0, text: "Suave y despacio entro en tu cuerpo..." },
+                            { time: 10, text: "Suave y despacio te quiero amar..." },
+                            { time: 20, text: "Suave y despacio te siento el alma..." },
+                            { time: 30, text: "Suave y despacio vengo a danzar..." }
+                        ]
+                    },
+                    { 
+                        title: "FIERAS", duration: "3:12", audio: "santan/fieras.mp3",
+                        lyrics: [
+                            { time: 0, text: "¿Dónde están las fieras que me hacen sufrir?..." },
+                            { time: 10, text: "Fieras, pasan la noche desafiándome..." },
+                            { time: 20, text: "Fieras, soy como luz deslumbrándome..." },
+                            { time: 30, text: "Fieras, mueven su cuerpo provocándome..." }
+                        ]
+                    },
+                    { 
+                        title: "VIBRARÁS", duration: "3:22", audio: "santan/vibraras.mp3",
+                        lyrics: [
+                            { time: 0, text: "Sé que vibrarás esta noche cuando pase en mi coche..." },
+                            { time: 10, text: "Vibrarás, gozarás en tu primera cita..." },
+                            { time: 20, text: "Verás cómo el amor tu vida cambiará..." },
+                            { time: 30, text: "Vibrarás, gozarás..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Desde la tierra al cielo", year: "2024", desc: "El álbum Desde la tierra al cielo con melodías emotivas y sencillos estelares.", cover: "sandermedia/desdelatierraalcielo.jpeg",
+                title: "Desde la tierra al cielo", year: "2024", desc: "El álbum con sencillos estelares.", cover: "sandermedia/desdelatierraalcielo.jpeg",
                 tracks: [
-                    { title: "IRIS", duration: "3:30", audio: "desdelatierra/iris.mp3", lyrics: "[Música]" },
-                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "desdelatierra/te olvidaste de mi.mp3", lyrics: "[Música]" },
-                    { title: "SUAVE Y DESPACIO", duration: "3:18", audio: "desdelatierra/suave y despacio.mp3", lyrics: "[Música]" },
-                    { title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "desdelatierra/la emocion no tiene voz.mp3", lyrics: "[Música]" },
-                    { title: "TE INVITO A MI PARAÍSO", duration: "3:40", audio: "desdelatierra/te invito a mi paraiso.mp3", lyrics: "[Música]" },
-                    { title: "VOLVERÉ A BESARTE", duration: "3:35", audio: "desdelatierra/volvere a besarte.mp3", lyrics: "[Música]" },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "desdelatierra/ti sei scordata di me.mp3", lyrics: "[Música]" },
-                    { title: "BAILEN SOLO BAILEN", duration: "3:10", audio: "desdelatierra/bailen solo bailen.mp3", lyrics: "[Música]" },
-                    { title: "ALGO DE MÍ QUEDA EN TI", duration: "3:22", audio: "desdelatierra/algo de mi queda en ti.mp3", lyrics: "[Música]" },
-                    { title: "BELLEZA FINA", duration: "3:12", audio: "desdelatierra/belleza fina.mp3", lyrics: "[Música]" },
-                    { title: "PAPÁ", duration: "3:28", audio: "desdelatierra/papa.mp3", lyrics: "[Música]" },
-                    { title: "YO, EL TANGO Y TÚ", duration: "3:45", audio: "desdelatierra/yo el tango y tu.mp3", lyrics: "[Música]" },
-                    { title: "FIERAS", duration: "3:12", audio: "desdelatierra/fieras.mp3", lyrics: "[Música]" },
-                    { title: "CARAMELO DE MIEL", duration: "3:19", audio: "desdelatierra/caramelo de miel.mp3", lyrics: "[Música]" },
-                    { title: "DESDE LA TIERRA AL CIELO", duration: "3:50", audio: "desdelatierra/desde la tierra al cielo.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "ALGO DE MÍ QUEDA EN TI", duration: "3:22", audio: "desdelatierra/algo de mi queda en ti.mp3",
+                        lyrics: [
+                            { time: 0, text: "Camino hoy buscando otro infierno..." },
+                            { time: 10, text: "Algo de mí queda en ti..." },
+                            { time: 20, text: "Soy la chispa y el fuego, soy la arena y el mar..." },
+                            { time: 30, text: "Tu canción y el eco, quizás tu voluntad..." }
+                        ]
+                    },
+                    { 
+                        title: "BELLEZA FINA", duration: "3:12", audio: "desdelatierra/belleza fina.mp3",
+                        lyrics: [
+                            { time: 0, text: "Andar entre tanto perro, no quiero morir de rabia..." },
+                            { time: 10, text: "Tus formas de vida fina, tu imagen de arrepentida..." },
+                            { time: 20, text: "Pues ya quítate la ropa, vamos a saltar los muros..." },
+                            { time: 30, text: "Prefiero entender el tiempo, romper tu belleza fina..." }
+                        ]
+                    },
+                    { 
+                        title: "PAPÁ", duration: "3:28", audio: "desdelatierra/papa.mp3",
+                        lyrics: [
+                            { time: 0, text: "¿En dónde estás? Me siento perdido..." },
+                            { time: 10, text: "El tiempo pasó y te necesito..." },
+                            { time: 20, text: "Papá, papá, ¿en dónde te encuentras?..." },
+                            { time: 30, text: "Papá, te sigo esperando..." }
+                        ]
+                    },
+                    { 
+                        title: "YO, EL TANGO Y TÚ", duration: "3:45", audio: "desdelatierra/yo el tango y tu.mp3",
+                        lyrics: [
+                            { time: 0, text: "Yo, el tango y tú, un buen motivo para no olvidarte más..." },
+                            { time: 10, text: "Yo, el tango y tú, y tus caderas que me marcan el compás..." },
+                            { time: 20, text: "Eres lo que quiero, tú despiertas mis deseos..." },
+                            { time: 30, text: "Con tu boca que es sabrosa como miel..." }
+                        ]
+                    },
+                    { 
+                        title: "CARAMELO DE MIEL", duration: "3:19", audio: "desdelatierra/caramelo de miel.mp3",
+                        lyrics: [
+                            { time: 0, text: "Tu cabeza no está bien y mi cuerpo es un desierto..." },
+                            { time: 10, text: "Caramelos de miel es todo lo que te ofrezco..." },
+                            { time: 20, text: "Sabes que la luna está tan lejos..." },
+                            { time: 30, text: "Tu presencia es mi mal porque solo vivo para amarte..." }
+                        ]
+                    },
+                    { 
+                        title: "DESDE LA TIERRA AL CIELO", duration: "3:50", audio: "desdelatierra/desde la tierra al cielo.mp3",
+                        lyrics: [
+                            { time: 0, text: "En la tierra existió un ser muy especial..." },
+                            { time: 10, text: "Sé que siempre estarás conmigo..." },
+                            { time: 20, text: "Me hace feliz estar contigo..." },
+                            { time: 30, text: "Sé que me cuidas y que me amas, sé que en el cielo están tus alas..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Bachata", year: "2023", desc: "El álbum de bachatas románticas y sensuales de Sander Maurin.", cover: "sandermedia/bachata.jpeg",
+                title: "Bachata", year: "2023", desc: "El álbum de bachatas románticas.", cover: "sandermedia/bachata.jpeg",
                 tracks: [
-                    { title: "NOCHE", duration: "3:30", audio: "bachata/noche.mp3", lyrics: "[Música]" },
-                    { title: "QUÉ MÁS", duration: "3:15", audio: "bachata/que mas.mp3", lyrics: "[Música]" },
-                    { title: "NACÍ PARA SER AMANTE", duration: "3:40", audio: "bachata/naci para ser amante.mp3", lyrics: "[Música]" },
-                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "bachata/te olvidaste de mi.mp3", lyrics: "[Música]" },
-                    { title: "TANDRÉ QUE ACOSTUMBRARME", duration: "3:35", audio: "bachata/tendre que acostumbrarme.mp3", lyrics: "[Música]" },
-                    { title: "DEBES DECILE", duration: "3:20", audio: "bachata/debes decirle.mp3", lyrics: "[Música]" },
-                    { title: "VAS A LLORAR POR MÍ", duration: "3:30", audio: "bachata/vas a llorar por mi.mp3", lyrics: "[Música]" },
-                    { title: "QUIÉN SABE DÓNDE ESTÁS", duration: "3:45", audio: "bachata/quien sabe donde estas.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "NOCHE", duration: "3:30", audio: "bachata/noche.mp3",
+                        lyrics: [
+                            { time: 0, text: "Noche, dile tú que bien sabes la falta que me haces..." },
+                            { time: 10, text: "Dile que sin ella estoy perdido, que ya no sé más qué hacer..." },
+                            { time: 20, text: "Noche amiga y compañera, cuéntale mi pena..." },
+                            { time: 30, text: "Noche, tráela conmigo de nuevo..." }
+                        ]
+                    },
+                    { 
+                        title: "QUÉ MÁS", duration: "3:15", audio: "bachata/que mas.mp3",
+                        lyrics: [
+                            { time: 0, text: "Tienes todos mis sueños, tú tienes todos mis besos..." },
+                            { time: 10, text: "¿Qué más? ¿Qué más quieres de mí?..." },
+                            { time: 20, text: "Si todo te di, ¿qué más pretendes de mí?..." },
+                            { time: 30, text: "Tienes mi piel y mi corazón..." }
+                        ]
+                    },
+                    { 
+                        title: "NACÍ PARA SER AMANTE", duration: "3:40", audio: "bachata/naci para ser amante.mp3",
+                        lyrics: [
+                            { time: 0, text: "Vaya destino este que me tocó..." },
+                            { time: 10, text: "Prefiero pensar que nací para ser amante..." },
+                            { time: 20, text: "Y en cada encuentro fugaz dejar un poco de mí..." },
+                            { time: 30, text: "Sin prometer, sin engaños, que me amen y poder amar..." }
+                        ]
+                    },
+                    { 
+                        title: "TENDRE QUE ACOSTUMBRARME", duration: "3:35", audio: "bachata/tendre que acostumbrarme.mp3",
+                        lyrics: [
+                            { time: 0, text: "Hoy al verte partir sé que lo mejor es así..." },
+                            { time: 10, text: "Voy a tener que acostumbrarme a esta soledad..." },
+                            { time: 20, text: "No podré acariciar todo tu cuerpo..." },
+                            { time: 30, text: "Conformándome con abrazarte..." }
+                        ]
+                    },
+                    { 
+                        title: "DEBES DECIRLE", duration: "3:20", audio: "bachata/debes decirle.mp3",
+                        lyrics: [
+                            { time: 0, text: "¿Qué esperas para hablar? Decirle la verdad..." },
+                            { time: 10, text: "Para acabar de una vez con esta cruel situación..." },
+                            { time: 20, text: "El niño que tú llevas tiene mi sangre..." },
+                            { time: 30, text: "O se lo dices tú o voy a hacerlo yo..." }
+                        ]
+                    },
+                    { 
+                        title: "VAS A LLORAR POR MÍ", duration: "3:30", audio: "bachata/vas a llorar por mi.mp3",
+                        lyrics: [
+                            { time: 0, text: "Vas a llorar por mí cuando descubras que nadie va a amarte como yo..." },
+                            { time: 10, text: "Vas a llorar por mí y la noche será solo llanto..." },
+                            { time: 20, text: "Verás cómo se cae el cielo frente a ti..." },
+                            { time: 30, text: "Y buscarás consuelo tan solo con Dios..." }
+                        ]
+                    },
+                    { 
+                        title: "QUIÉN SABE DÓNDE ESTÁS", duration: "3:45", audio: "bachata/quien sabe donde estas.mp3",
+                        lyrics: [
+                            { time: 0, text: "¿Quién sabe dónde estás? ¿De quién ahora es tu amor?..." },
+                            { time: 10, text: "Es la pregunta que me hace el corazón..." },
+                            { time: 20, text: "Dime dónde estás, que yo iré por ti..." },
+                            { time: 30, text: "Para recuperar ese amor que sueño toditas las noches..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Maural", year: "2023", desc: "El EP conceptual Maural con las canciones solicitadas.", cover: "sandermedia/maural.jpeg",
+                title: "Maural", year: "2023", desc: "El EP conceptual Maural.", cover: "sandermedia/maural.jpeg",
                 tracks: [
-                    { title: "ATÉNDEME", duration: "3:30", audio: "maural/atendeme.mp3", lyrics: "[Música]" },
-                    { title: "EN ESTE VERANO", duration: "3:15", audio: "maural/en este verano.mp3", lyrics: "[Música]" },
-                    { title: "TE EXTRAÑO A MORIR", duration: "3:40", audio: "maural/te extraño a morir.mp3", lyrics: "[Música]" },
-                    { title: "BOCA A BOCA", duration: "3:25", audio: "maural/boca a boca.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "ATÉNDEME", duration: "3:30", audio: "maural/atendeme.mp3",
+                        lyrics: [
+                            { time: 0, text: "Atendeme, atendeme, por favor atendeme..." },
+                            { time: 10, text: "No me respondes el Facebook, ni los WhatsApp..." },
+                            { time: 20, text: "Nena, no lo tomes a mal si no te podía contestar..." },
+                            { time: 30, text: "Me quedé sin batería..." }
+                        ]
+                    },
+                    { 
+                        title: "EN ESTE VERANO", duration: "3:15", audio: "maural/en este verano.mp3",
+                        lyrics: [
+                            { time: 0, text: "Hoy salgo a divertirme, a olvidar que estoy triste..." },
+                            { time: 10, text: "En este verano vayamos a disfrutar..." },
+                            { time: 20, text: "Viviendo solo de fiesta, enredados sin pensar..." },
+                            { time: 30, text: "Muy locos en la piscina o en la playa junto al mar..." }
+                        ]
+                    },
+                    { 
+                        title: "TE EXTRAÑO A MORIR", duration: "3:40", audio: "maural/te extraño a morir.mp3",
+                        lyrics: [
+                            { time: 0, text: "Ya sé que despierto todo el día solo pienso en ti..." },
+                            { time: 10, text: "Te extraño a morir, me cuesta vivir sin ti..." },
+                            { time: 20, text: "Te extraño a morir, te extraño a morir..." },
+                            { time: 30, text: "Y quiero que estés aquí..." }
+                        ]
+                    },
+                    { 
+                        title: "BOCA A BOCA", duration: "3:25", audio: "maural/boca a boca.mp3",
+                        lyrics: [
+                            { time: 0, text: "Quizás no te fijes lo que me hace falta..." },
+                            { time: 10, text: "Auxilio, que alguien me salve por favor..." },
+                            { time: 20, text: "Pues me está faltando el aire, mi amor..." },
+                            { time: 30, text: "Siento que me ahogo, estoy al borde de la desesperación..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Los eternos iracundos", year: "2022", desc: "El álbum Los eternos iracundos con los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg",
+                title: "Los eternos iracundos", year: "2022", desc: "Clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg",
                 tracks: [
-                    { title: "HACE FRIO YA", duration: "3:30", audio: "losiracundos/hace frio ya.mp3", lyrics: "[Música]" },
-                    { title: "CALLA", duration: "3:15", audio: "losiracundos/calla.mp3", lyrics: "[Música]" },
-                    { title: "ME QUEDE EN EL BAR", duration: "3:40", audio: "losiracundos/me quede en el bar.mp3", lyrics: "[Música]" },
-                    { title: "DE RODILLAS", duration: "3:25", audio: "losiracundos/de rodillas.mp3", lyrics: "[Música]" },
-                    { title: "VA CAYENDO UNA LAGRIMA", duration: "3:10", audio: "losiracundos/va cayendo una lagrima.mp3", lyrics: "[Música]" },
-                    { title: "TORMENTA DE VERANO", duration: "3:50", audio: "losiracundos/tormenta de verano.mp3", lyrics: "[Música]" },
-                    { title: "VENITE VOLANDO", duration: "3:20", audio: "losiracundos/venite volando.mp3", lyrics: "[Música]" },
-                    { title: "VEN QUE ESTOY HIRVIENDO", duration: "3:12", audio: "losiracundos/ven que estoy hirviendo.mp3", lyrics: "[Música]" },
-                    { title: "PORQUE NO VALE LA PENA", duration: "3:35", audio: "losiracundos/porque no vale la pena.mp3", lyrics: "[Música]" },
-                    { title: "PUERTO MONTT", duration: "3:45", audio: "losiracundos/puerto montt.mp3", lyrics: "[Música]" },
-                    { title: "EL TRIUNFADOR", duration: "3:30", audio: "losiracundos/el triunfador.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "HACE FRIO YA", duration: "3:30", audio: "losiracundos/hace frio ya.mp3",
+                        lyrics: [
+                            { time: 0, text: "El sol en el invierno muy temprano se irá..." },
+                            { time: 10, text: "¿Qué es la vida sin un amor?..." },
+                            { time: 20, text: "Es como un árbol que sus hojas no dan más..." },
+                            { time: 30, text: "¿Qué es la vida sin ti si tú no estás?..." }
+                        ]
+                    },
+                    { 
+                        title: "CALLA", duration: "3:15", audio: "losiracundos/calla.mp3",
+                        lyrics: [
+                            { time: 0, text: "Calla tú que conoces mi tragedia..." },
+                            { time: 10, text: "Amigo viejo del ayer, no vuelvas hoy a recordarla..." },
+                            { time: 20, text: "Yo sé muy bien que se burló..." },
+                            { time: 30, text: "No fue mi culpa enamorarla..." }
+                        ]
+                    },
+                    { 
+                        title: "ME QUEDE EN EL BAR", duration: "3:40", audio: "losiracundos/me quede en el bar.mp3",
+                        lyrics: [
+                            { time: 0, text: "Ayer cuando te vi te quise saludar, pero no me miraste..." },
+                            { time: 10, text: "Y me quedé en el bar llorando mi dolor..." },
+                            { time: 20, text: "¿Cómo borrar aquellas páginas del alma?..." },
+                            { time: 30, text: "Aquellas hojas que contigo yo escribí..." }
+                        ]
+                    },
+                    { 
+                        title: "DE RODILLAS", duration: "3:25", audio: "losiracundos/de rodillas.mp3",
+                        lyrics: [
+                            { time: 0, text: "Te llamé porque hace un año que no hablamos..." },
+                            { time: 10, text: "Voy a pedirte de rodillas que regreses junto a mí..." },
+                            { time: 20, text: "Porque soy de ti y te quiero como antes..." },
+                            { time: 30, text: "Mucho más..." }
+                        ]
+                    },
+                    { 
+                        title: "VA CAYENDO UNA LAGRIMA", duration: "3:10", audio: "losiracundos/va cayendo una lagrima.mp3",
+                        lyrics: [
+                            { time: 0, text: "Va cayendo una lágrima en tu mejilla..." },
+                            { time: 10, text: "Si no la beso, el viento la secará..." },
+                            { time: 20, text: "Voy a viajar a un mundo que no conozco..." },
+                            { time: 30, text: "Que se llama tristeza y soledad..." }
+                        ]
+                    },
+                    { 
+                        title: "TORMENTA DE VERANO", duration: "3:50", audio: "losiracundos/tormenta de verano.mp3",
+                        lyrics: [
+                            { time: 0, text: "Jamás he querido tanto y con tanto amor como te quiero a ti..." },
+                            { time: 10, text: "Fue tormenta de verano y las consecuencias yo no las medí..." },
+                            { time: 20, text: "Teniendo todo en mis manos para ser feliz..." },
+                            { time: 30, text: "Hoy todo lo perdí..." }
+                        ]
+                    },
+                    { 
+                        title: "VENITE VOLANDO", duration: "3:20", audio: "losiracundos/venite volando.mp3",
+                        lyrics: [
+                            { time: 0, text: "Venite volando, dale que tengo ganas de verte..." },
+                            { time: 10, text: "Y no sé cómo sigo esperando..." },
+                            { time: 20, text: "En el amor no hay tiempo que perder..." },
+                            { time: 30, text: "Pero me gustas mucho más que ayer..." }
+                        ]
+                    },
+                    { 
+                        title: "VEN QUE ESTOY HIRVIENDO", duration: "3:12", audio: "losiracundos/ven que estoy hirviendo.mp3",
+                        lyrics: [
+                            { time: 0, text: "Si quisieras pelear pensando que tu llanto no comprendo..." },
+                            { time: 10, text: "¿Para qué discutir? Por algo que te juro no comprendo..." },
+                            { time: 20, text: "Si esperando yo tu dulce beso..." },
+                            { time: 30, text: "Ya estoy hirviendo..." }
+                        ]
+                    },
+                    { 
+                        title: "PORQUE NO VALE LA PENA", duration: "3:35", audio: "losiracundos/porque no vale la pena.mp3",
+                        lyrics: [
+                            { time: 0, text: "Ahora que ha pasado el tiempo y vuelves a pensar en mí..." },
+                            { time: 10, text: "Porque no vale la pena que volvamos a empezar..." },
+                            { time: 20, text: "Es mejor que terminemos aunque tengamos que llorar..." },
+                            { time: 30, text: "Serás solo un recuerdo con un gustito a miel..." }
+                        ]
+                    },
+                    { 
+                        title: "PUERTO MONTT", duration: "3:45", audio: "losiracundos/puerto montt.mp3",
+                        lyrics: [
+                            { time: 0, text: "Sentado frente al mar mil besos yo le di..." },
+                            { time: 10, text: "Puerto Montt, Puerto Montt, me alejé de ti..." },
+                            { time: 20, text: "Sin saber por qué yo la dejé sola frente al mar..." },
+                            { time: 30, text: "Bajo el cielo azul de Puerto Montt..." }
+                        ]
+                    },
+                    { 
+                        title: "EL TRIUNFADOR", duration: "3:30", audio: "losiracundos/el triunfador.mp3",
+                        lyrics: [
+                            { time: 0, text: "Con el saco sobre el hombro voy buscando mi destino..." },
+                            { time: 10, text: "Yo quiero ser un triunfador de la vida y del amor..." },
+                            { time: 20, text: "Y seguiré buscando felicidad..." },
+                            { time: 30, text: "Porque en alguna esquina la encontraré..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Sander Mix", year: "2022", desc: "El sencillo Sander Mix con la selección especial de éxitos.", cover: "sandermedia/sandermix.jpeg",
+                title: "Sander Mix", year: "2022", desc: "Selección especial.", cover: "sandermedia/sandermix.jpeg",
                 tracks: [
-                    { title: "COMO TE AMO YO", duration: "3:30", audio: "sandermix/como te amo yo.mp3", lyrics: "[Música]" },
-                    { title: "BOCA A BOCA", duration: "3:25", audio: "sandermix/boca a boca.mp3", lyrics: "[Música]" },
-                    { title: "TE OLVIDASTE DE MI ACUSTICO", duration: "3:45", audio: "sandermix/te olvidaste de mi acustico.mp3", lyrics: "[Música]" },
-                    { title: "LO PLENO VINO A MI", duration: "3:15", audio: "sandermix/lo pleno vino a mi.mp3", lyrics: "[Música]" },
-                    { title: "YASMIN", duration: "3:30", audio: "sandermix/yasmin.mp3", lyrics: "[Música]" },
-                    { title: "MAGICAS PRINCESAS", duration: "3:40", audio: "sandermix/magicas princesas.mp3", lyrics: "[Música]" },
-                    { title: "SERE TU GUARDIAN", duration: "3:20", audio: "sandermix/sere tu guardian.mp3", lyrics: "[Música]" },
-                    { title: "NUNCA VOY A OLVIDARTE", duration: "3:35", audio: "sandermix/nunca voy a olvidarte.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "COMO TE AMO YO", duration: "3:30", audio: "sandermix/como te amo yo.mp3",
+                        lyrics: [
+                            { time: 0, text: "Cómo te amo yo, nadie te va a amar..." },
+                            { time: 10, text: "Cómo te beso yo, nadie te podrá besar..." },
+                            { time: 20, text: "Anda, prueba y ve a que otros brazos exploren tu cuerpo..." },
+                            { time: 30, text: "No te detendré, aunque la rabia me queme por dentro..." }
+                        ]
+                    },
+                    { 
+                        title: "LO PLENO VINO A MI", duration: "3:15", audio: "sandermix/lo pleno vino a mi.mp3",
+                        lyrics: [
+                            { time: 0, text: "Lo que tanto pensé, lo que tanto soñé..." },
+                            { time: 10, text: "Lo pleno vino a mí, minutos junto a ti..." },
+                            { time: 20, text: "Yo nunca estuve así, lo puedo descubrir..." },
+                            { time: 30, text: "Detesto el decidir, se vuelve a repetir..." }
+                        ]
+                    },
+                    { 
+                        title: "YASMIN", duration: "3:30", audio: "sandermix/yasmin.mp3",
+                        lyrics: [
+                            { time: 0, text: "Era un once de enero cuando esta vida llegó..." },
+                            { time: 10, text: "Jazmín, te deseo que siempre seas feliz..." },
+                            { time: 20, text: "Eres tan bella y disfruto al verte reír..." },
+                            { time: 30, text: "Jazmín, un ángel tan puro que quiere vivir..." }
+                        ]
+                    },
+                    { 
+                        title: "MAGICAS PRINCESAS", duration: "3:40", audio: "sandermix/magicas princesas.mp3",
+                        lyrics: [
+                            { time: 0, text: "Tengo dos excusas en mi mente para recordar mi vida..." },
+                            { time: 10, text: "Son un par de mágicas princesas con pijamas y con trenas..." },
+                            { time: 20, text: "Mientras tanto quiero darles tantas cosas..." },
+                            { time: 30, text: "Quiero darles tanto amor, tanta atención..." }
+                        ]
+                    },
+                    { 
+                        title: "SERE TU GUARDIAN", duration: "3:20", audio: "sandermix/sere tu guardian.mp3",
+                        lyrics: [
+                            { time: 0, text: "Viajé y a este mundo llegué..." },
+                            { time: 10, text: "Si humano es sentir y querer, también lo es perdonar..." },
+                            { time: 20, text: "Estaré en el cielo goteando en tu frente..." },
+                            { time: 30, text: "Seré tu guardián..." }
+                        ]
+                    },
+                    { 
+                        title: "NUNCA VOY A OLVIDARTE", duration: "3:35", audio: "sandermix/nunca voy a olvidarte.mp3",
+                        lyrics: [
+                            { time: 0, text: "Pero estés donde estés, nunca voy a olvidarte..." },
+                            { time: 10, text: "Yo te juro que no trataré de olvidarte..." },
+                            { time: 20, text: "Conté lo más hermoso que viví yo contigo..." },
+                            { time: 30, text: "Si tú quieres mi amor para mí, no me importa..." }
+                        ]
+                    }
                 ]
             },
             {
-                title: "Maural Rock", year: "2021", desc: "El álbum de versiones Rock de Maural.", cover: "sandermedia/mauralrock.jpeg",
+                title: "Maural Rock", year: "2021", desc: "Versiones Rock.", cover: "sandermedia/mauralrock.jpeg",
                 tracks: [
-                    { title: "ANGEL (ELEFANTE)", duration: "3:30", audio: "mauralrock/angel (elefante).mp3", lyrics: "[Música]" },
-                    { title: "MENTIROSA (ELEFANTE)", duration: "3:20", audio: "mauralrock/mentirosa (elefante).mp3", lyrics: "[Música]" },
-                    { title: "HACE FRIO YA", duration: "3:15", audio: "mauralrock/hace frio ya.mp3", lyrics: "[Música]" },
-                    { title: "DE RODILLAS", duration: "3:25", audio: "mauralrock/de rodillas.mp3", lyrics: "[Música]" },
-                    { title: "SI TE VAS (ENRIQUE IGLESIAS)", duration: "3:40", audio: "mauralrock/si te vas (enrique iglesias).mp3", lyrics: "[Música]" },
-                    { title: "DE LA NOCHE A LA MAÑANA", duration: "3:35", audio: "mauralrock/de la noche a la mañana (elefante).mp3", lyrics: "[Música]" },
-                    { title: "LOCO", duration: "3:10", audio: "mauralrock/loco.mp3", lyrics: "[Música]" },
-                    { title: "NO SABER DE TI (LOS NOCHEROS)", duration: "3:45", audio: "mauralrock/no saber de ti (los nocheros).mp3", lyrics: "[Música]" },
-                    { title: "PUERTO MONTT", duration: "3:50", audio: "mauralrock/puerto montt.mp3", lyrics: "[Música]" },
-                    { title: "Y ME QUEDE EN EL BAR", duration: "3:30", audio: "mauralrock/y me quede en el bar.mp3", lyrics: "[Música]" }
+                    { 
+                        title: "ANGEL (ELEFANTE)", duration: "3:30", audio: "mauralrock/angel (elefante).mp3",
+                        lyrics: [
+                            { time: 0, text: "Te encontré de madrugada cuando menos lo esperaba..." },
+                            { time: 10, text: "Y eres tú, solo tú, la que me lleva a la Luna..." },
+                            { time: 20, text: "La que calma mi locura, la que me quema la piel..." },
+                            { time: 30, text: "Ángel de la madrugada, el tatuaje de mi alma..." }
+                        ]
+                    },
+                    { 
+                        title: "MENTIROSA (ELEFANTE)", duration: "3:20", audio: "mauralrock/mentirosa (elefante).mp3",
+                        lyrics: [
+                            { time: 0, text: "¿Qué le vamos a hacer si la vida es así?..." },
+                            { time: 10, text: "Mentirosa, traicionera, y yo que daba por ti la vida entera..." },
+                            { time: 20, text: "Mentirosa, embustera, basta ya de tanto ruido..." },
+                            { time: 30, text: "Este cuento se acabó..." }
+                        ]
+                    },
+                    { 
+                        title: "DUELE EL CORAZON / SI TE VAS", duration: "3:40", audio: "mauralrock/si te vas (enrique iglesias).mp3",
+                        lyrics: [
+                            { time: 0, text: "Solo en tu boca yo quiero acabar todos esos besos..." },
+                            { time: 10, text: "Si te vas, yo también me voy..." },
+                            { time: 20, text: "Si me das, yo también te doy mi amor..." },
+                            { time: 30, text: "Con él te duele el corazón y conmigo te duelen los pies..." }
+                        ]
+                    },
+                    { 
+                        title: "DE LA NOCHE A LA MAÑANA", duration: "3:35", audio: "mauralrock/de la noche a la mañana (elefante).mp3",
+                        lyrics: [
+                            { time: 0, text: "Me despierta el corazón en la mañana..." },
+                            { time: 10, text: "Pero se te apaga el sol cuando se marcha..." },
+                            { time: 20, text: "Y cuelgas los ojos de la ventana y vives de a poco..." },
+                            { time: 30, text: "Y se detiene el tiempo en tu cara..." }
+                        ]
+                    },
+                    { 
+                        title: "LOCO", duration: "3:10", audio: "mauralrock/loco.mp3",
+                        lyrics: [
+                            { time: 0, text: "Te pido de rodillas, luna, no te vayas..." },
+                            { time: 10, text: "Loco por besar tus labios sin que quede nada por dentro..." },
+                            { time: 20, text: "No te perdonaré si me dejas por dentro con ese dolor..." },
+                            { time: 30, text: "Si me vuelves loco..." }
+                        ]
+                    },
+                    { 
+                        title: "NO SABER DE TI", duration: "3:45", audio: "mauralrock/no saber de ti (los nocheros).mp3",
+                        lyrics: [
+                            { time: 0, text: "Nadie me habla de ti, sin embargo, te extraño..." },
+                            { time: 10, text: "Desde que no estás aquí ya no puedo encontrar..." },
+                            { time: 20, text: "De nuevo el sentido de la libertad..." },
+                            { time: 30, text: "Solo me habita el dolor, se me va la vida sin saber de ti..." }
+                        ]
+                    }
                 ]
             }
         ];
@@ -1002,6 +1342,32 @@
                 document.getElementById('modalCurrentTime').innerText = formatTime(currentTime);
                 document.getElementById('modalDuration').innerText = formatTime(duration);
             }
+
+            const album = albumsData[currentAlbumIndex];
+            if (!album) return;
+            const track = album.tracks[currentTrackIndex];
+            if (!track || !track.lyrics) return;
+
+            let activeIndex = 0;
+            for (let i = 0; i < track.lyrics.length; i++) {
+                if (currentTime >= track.lyrics[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            const lyricLines = document.querySelectorAll('.lyric-line');
+            lyricLines.forEach((line, idx) => {
+                if (idx === activeIndex) {
+                    if (!line.classList.contains('active')) {
+                        line.classList.add('active');
+                        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    line.classList.remove('active');
+                }
+            });
         });
 
         audioElement.addEventListener('ended', () => {
@@ -1078,10 +1444,13 @@
             document.getElementById('lyricsCover').style.backgroundImage = `url('${album.cover}')`;
 
             const lyricsContainer = document.getElementById('lyricsContainer');
-            if (track.lyrics) {
-                lyricsContainer.innerHTML = `<p class="lyric-line">${track.lyrics}</p>`;
+            lyricsContainer.innerHTML = '';
+            if (track.lyrics && track.lyrics.length > 0) {
+                track.lyrics.forEach((l, idx) => {
+                    lyricsContainer.innerHTML += `<p class="lyric-line ${idx === 0 ? 'active' : ''}" data-time="${l.time}">${l.text}</p>`;
+                });
             } else {
-                lyricsContainer.innerHTML = `<p class="lyric-line">Letra disponible próximamente.</p>`;
+                lyricsContainer.innerHTML = `<p class="lyric-line active">Letra sincronizada disponible próximamente.</p>`;
             }
 
             if (track.audio) {
