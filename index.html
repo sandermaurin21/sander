@@ -135,21 +135,14 @@
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
             font-weight: 700;
         }
-        .lyric-line {
-            transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.4);
+        .lyric-line-fixed {
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
-            line-height: 1.6;
+            line-height: 1.8;
             text-align: left;
             margin-left: 1.5rem;
             margin-right: 1.5rem;
-        }
-        .lyric-line.active {
-            color: #06b6d4;
-            font-size: 1.25rem;
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
-            transform: scale(1.02);
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -809,310 +802,295 @@
                 tracks: [
                     { 
                         title: "EL LOBO", duration: "3:15", audio: "audiossan/el lobo.mp3",
-                        lyrics: [
-                            { time: 0, text: "[Intro]\nLlegó la noche bajo la luz de la luna\nEspera algo malvado que paraliza el corazón\nY te provoca miedo\nIntentarás gritar pero el terror atrapa el sonido antes que lo hagas\nTu cuerpo se congelará" },
-                            { time: 15, text: "[Verse 1]\nPuedes sentir el miedo\nPuedes escuchar tu cuerpo temblando\nCuando bailas la bestia está por atacar\nPuedes sentir el miedo\nPuedes escuchar tu cuerpo temblando\nCuando bailas la bestia está por atacar" },
-                            { time: 35, text: "[Chorus]\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh" },
-                            { time: 55, text: "[Verse 2]\nBusco una chica sensual y muy simpática\nQue para bailar rompe el suelo con su técnica\nQue está bien loca, atrevida y muy rápida\nPorque este lobo seguro la enamorará\nY no te duermas porque este lobo quiere a tu chica para comerla\nEs una bestia, es una fiera y te anclará bien fuerte" },
-                            { time: 80, text: "[Chorus]\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh" },
-                            { time: 100, text: "[Bridge]\nChiquita, chiquita, la bestia por atacar\nPuedes sentir el miedo\nPuedes escuchar tu cuerpo temblando\nCuando bailas la bestia por atacar" },
-                            { time: 120, text: "[Chorus]\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh" },
-                            { time: 140, text: "[Verse 3]\nBusco una chica sensual y muy simpática\nQue para bailar rompe el suelo con su técnica\nQue está bien loca, atrevida y muy rápida\nPorque este lobo seguro la enamorará\nEn dónde duermas el lobo quiere a tu chica para comerla\nEs una bestia, es una fiera y te la come bien fuerte" },
-                            { time: 165, text: "[Outro]\nEl lobo, el lobo, el lobo está por atacar\nEl lobo, el lobo, eh\nEl lobo, el lobo, el lobo está por atacar\nEl lobo" }
-                        ]
+                        staticLyrics: `[Intro]
+Llegó la noche bajo la luz de la luna
+Espera algo malvado que paraliza el corazón
+Y te provoca miedo
+Intentarás gritar pero el terror atrapa el sonido antes que lo hagas
+Tu cuerpo se congelará
+
+[Verse 1]
+Puedes sentir el miedo
+Puedes escuchar tu cuerpo temblando
+Cuando bailas la bestia está por atacar
+
+[Chorus]
+El lobo, el lobo, el lobo está por atacar
+El lobo, el lobo, eh
+
+[Verse 2]
+Busco una chica sensual y muy simpática
+Que para bailar rompe el suelo con su técnica
+Que está bien loca, atrevida y muy rápida
+Porque este lobo seguro la enamorará
+
+[Outro]
+El lobo, el lobo, el lobo está por atacar`
                     },
                     { 
                         title: "NENA CAPRICHOSA", duration: "3:20", audio: "audiossan/nena caprichosa.mp3",
-                        lyrics: [
-                            { time: 0, text: "[Intro]\nHey, tratando de conquistar el mundo para todos ustedes\nXander\nPra dançar, pra suar\nBuscou uma menina dengosa\nQue não, que não se sinta pouca coisa\nPode ser ruiva, loira ou morena\nE seu reggaeton, amada\nPra dançar, pra suar\nEla, suas três modelos animais\nBela do planeta, das estrelas\nCompitiendo para ver cuál de ellas tiene más guinga para danzar\nEstoy queriendo, estoy buscando el amor\nRocha, la que está ganando\nEstá danzando y está girando\nVeo en sus labios que dice" },
-                            { time: 35, text: "[Verse 1]\nBusco, busco una nena caprichosa\nQue no, que no se sienta poca cosa\nQue venga una colorada, una rubia, una morocha\nEsto es reguetón la mala\nPa bailarlo, pa gozarlo" },
-                            { time: 55, text: "[Chorus]\nBusco, busco una nena caprichosa\nQue no, que no se sienta poca cosa\nQue venga una colorada, una rubia, una morocha\nEsto es reguetón la mala\nPa bailarlo\nPode ser ruiva, loira ou morena\nE seu reguetão na moda\nPra dançar, pra suar" },
-                            { time: 80, text: "[Verse 2]\nBusco, busco uma nena caprichosa\nQue não, que no se sienta poca cosa\nQue venga una colorada, una rubia, una morocha\nEsto es reguetón lambada\nPara bailarlo, para gozarlo\nElla son las tres modelos de las más bellas del planeta\nDe la estrella compitiendo para ver cuál de ellas tiene más cadera para bailarlo\nMe está tentando, me está gustando\nEs la morocha la que está ganando\nSiga bailando, me está mirando\nLeo sus labios y dice" },
-                            { time: 115, text: "[Chorus]\nBusco uma menina bem gostosa\nQue não, que não se sinta pouca coisa\nPode ser ruiva, loira ou morena\nE seu reguetão na moda\nPra dançar, pra suar\nBusco, busco una nena caprichosa\nQue no, que no se sienta poca cosa\nQue venga una colorada, una rubia, una morocha\nEsto es reguetón la mala\nPa bailarlo, pa gozarlo" }
-                        ]
+                        staticLyrics: `[Intro]
+Hey, tratando de conquistar el mundo para todos ustedes
+Xander
+Pra dançar, pra suar
+
+[Verse 1]
+Busco, busco una nena caprichosa
+Que no, que não se sinta pouca coisa
+Que venga una colorada, una rubia, una morocha
+Esto es reguetón la mala
+
+[Chorus]
+Busco, busco una nena caprichosa
+Que no, que no se sienta poca cosa`
                     },
                     { 
                         title: "TE OLVIDASTE DE MI", duration: "3:45", audio: "audiossan/te olvidaste de mi.mp3",
-                        lyrics: [
-                            { time: 0, text: "0:00 [Música]" },
-                            { time: 5, text: "0:05 [Aplausos]" },
-                            { time: 10, text: "0:10 yo solo fui quien estuvo detrás yo solo fui quien te ayudó a" },
-                            { time: 19, text: "0:19 caminar quién levantó a tu alma" },
-                            { time: 25, text: "0:25 con paz cada vez que tropezó olvidaste de" },
-                            { time: 33, text: "0:33 mí yo solo fui quien quería es que" },
-                            { time: 38, text: "0:38 sea yo solo fui quien no puso Barrera" },
-                            { time: 44, text: "0:44 quién te entendió el que más te amó por cómo" },
-                            { time: 52, text: "0:52 eras por cómo eras por como eras te olvidaste de mí de quien" },
-                            { time: 61, text: "1:01 te olvidaste de mí qué pena quien te dio libertad que te" },
-                            { time: 69, text: "1:09 dejo equivocar Aunque eso duela Aunque eso" },
-                            { time: 79, text: "1:19 duela cómo puede ser solo fui quien levantó a tu alma con" },
-                            { time: 86, text: "1:26 Paz Sander" },
-                            { time: 96, text: "1:36 yo solo fui quien querías que sea yo solo fui quien no puso" },
-                            { time: 105, text: "1:45 barreras quién te entendió el que más te amó por cómo" },
-                            { time: 114, text: "1:54 eras te olvidaste de mí te olvidaste de" },
-                            { time: 122, text: "2:02 mí de quién era te olvidaste de mí qué pena quién te dio" },
-                            { time: 132, text: "2:12 libertad quién te dejó equivocar Aunque eso duela Aunque eso" },
-                            { time: 143, text: "2:23 duela como puede ser que ya no estás como puede ser que me dejaste de" },
-                            { time: 152, text: "2:32 pensar cómo puede ser que se olvidó que el recuerdo de mi voz se" },
-                            { time: 161, text: "2:41 quedó en su corazón te olvidaste de" },
-                            { time: 168, text: "2:48 mí de quién era te olvidaste de mí qué pena quién te dio" },
-                            { time: 178, text: "2:58 libertad te dejo equivocar Aunque eso duela Aunque eso" },
-                            { time: 186, text: "3:06 duela te olvidaste de mí de quién era te olvidaste de" },
-                            { time: 195, text: "3:15 mí qué pena quién te dio libertad quién te dejó" },
-                            { time: 202, text: "3:22 equivocar Aunque eso duela" },
-                            { time: 209, text: "3:29 Aunque eso duela" },
-                            { time: 218, text: "3:38 [Música]" }
-                        ]
+                        staticLyrics: `Yo solo fui quien estuvo detrás
+Yo solo fui quien te ayudó a caminar
+Quién levantó a tu alma con paz cada vez que tropezó
+Te olvidaste de mí
+Yo solo fui quien querías que sea
+Yo solo fui quien no puso barrera
+Quién te entendió, el que más te amó por cómo eras`
                     },
                     { 
                         title: "NENA LOCA", duration: "3:36", audio: "audiossan/nena loca.mp3",
-                        lyrics: [
-                            { time: 0, text: "[Música]" },
-                            { time: 5, text: "Mi corazón se enamoró otra vez qué voy a hacer qué voy a hacer se enloqueció desde aquella vez que te besé que te besé" },
-                            { time: 15, text: "era una nena tan linda y Loca loca con su boca floja floja se me ha acercado y de un beso me rompió la boca" },
-                            { time: 25, text: "era una nena tan linda y loca loca con su boca floja floja se me ha acercado y un beso me rompió la boca" },
-                            { time: 35, text: "oh oh Uh Se enamoró mi corazón eh Eh Mi corazón se enamoró mujer necesito quererte Eh Necesito amarte Eh me vuelves loco mi amor vuelve a besarme ven necesito quererte Eh Necesito amarte Eh me vuelves loco mi amor vuelve a besarme" },
-                            { time: 60, text: "era una nena tan linda y Loca loca con su boca floja floja se me ha acercado y un beso me rompió la boca" },
-                            { time: 70, text: "era una nena tan linda y Loca loca con su boca floja floja se me ha acercado y de un beso me rompió la boca" },
-                            { time: 80, text: "y yo siento un gran calor en mi corazón cuando me dices mi amor" },
-                            { time: 90, text: "y yo siento un gran calor en mi corazón cuando me dices mi amor" },
-                            { time: 100, text: "era una nena tan linda y Loca loca con su boca floja floja se me ha acercado Y di un beso me rompió la boca" },
-                            { time: 110, text: "era una nena tan linda y Loca loca con su floja floja se me ha acercado y de un beso me rompió la boca" },
-                            { time: 120, text: "ohohoh uo se enamoró mi mi corazón eh Eh Mi corazón se enamoró mujer necesito quererte Eh Necesito amarte Eh me vuelves loco mi amor vuelve a besarme necesito quererte Eh Necesito amarte Eh me vuelves loco mi amor vuelve a besarme" },
-                            { time: 145, text: "era una nena tan linda y Loca loca con su boca floja looca se me ha acercado y un beso me rompió la boca" },
-                            { time: 155, text: "era una nena tan linda y Loca loca con su boca floja floja se me ha acercado y de un beso me rompió la boca" },
-                            { time: 165, text: "y yo siento un gran calor en mi corazón cuando me diste mi amor y yo siento un gran calor en mi corazón cuando me dices mi amor" },
-                            { time: 180, text: "[Música]" }
-                        ]
+                        staticLyrics: `Mi corazón se enamoró otra vez qué voy a hacer
+Se enloqueció desde aquella vez que te besé
+Era una nena tan linda y loca, loca con su boca floja
+Se me ha acercado y de un beso me rompió la boca`
                     },
                     { 
                         title: "SUBE Y BAJA", duration: "3:00", audio: "audiossan/sube y baja.mp3",
-                        lyrics: [
-                            { time: 0, text: "[Verse 1]\nNena a mí me gusta cuando te veo en la pista\nY mueves tu bum bum\nAsomando la cabeza meneando la cinturita\nY baja suave el bum bum\nDj música en la pista me gusta su bum bum\n(Bum bum bum bum)\nMe tiene enfermo con su movimiento suave" },
-                            { time: 25, text: "[Pre-Chorus]\nEste es el ritmo que las nenas más lo saben\nAlza la mano meneando la cadera\nBum bum para adentro\nBum bum para afuera" },
-                            { time: 45, text: "[Chorus]\n¿Dónde están los hombres que esta noche es una fiesta?\n¿Que se van para la casa y nosotros haciendo siesta?\nSube baja sube está colgada de una nube\nAhora arranca mi perreo hasta acá yo me contuve\nDale para abajo para abajo para abajo para abajo para abajo\nAhora para arriba para arriba para arriba para arriba para arriba" },
-                            { time: 75, text: "[Verse 2]\nA mí me gusta cuando te veo en la pista\nY mueves tu bum bum\nLas dos manos en la cabeza meneando la cinturita\nY baja suave el bum bum\nDj música en la pista me gusta su bum bum\n(Bum bum bum bum)\nMe tiene enfermo con su movimiento suave" },
-                            { time: 100, text: "[Pre-Chorus]\nEs que este ritmo que la nena más lo sabe\nAlza la mano meneando la cadera\nBum bum para dentro\nBum bum para fuera" },
-                            { time: 120, text: "[Chorus]\n¿Dónde están los hombres que esta noche es una fiesta?\n¿Que se van para la casa y nosotros haciendo siesta?\nSube baja sube está colgada de una nube\nAhora arranca mi perreo hasta acá yo me contuve\nDale para abajo para abajo para abajo para abajo para abajo\nAhora para arriba para arriba para arriba para arriba para arriba" }
-                        ]
+                        staticLyrics: `[Verse 1]
+Nena a mí me gusta cuando te veo en la pista
+Y mueves tu bum bum
+Asomando la cabeza meneando la cinturita
+Y baja suave el bum bum
+
+[Chorus]
+Sube baja sube está colgada de una nube
+Ahora arranca mi perreo hasta acá yo me contuve`
                     },
                     { 
                         title: "TE QUEDA GRANDE MI AMOR", duration: "3:25", audio: "audiossan/te queda grande mi amor.mp3",
-                        lyrics: [
-                            { time: 0, text: "0:03 [Música]" },
-                            { time: 10, text: "0:10 te queda grande mi amor Lo siento en mi corazón Cada beso de tu boca le pone frío este amor Te queda grande mi amor Lo siento en mi corazón nunca me dices Te amo Cuando te doy mi pasión" },
-                            { time: 32, text: "0:32 [Música]" },
-                            { time: 49, text: "0:49 te queda grande mi amor Lo siento en mi corazón a la beso de tu boca le pone frío este amor te queda grande mi amor Lo siento en mi corazón nunca me dices Te amo Cuando te doy mi pasión" },
-                            { time: 67, text: "1:07 nena nena puede ser que nunca me amaste tú nena nena dilo pronto lo que sientes Dímelo nena nena puede ser que nunca me amaste tú no jugues con mi cariño si no me amas Dímelo" },
-                            { time: 90, text: "1:30 te queda grande mi amor Lo siento en mi corazón beso de tu boca le pone frío este amor te queda grande mi amor Lo siento en mi corazón nunca me dices Te amo Cuando te doy mi pasión\nsiente el ritmo tu alma Sander" },
-                            { time: 118, text: "1:58 [Música]" },
-                            { time: 128, text: "2:08 te queda grande mi amor Lo siento en mi corazón Cada beso de tu boca le pone frío este amor Te queda grande mi amor Lo siento en mi corazón nunca me dices Te amo Cuando te doy mi pasión" },
-                            { time: 146, text: "2:26 nena nena puede ser que nunca me amaste tú nena nena dilo pronto lo que sientes Dímelo nena nena puede ser que nunca me amaste tú no jugues con mi cariño si no me amas Dímelo" },
-                            { time: 168, text: "2:48 te queda grande mi amor Lo siento en mi corazón A beso de tu boca le pone frío este amor ya queda grande mi amor no siento en mi corazón nunca me dices Te amo Cuando te doy mi pasión" },
-                            { time: 185, text: "3:05 nunca me dices Te amo Cuando te doy mi pasión nunca me dices Te amo Cuando te doy mi pasión nunca me dices Te amo Cuando te doy mi pasión" },
-                            { time: 202, text: "3:22 [Música]" }
-                        ]
+                        staticLyrics: `Te queda grande mi amor
+Lo siento en mi corazón
+Cada beso de tu boca le pone frío este amor
+Nunca me dices te amo cuando te doy mi pasión`
                     },
                     { 
                         title: "NENA CAPRICHOSA REGGAETON", duration: "2:55", audio: "audiossan/nena caprichosa reggaeton.mp3",
-                        lyrics: [
-                            { time: 2, text: "0:02 Hey tratando de conquistar el mundo para todos ustedes Sander" },
-                            { time: 6, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 20, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 35, text: "ella son las tres modelos de las más bellas del planeta y la estrella compitiendo para ver cuál de ella tiene más candela para bailarlo me está pensando me está gustando en la morocha la que está ganando Sigue bailando me está mirando los unos y dice..." },
-                            { time: 55, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 70, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 85, text: "[Música]" },
-                            { time: 95, text: "que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 105, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 120, text: "ella son las tres modelos de las más bellas del planeta y la estrella compitiendo para ver cuál de ella tiene más candela para bailarlo me está pensando me está gustando en la morocha la que está ganando Sigue bailando me está mirando los unos y dice ..." },
-                            { time: 140, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" },
-                            { time: 155, text: "Busco busco una nena caprichosa que no que no se sienta poca cosa que venga una colorada una rubia una morocha este reguetón Lambada para bailarlo para gozarlo" }
-                        ]
+                        staticLyrics: `Hey tratando de conquistar el mundo para todos ustedes Sander
+Busco busco una nena caprichosa que no que no se sienta poca cosa
+Que venga una colorada una rubia una morocha este reguetón Lambada`
                     },
                     { 
                         title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "audiossan/ti sei scordata di me.mp3",
-                        lyrics: [
-                            { time: 10, text: "[00:00:10.210] Io sono colui che è stato di dietro" },
-                            { time: 16, text: "[00:00:16.400] Sono colui che ti ha aiutato a camminare" },
-                            { time: 22, text: "[00:00:22.100] Chi ha alzato la tua anima in pace" },
-                            { time: 27, text: "[00:00:27.500] Ogni volta che è caduta" },
-                            { time: 31, text: "[00:00:31.200] Ti sei scordata di me" },
-                            { time: 35, text: "[00:00:35.400] Io sono colui che tu volevi che fossi" },
-                            { time: 40, text: "[00:00:40.100] Sono colui che non ti ha posto barriere" },
-                            { time: 44, text: "[00:00:44.900] Che ti ha capito" },
-                            { time: 48, text: "[00:00:48.200] Quello che più ti ha amato per come eri" },
-                            { time: 54, text: "[00:00:54.100] Per come eri" },
-                            { time: 57, text: "[00:00:57.300] Ti sei scordata di me" },
-                            { time: 61, text: "[00:01:01.200] Di chi ero" },
-                            { time: 64, text: "[00:01:04.500] Ti sei scordata di me" },
-                            { time: 68, text: "[00:01:08.100] Che pena" },
-                            { time: 70, text: "[00:01:10.400] Chi ti ha dato libertà" },
-                            { time: 73, text: "[00:01:13.800] Chi ti ha lasciato sbagliare" },
-                            { time: 77, text: "[00:01:17.200] Fa tanto male" },
-                            { time: 79, text: "[00:01:19.500] Fa tanto male" },
-                            { time: 81, text: "[00:01:21.190] Come può essere\n[00:01:21.310] Sono colui che ha alzato la tua anima in pace" },
-                            { time: 91, text: "[00:01:31.200] Io sono colui che tu volevi che fossi" },
-                            { time: 96, text: "[00:01:36.500] Sono colui che non ti ha posto barriere" },
-                            { time: 102, text: "[00:01:42.100] Chi ti ha capito" },
-                            { time: 105, text: "[00:01:45.400] Quello che più ti ha amato per come eri" },
-                            { time: 111, text: "[00:01:51.200] Ti sei scordata di me" },
-                            { time: 115, text: "[00:01:55.100] Ti sei scordata di me" },
-                            { time: 119, text: "[00:01:59.200] Di chi ero" },
-                            { time: 123, text: "[00:02:03.100] Ti sei scordata di me" },
-                            { time: 127, text: "[00:02:07.200] Che pena" },
-                            { time: 129, text: "[00:02:09.500] Chi ti ha dato libertà" },
-                            { time: 133, text: "[00:02:13.100] Chi ti ha lasciato sbagliare" },
-                            { time: 136, text: "[00:02:16.400] Fa tanto male" },
-                            { time: 138, text: "[00:02:18.800] Fa tanto male" },
-                            { time: 141, text: "[00:02:21.100] Come puoi essere\n[00:02:24.500] Come può essere\n[00:02:28.200] Come può essere" },
-                            { time: 158, text: "[00:02:38.720] Te recuerdo de la noche\n[00:02:42.100] Que rimaste en mis pupilas" },
-                            { time: 166, text: "[00:02:46.500] Ti sei scordata di me" },
-                            { time: 170, text: "[00:02:50.200] Di chi ero" },
-                            { time: 173, text: "[00:02:53.100] Ti sei scordata di me" },
-                            { time: 177, text: "[00:02:57.200] Che pena" },
-                            { time: 179, text: "[00:02:59.500] Chi ti ha dato libertà" },
-                            { time: 183, text: "[00:03:03.100] Chi ti ha lasciato sbagliare" },
-                            { time: 186, text: "[00:03:06.400] Fa tanto male" },
-                            { time: 188, text: "[00:03:08.800] Fa tanto male" },
-                            { time: 194, text: "[00:03:14.490] Ti sei scordata di me" },
-                            { time: 198, text: "[00:03:18.200] Di chi ero" },
-                            { time: 201, text: "[00:03:21.100] Ti sei scordata di me" },
-                            { time: 204, text: "[00:03:24.500] Che pena" },
-                            { time: 206, text: "[00:03:26.100] Chi ti ha dato libertà" },
-                            { time: 208, text: "[00:03:28.500] Chi ti ha lasciato sbagliare" },
-                            { time: 210, text: "[00:03:30.930] Fa tanto male" },
-                            { time: 212, text: "[00:03:32.500] Fa tanto male" }
-                        ]
+                        staticLyrics: `Io sono colui che è stato di dietro
+Sono colui che ti ha aiutato a camminare
+Chi ha alzato la tua anima in pace
+Ti sei scordata di me`
                     }
                 ]
             },
             {
                 title: "Sander Maurin", year: "2026", desc: "El EP oficial conceptual del artista.", cover: "sandermedia/sanderdisco.jpeg",
                 tracks: [
-                    { title: "MUJER MISTERIO", duration: "3:45", audio: "sandermaurinplay/mujer misterio.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BAILA", duration: "3:05", audio: "sandermaurinplay/baila.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DEMASIADO AMOR", duration: "3:30", audio: "sandermaurinplay/demasiado amor.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "SI TE VAS", duration: "3:15", audio: "sandermaurinplay/si te vas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "NADA ESTA PERDIDO", duration: "3:20", audio: "sandermaurinplay/nada esta perdido.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DESESPERADO", duration: "3:10", audio: "sandermaurinplay/desesperado.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LA FUERZA QUE NOS UNE", duration: "3:40", audio: "sandermaurinplay/la fuerza que nos une.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "EL ANGEL", duration: "3:25", audio: "sandermaurinplay/el angel.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TODO ESTA BIEN", duration: "3:12", audio: "sandermaurinplay/todo esta bien.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BAILA REMIX", duration: "3:50", audio: "sandermaurinplay/baila remix.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { 
+                        title: "MUJER MISTERIO", duration: "3:45", audio: "sandermaurinplay/mujer misterio.mp3", 
+                        staticLyrics: `[Música]
+Sellaba y vivía ese paraíso que a tu lado yo pude ver
+Ese paraíso era una hoguera cada vez que sentía tu piel
+Ay si aquella noche no hubiera dejado mi vida al hablarte al oído
+Tu dulce mirada que no me soltaba tampoco me habría mentido
+Sé que no puedo olvidarte mujer misterio me llena la cien` 
+                    },
+                    { 
+                        title: "BAILA", duration: "3:05", audio: "sandermaurinplay/baila.mp3", 
+                        staticLyrics: `Te veo girar y no te puedo alcanzar
+Te siento mirar y no encuentro más que tu destino
+Solo me imagino que ya nada encontrarás que detenga tu camino
+
+Baila, mi corazón es todo lo que pide
+Baila y me verás volando sobre el mar` 
+                    },
+                    { 
+                        title: "DEMASIADO AMOR", duration: "3:30", audio: "sandermaurinplay/demasiado amor.mp3", 
+                        staticLyrics: `[Música]
+De repente mis instintos son los que me acercan a tu boca
+Y devuelven tu pasión con mi calor de una manera loca
+Es tu figura, tu sabor, tus sentimientos los que me seducen
+A desafiar este contacto tan perfecto que tu piel trasluce
+
+Idioma de amor, ternura y pasión
+Desbordamos demasiado amor` 
+                    },
+                    { 
+                        title: "SI TE VAS", duration: "3:15", audio: "sandermaurinplay/si te vas.mp3", 
+                        staticLyrics: `[Música]
+Si te vas ya nada será igual
+Me verás volando por todo el cielo de tu verdad
+Hoy verás que nada quedará
+Pensarás que solo un camino puede ver el final` 
+                    },
+                    { 
+                        title: "NADA ESTA PERDIDO", duration: "3:20", audio: "sandermaurinplay/nada esta perdido.mp3", 
+                        staticLyrics: `Desde el lamento yo solo puedo observar estrellas que cubren el sol
+Vivir a oscuras sin fuerzas para poder mirar que la noche terminó
+Hoy sé que nada está perdido, hoy lo sé` 
+                    },
+                    { 
+                        title: "DESESPERADO", duration: "3:10", audio: "sandermaurinplay/desesperado.mp3", 
+                        staticLyrics: `[Música]
+Voy solo a condenarme por tener tu perdón
+Pienso en encontrarte jugando en mi ilusión
+Puedo ver tu ángel sintiendo mi dolor
+Quiero ser tu sueño, ser el dueño de tu amor` 
+                    },
+                    { 
+                        title: "LA FUERZA QUE NOS UNE", duration: "3:40", audio: "sandermaurinplay/la fuerza que nos une.mp3", 
+                        staticLyrics: `[Música]
+Si me pidieran de contar mi historia yo te nombraría
+Si me borraran toda mi memoria te recordaría
+Hay una fuerza que une, algo pendiente que quedó
+Porque eres mi eterno amor` 
+                    },
+                    { 
+                        title: "EL ANGEL", duration: "3:25", audio: "sandermaurinplay/el angel.mp3", 
+                        staticLyrics: `[Música]
+Si lo ven causa tristeza y pena
+Parece un alma buena pero de Dios
+Es un ángel que ha caído del paraíso
+Es un hombre que rompió su corazón` 
+                    },
+                    { 
+                        title: "TODO ESTA BIEN", duration: "3:12", audio: "sandermaurinplay/todo esta bien.mp3", 
+                        staticLyrics: `No busques otra, todo está bien
+Todo está bien, todo está bien
+Nos busques otra, todo está bien` 
+                    },
+                    { 
+                        title: "BAILA REMIX", duration: "3:50", audio: "sandermaurinplay/baila remix.mp3", 
+                        staticLyrics: `[Música]
+Te veo girar y no te puedo alcanzar
+Baila, mi corazón es todo lo que pide
+Baila y me verás volando sobre el mar` 
+                    }
                 ]
             },
             {
                 title: "Santan", year: "2024", desc: "El álbum conceptual Santan con versiones multilingües y éxitos.", cover: "sandermedia/santan.jpeg",
                 tracks: [
-                    { title: "IRIS (CASTELLANO)", duration: "3:30", audio: "santan/iris cantellano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "santan/la emocion no tiene voz.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "santan/te olvidaste de mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "OTRO AMOR", duration: "3:20", audio: "santan/otro amor.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VOLVERÉ A BESARTE (CASTELLANO)", duration: "3:40", audio: "santan/volvere a besarte castellano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "IRIS (ITALIANO)", duration: "3:30", audio: "santan/iris italiano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LA EMOCIÓN NO TIENE VOZ (ITALIANO)", duration: "3:15", audio: "santan/la emocion no tiene voz italiano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "santan/ti sei scordata di me.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "POR QUÉ MI CORAZÓN (ITALIANO)", duration: "3:10", audio: "santan/porque mi corazon italiano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "OTRO AMOR (ITALIANO)", duration: "3:20", audio: "santan/otro amor italiano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VOLVERÉ A BESARTE (ITALIANO)", duration: "3:40", audio: "santan/volvere a besarte italiano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BUSCANDO INSPIRACIÓN", duration: "3:12", audio: "santan/buscando inspiracion.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "EL AMOR EXISTE EN EL CIELO", duration: "3:28", audio: "santan/el amor existe en el cielo.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BAILEN TODOS BAILEN", duration: "3:05", audio: "santan/bailen todos bailen.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "SUAVE Y DESPACIO", duration: "3:18", audio: "santan/suave y despacio.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE INVITO A MI PARAÍSO REMIX", duration: "3:45", audio: "santan/te invito a mi paraiso remix.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "FIERAS", duration: "3:12", audio: "santan/fieras.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VIBRARÁS", duration: "3:22", audio: "santan/vibraras.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "FIERAS REMIX", duration: "3:35", audio: "santan/fieras remix.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "IRIS CASTELLANO", duration: "3:30", audio: "santan/iris castellano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "IRIS (CASTELLANO)", duration: "3:30", audio: "santan/iris cantellano.mp3", staticLyrics: "[Música]" },
+                    { title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "santan/la emocion no tiene voz.mp3", staticLyrics: "[Música]" },
+                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "santan/te olvidaste de mi.mp3", staticLyrics: "[Música]" },
+                    { title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3", staticLyrics: "[Música]" },
+                    { title: "OTRO AMOR", duration: "3:20", audio: "santan/otro amor.mp3", staticLyrics: "[Música]" },
+                    { title: "VOLVERÉ A BESARTE (CASTELLANO)", duration: "3:40", audio: "santan/volvere a besarte castellano.mp3", staticLyrics: "[Música]" },
+                    { title: "IRIS (ITALIANO)", duration: "3:30", audio: "santan/iris italiano.mp3", staticLyrics: "[Música]" },
+                    { title: "LA EMOCIÓN NO TIENE VOZ (ITALIANO)", duration: "3:15", audio: "santan/la emocion no tiene voz italiano.mp3", staticLyrics: "[Música]" },
+                    { title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "santan/ti sei scordata di me.mp3", staticLyrics: "[Música]" },
+                    { title: "POR QUÉ MI CORAZÓN (ITALIANO)", duration: "3:10", audio: "santan/porque mi corazon italiano.mp3", staticLyrics: "[Música]" },
+                    { title: "OTRO AMOR (ITALIANO)", duration: "3:20", audio: "santan/otro amor italiano.mp3", staticLyrics: "[Música]" },
+                    { title: "VOLVERÉ A BESARTE (ITALIANO)", duration: "3:40", audio: "santan/volvere a besarte italiano.mp3", staticLyrics: "[Música]" },
+                    { title: "BUSCANDO INSPIRACIÓN", duration: "3:12", audio: "santan/buscando inspiracion.mp3", staticLyrics: "[Música]" },
+                    { title: "EL AMOR EXISTE EN EL CIELO", duration: "3:28", audio: "santan/el amor existe en el cielo.mp3", staticLyrics: "[Música]" },
+                    { title: "BAILEN TODOS BAILEN", duration: "3:05", audio: "santan/bailen todos bailen.mp3", staticLyrics: "[Música]" },
+                    { title: "SUAVE Y DESPACIO", duration: "3:18", audio: "santan/suave y despacio.mp3", staticLyrics: "[Música]" },
+                    { title: "TE INVITO A MI PARAÍSO REMIX", duration: "3:45", audio: "santan/te invito a mi paraiso remix.mp3", staticLyrics: "[Música]" },
+                    { title: "FIERAS", duration: "3:12", audio: "santan/fieras.mp3", staticLyrics: "[Música]" },
+                    { title: "VIBRARÁS", duration: "3:22", audio: "santan/vibraras.mp3", staticLyrics: "[Música]" },
+                    { title: "FIERAS REMIX", duration: "3:35", audio: "santan/fieras remix.mp3", staticLyrics: "[Música]" },
+                    { title: "IRIS CASTELLANO", duration: "3:30", audio: "santan/iris castellano.mp3", staticLyrics: "[Música]" },
+                    { title: "POR QUÉ MI CORAZÓN", duration: "3:10", audio: "santan/porque mi corazon.mp3", staticLyrics: "[Música]" }
                 ]
             },
             {
                 title: "Desde la tierra al cielo", year: "2024", desc: "El álbum Desde la tierra al cielo con melodías emotivas y sencillos estelares.", cover: "sandermedia/desdelatierraalcielo.jpeg",
                 tracks: [
-                    { title: "IRIS", duration: "3:30", audio: "desdelatierra/iris.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "desdelatierra/te olvidaste de mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "SUAVE Y DESPACIO", duration: "3:18", audio: "desdelatierra/suave y despacio.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "desdelatierra/la emocion no tiene voz.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE INVITO A MI PARAÍSO", duration: "3:40", audio: "desdelatierra/te invito a mi paraiso.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VOLVERÉ A BESARTE", duration: "3:35", audio: "desdelatierra/volvere a besarte.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "desdelatierra/ti sei scordata di me.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BAILEN SOLO BAILEN", duration: "3:10", audio: "desdelatierra/bailen solo bailen.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "ALGO DE MÍ QUEDA EN TI", duration: "3:22", audio: "desdelatierra/algo de mi queda en ti.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BELLEZA FINA", duration: "3:12", audio: "desdelatierra/belleza fina.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "PAPÁ", duration: "3:28", audio: "desdelatierra/papa.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "YO, EL TANGO Y TÚ", duration: "3:45", audio: "desdelatierra/yo el tango y tu.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "FIERAS", duration: "3:12", audio: "desdelatierra/fieras.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "CARAMELO DE MIEL", duration: "3:19", audio: "desdelatierra/caramelo de miel.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DESDE LA TIERRA AL CIELO", duration: "3:50", audio: "desdelatierra/desde la tierra al cielo.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "IRIS", duration: "3:30", audio: "desdelatierra/iris.mp3", staticLyrics: "[Música]" },
+                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "desdelatierra/te olvidaste de mi.mp3", staticLyrics: "[Música]" },
+                    { title: "SUAVE Y DESPACIO", duration: "3:18", audio: "desdelatierra/suave y despacio.mp3", staticLyrics: "[Música]" },
+                    { title: "LA EMOCIÓN NO TIENE VOZ", duration: "3:15", audio: "desdelatierra/la emocion no tiene voz.mp3", staticLyrics: "[Música]" },
+                    { title: "TE INVITO A MI PARAÍSO", duration: "3:40", audio: "desdelatierra/te invito a mi paraiso.mp3", staticLyrics: "[Música]" },
+                    { title: "VOLVERÉ A BESARTE", duration: "3:35", audio: "desdelatierra/volvere a besarte.mp3", staticLyrics: "[Música]" },
+                    { title: "TI SEI SCORDATA DI ME", duration: "3:36", audio: "desdelatierra/ti sei scordata di me.mp3", staticLyrics: "[Música]" },
+                    { title: "BAILEN SOLO BAILEN", duration: "3:10", audio: "desdelatierra/bailen solo bailen.mp3", staticLyrics: "[Música]" },
+                    { title: "ALGO DE MÍ QUEDA EN TI", duration: "3:22", audio: "desdelatierra/algo de mi queda en ti.mp3", staticLyrics: "[Música]" },
+                    { title: "BELLEZA FINA", duration: "3:12", audio: "desdelatierra/belleza fina.mp3", staticLyrics: "[Música]" },
+                    { title: "PAPÁ", duration: "3:28", audio: "desdelatierra/papa.mp3", staticLyrics: "[Música]" },
+                    { title: "YO, EL TANGO Y TÚ", duration: "3:45", audio: "desdelatierra/yo el tango y tu.mp3", staticLyrics: "[Música]" },
+                    { title: "FIERAS", duration: "3:12", audio: "desdelatierra/fieras.mp3", staticLyrics: "[Música]" },
+                    { title: "CARAMELO DE MIEL", duration: "3:19", audio: "desdelatierra/caramelo de miel.mp3", staticLyrics: "[Música]" },
+                    { title: "DESDE LA TIERRA AL CIELO", duration: "3:50", audio: "desdelatierra/desde la tierra al cielo.mp3", staticLyrics: "[Música]" }
                 ]
             },
             {
                 title: "Bachata", year: "2023", desc: "El álbum de bachatas románticas y sensuales de Sander Maurin.", cover: "sandermedia/bachata.jpeg",
                 tracks: [
-                    { title: "NOCHE", duration: "3:30", audio: "bachata/noche.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "QUÉ MÁS", duration: "3:15", audio: "bachata/que mas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "NACÍ PARA SER AMANTE", duration: "3:40", audio: "bachata/naci para ser amante.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "bachata/te olvidaste de mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TANDRÉ QUE ACOSTUMBRARME", duration: "3:35", audio: "bachata/tendre que acostumbrarme.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DEBES DECILE", duration: "3:20", audio: "bachata/debes decirle.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VAS A LLORAR POR MÍ", duration: "3:30", audio: "bachata/vas a llorar por mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "QUIÉN SABE DÓNDE ESTÁS", duration: "3:45", audio: "bachata/quien sabe donde estas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "NOCHE", duration: "3:30", audio: "bachata/noche.mp3", staticLyrics: "[Música]" },
+                    { title: "QUÉ MÁS", duration: "3:15", audio: "bachata/que mas.mp3", staticLyrics: "[Música]" },
+                    { title: "NACÍ PARA SER AMANTE", duration: "3:40", audio: "bachata/naci para ser amante.mp3", staticLyrics: "[Música]" },
+                    { title: "TE OLVIDASTE DE MÍ", duration: "3:25", audio: "bachata/te olvidaste de mi.mp3", staticLyrics: "[Música]" },
+                    { title: "TANDRÉ QUE ACOSTUMBRARME", duration: "3:35", audio: "bachata/tendre que acostumbrarme.mp3", staticLyrics: "[Música]" },
+                    { title: "DEBES DECILE", duration: "3:20", audio: "bachata/debes decirle.mp3", staticLyrics: "[Música]" },
+                    { title: "VAS A LLORAR POR MÍ", duration: "3:30", audio: "bachata/vas a llorar por mi.mp3", staticLyrics: "[Música]" },
+                    { title: "QUIÉN SABE DÓNDE ESTÁS", duration: "3:45", audio: "bachata/quien sabe donde estas.mp3", staticLyrics: "[Música]" }
                 ]
             },
             {
                 title: "Maural", year: "2023", desc: "El EP conceptual Maural con las canciones solicitadas.", cover: "sandermedia/maural.jpeg",
                 tracks: [
-                    { title: "ATÉNDEME", duration: "3:30", audio: "maural/atendeme.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "EN ESTE VERANO", duration: "3:15", audio: "maural/en este verano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE EXTRAÑO A MORIR", duration: "3:40", audio: "maural/te extraño a morir.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BOCA A BOCA", duration: "3:25", audio: "maural/boca a boca.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "ATÉNDEME", duration: "3:30", audio: "maural/atendeme.mp3", staticLyrics: "[Música]" },
+                    { title: "EN ESTE VERANO", duration: "3:15", audio: "maural/en este verano.mp3", staticLyrics: "[Música]" },
+                    { title: "TE EXTRAÑO A MORIR", duration: "3:40", audio: "maural/te extraño a morir.mp3", staticLyrics: "[Música]" },
+                    { title: "BOCA A BOCA", duration: "3:25", audio: "maural/boca a boca.mp3", staticLyrics: "[Música]" }
                 ]
             },
             {
                 title: "Los eternos iracundos", year: "2022", desc: "El álbum Los eternos iracundos con los clásicos inolvidables.", cover: "sandermedia/losiracundos.jpeg",
                 tracks: [
-                    { title: "HACE FRIO YA", duration: "3:30", audio: "losiracundos/hace frio ya.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "CALLA", duration: "3:15", audio: "losiracundos/calla.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "ME QUEDE EN EL BAR", duration: "3:40", audio: "losiracundos/me quede en el bar.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DE RODILLAS", duration: "3:25", audio: "losiracundos/de rodillas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VA CAYENDO UNA LAGRIMA", duration: "3:10", audio: "losiracundos/va cayendo una lagrima.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TORMENTA DE VERANO", duration: "3:50", audio: "losiracundos/tormenta de verano.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VENITE VOLANDO", duration: "3:20", audio: "losiracundos/venite volando.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "VEN QUE ESTOY HIRVIENDO", duration: "3:12", audio: "losiracundos/ven que estoy hirviendo.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "PORQUE NO VALE LA PENA", duration: "3:35", audio: "losiracundos/porque no vale la pena.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "PUERTO MONTT", duration: "3:45", audio: "losiracundos/puerto montt.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "EL TRIUNFADOR", duration: "3:30", audio: "losiracundos/el triunfador.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "HACE FRIO YA", duration: "3:30", audio: "losiracundos/hace frio ya.mp3", staticLyrics: "[Música]" },
+                    { title: "CALLA", duration: "3:15", audio: "losiracundos/calla.mp3", staticLyrics: "[Música]" },
+                    { title: "ME QUEDE EN EL BAR", duration: "3:40", audio: "losiracundos/me quede en el bar.mp3", staticLyrics: "[Música]" },
+                    { title: "DE RODILLAS", duration: "3:25", audio: "losiracundos/de rodillas.mp3", staticLyrics: "[Música]" },
+                    { title: "VA CAYENDO UNA LAGRIMA", duration: "3:10", audio: "losiracundos/va cayendo una lagrima.mp3", staticLyrics: "[Música]" },
+                    { title: "TORMENTA DE VERANO", duration: "3:50", audio: "losiracundos/tormenta de verano.mp3", staticLyrics: "[Música]" },
+                    { title: "VENITE VOLANDO", duration: "3:20", audio: "losiracundos/venite volando.mp3", staticLyrics: "[Música]" },
+                    { title: "VEN QUE ESTOY HIRVIENDO", duration: "3:12", audio: "losiracundos/ven que estoy hirviendo.mp3", staticLyrics: "[Música]" },
+                    { title: "PORQUE NO VALE LA PENA", duration: "3:35", audio: "losiracundos/porque no vale la pena.mp3", staticLyrics: "[Música]" },
+                    { title: "PUERTO MONTT", duration: "3:45", audio: "losiracundos/puerto montt.mp3", staticLyrics: "[Música]" },
+                    { title: "EL TRIUNFADOR", duration: "3:30", audio: "losiracundos/el triunfador.mp3", staticLyrics: "[Música]" }
                 ]
             },
             {
                 title: "Sander Mix", year: "2022", desc: "El sencillo Sander Mix con la selección especial de éxitos.", cover: "sandermedia/sandermix.jpeg",
                 tracks: [
-                    { title: "COMO TE AMO YO", duration: "3:30", audio: "sandermix/como te amo yo.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "BOCA A BOCA", duration: "3:25", audio: "sandermix/boca a boca.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "TE OLVIDASTE DE MI ACUSTICO", duration: "3:45", audio: "sandermix/te olvidaste de mi acustico.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LO PLENO VINO A MI", duration: "3:15", audio: "sandermix/lo pleno vino a mi.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "YASMIN", duration: "3:30", audio: "sandermix/yasmin.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "MAGICAS PRINCESAS", duration: "3:40", audio: "sandermix/magicas princesas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "SERE TU GUARDIAN", duration: "3:20", audio: "sandermix/sere tu guardian.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "NUNCA VOY A OLVIDARTE", duration: "3:35", audio: "sandermix/nunca voy a olvidarte.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "COMO TE AMO YO", duration: "3:30", audio: "sandermix/como te amo yo.mp3", staticLyrics: "[Música]" },
+                    { title: "BOCA A BOCA", duration: "3:25", audio: "sandermix/boca a boca.mp3", staticLyrics: "[Música]" },
+                    { title: "TE OLVIDASTE DE MI ACUSTICO", duration: "3:45", audio: "sandermix/te olvidaste de mi acustico.mp3", staticLyrics: "[Música]" },
+                    { title: "LO PLENO VINO A MI", duration: "3:15", audio: "sandermix/lo pleno vino a mi.mp3", staticLyrics: "[Música]" },
+                    { title: "YASMIN", duration: "3:30", audio: "sandermix/yasmin.mp3", staticLyrics: "[Música]" },
+                    { title: "MAGICAS PRINCESAS", duration: "3:40", audio: "sandermix/magicas princesas.mp3", staticLyrics: "[Música]" },
+                    { title: "SERE TU GUARDIAN", duration: "3:20", audio: "sandermix/sere tu guardian.mp3", staticLyrics: "[Música]" },
+                    { title: "NUNCA VOY A OLVIDARTE", duration: "3:35", audio: "sandermix/nunca voy a olvidarte.mp3", staticLyrics: "[Música]" }
                 ]
             },
             {
                 title: "Maural Rock", year: "2021", desc: "El álbum de versiones Rock de Maural.", cover: "sandermedia/mauralrock.jpeg",
                 tracks: [
-                    { title: "ANGEL (ELEFANTE)", duration: "3:30", audio: "mauralrock/angel (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "MENTIROSA (ELEFANTE)", duration: "3:20", audio: "mauralrock/mentirosa (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "HACE FRIO YA", duration: "3:15", audio: "mauralrock/hace frio ya.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DE RODILLAS", duration: "3:25", audio: "mauralrock/de rodillas.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "SI TE VAS (ENRIQUE IGLESIAS)", duration: "3:40", audio: "mauralrock/si te vas (enrique iglesias).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "DE LA NOCHE A LA MAÑANA", duration: "3:35", audio: "mauralrock/de la noche a la mañana (elefante).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "LOCO", duration: "3:10", audio: "mauralrock/loco.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "NO SABER DE TI (LOS NOCHEROS)", duration: "3:45", audio: "mauralrock/no saber de ti (los nocheros).mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "PUERTO MONTT", duration: "3:50", audio: "mauralrock/puerto montt.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] },
-                    { title: "Y ME QUEDE EN EL BAR", duration: "3:30", audio: "mauralrock/y me quede en el bar.mp3", lyrics: [{ time: 0.0, text: "[Música]" }] }
+                    { title: "ANGEL (ELEFANTE)", duration: "3:30", audio: "mauralrock/angel (elefante).mp3", staticLyrics: "[Música]" },
+                    { title: "MENTIROSA (ELEFANTE)", duration: "3:20", audio: "mauralrock/mentirosa (elefante).mp3", staticLyrics: "[Música]" },
+                    { title: "HACE FRIO YA", duration: "3:15", audio: "mauralrock/hace frio ya.mp3", staticLyrics: "[Música]" },
+                    { title: "DE RODILLAS", duration: "3:25", audio: "mauralrock/de rodillas.mp3", staticLyrics: "[Música]" },
+                    { title: "SI TE VAS (ENRIQUE IGLESIAS)", duration: "3:40", audio: "mauralrock/si te vas (enrique iglesias).mp3", staticLyrics: "[Música]" },
+                    { title: "DE LA NOCHE A LA MAÑANA", duration: "3:35", audio: "mauralrock/de la noche a la mañana (elefante).mp3", staticLyrics: "[Música]" },
+                    { title: "LOCO", duration: "3:10", audio: "mauralrock/loco.mp3", staticLyrics: "[Música]" },
+                    { title: "NO SABER DE TI (LOS NOCHEROS)", duration: "3:45", audio: "mauralrock/no saber de ti (los nocheros).mp3", staticLyrics: "[Música]" },
+                    { title: "PUERTO MONTT", duration: "3:50", audio: "mauralrock/puerto montt.mp3", staticLyrics: "[Música]" },
+                    { title: "Y ME QUEDE EN EL BAR", duration: "3:30", audio: "mauralrock/y me quede en el bar.mp3", staticLyrics: "[Música]" }
                 ]
             }
         ];
@@ -1140,32 +1118,6 @@
                 document.getElementById('modalCurrentTime').innerText = formatTime(currentTime);
                 document.getElementById('modalDuration').innerText = formatTime(duration);
             }
-
-            const album = albumsData[currentAlbumIndex];
-            if (!album) return;
-            const track = album.tracks[currentTrackIndex];
-            if (!track || !track.lyrics) return;
-
-            let activeIndex = 0;
-            for (let i = 0; i < track.lyrics.length; i++) {
-                if (currentTime >= track.lyrics[i].time) {
-                    activeIndex = i;
-                } else {
-                    break;
-                }
-            }
-
-            const lyricLines = document.querySelectorAll('.lyric-line');
-            lyricLines.forEach((line, idx) => {
-                if (idx === activeIndex) {
-                    if (!line.classList.contains('active')) {
-                        line.classList.add('active');
-                        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                } else {
-                    line.classList.remove('active');
-                }
-            });
         });
 
         audioElement.addEventListener('ended', () => {
@@ -1243,13 +1195,9 @@
 
             const lyricsContainer = document.getElementById('lyricsContainer');
             lyricsContainer.innerHTML = '';
-            if (track.lyrics && track.lyrics.length > 0) {
-                track.lyrics.forEach((l, idx) => {
-                    lyricsContainer.innerHTML += `<p class="lyric-line ${idx === 0 ? 'active' : ''}" data-time="${l.time}">${l.text.replace(/\n/g, '<br>')}</p>`;
-                });
-            } else {
-                lyricsContainer.innerHTML = `<p class="lyric-line active">Letra sincronizada disponible próximamente.</p>`;
-            }
+            
+            const lyricsText = track.staticLyrics || (track.lyrics && track.lyrics.map(l => l.text).join('\n')) || "Letra disponible próximamente.";
+            lyricsContainer.innerHTML = `<div class="lyric-line-fixed">${lyricsText}</div>`;
 
             if (track.audio) {
                 audioElement.src = track.audio;
